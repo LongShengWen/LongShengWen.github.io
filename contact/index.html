@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="标签: MySQL, 举头望明月">
+    <meta name="keywords" content="contact, 举头望明月">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>标签: MySQL | 举头望明月</title>
+    <title>contact | 举头望明月</title>
     <link rel="icon" type="image/png" href="/">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -260,112 +260,60 @@
 </div>
 
 <main class="content">
-
-    
-
-<div id="tags" class="container chip-container">
-    <div class="card">
-        <div class="card-content">
-            <div class="tag-title center-align">
-                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
-            </div>
-            <div class="tag-chips">
-                
-                
-                <a href="/tags/iOS/" title="iOS: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="iOS" style="background-color: #F9EBEA;">iOS
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Object-C/" title="Object-C: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Object-C" style="background-color: #F5EEF8;">Object-C
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/MySQL/" title="MySQL: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            data-tagname="MySQL" style="background-color: #D5F5E3;">MySQL
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Java/" title="Java: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Java" style="background-color: #E8F8F5;">Java
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/ijkplayer/" title="ijkplayer: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="ijkplayer" style="background-color: #FEF9E7;">ijkplayer
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
+    <div id="contact" class="container chip-container">
+        <div class="card">
+            <div class="card-content">
+                <div class="tag-title center-align">
+                    <i class="fas fa-comments"></i>&nbsp;&nbsp;留言板
+                </div>
                 
             </div>
         </div>
+        <div class="card">
+            
+            <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
     </div>
+    <div id="gitalk-container" class="card-content"></div>
 </div>
 
-    
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '6f31034840720eea15fd',
+        clientSecret: '02c0ea94a46335141fbad89e5a73b0a08992ae9b',
+        repo: 'blog-comment',
+        owner: '举头望明月',
+        admin: "举头望明月",
+        id: '2022-02-24T11-31-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
 
-    <article id="articles" class="container articles">
-        <div class="row tags-posts">
+    gitalk.render('gitalk-container');
+</script>
+
             
+
             
-            <div class="article tag-post col s12 m6 l4" data-tags="MySQL" data-aos="fade-up">
-                <div class="card">
-                    <a href="/2022/02/22/liang-zhu-san-cong-shu-ju-ku-ji-qun-zhu-bei-chong-zuo-fang-fa/">
-                        <div class="card-image tag-image">
-                            
-                            <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240851557.jpg" class="responsive-img" alt="两主三从数据库集群主备重做方法">
-                            
-                            <span class="card-title">两主三从数据库集群主备重做方法</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-22
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
-                                技术
-                                </a>
-                                
-                                <a href="/categories/%E6%8A%80%E6%9C%AF/MySQL/" class="post-category">
-                                MySQL
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             
+
+            
+
+            
+			
+			
+
+            
+
         </div>
-    </article>
+    </div>
 </main>
-
-
 
 
     <footer class="page-footer bg-color">
