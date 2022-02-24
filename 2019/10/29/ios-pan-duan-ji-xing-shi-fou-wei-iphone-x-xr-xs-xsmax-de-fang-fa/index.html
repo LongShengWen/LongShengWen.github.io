@@ -510,6 +510,33 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     </div>
 
     
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '6f31034840720eea15fd',
+        clientSecret: '02c0ea94a46335141fbad89e5a73b0a08992ae9b',
+        repo: 'blog-comment',
+        owner: '举头望明月',
+        admin: "举头望明月",
+        id: '2019-10-29T17-45-29',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
 
     
 
