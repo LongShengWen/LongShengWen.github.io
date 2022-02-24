@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="iOS使用黑魔法实现一键全局图片变灰白的一种方案, 举头望明月">
+    <meta name="keywords" content="ijkplayer iOS打包，支持HTTPS，升级ffmpeg4.0, 举头望明月">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>iOS使用黑魔法实现一键全局图片变灰白的一种方案 | 举头望明月</title>
+    <title>ijkplayer iOS打包，支持HTTPS，升级ffmpeg4.0 | 举头望明月</title>
     <link rel="icon" type="image/png" href="/">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -214,12 +214,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240854873.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240844678.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">iOS使用黑魔法实现一键全局图片变灰白的一种方案</h1>
+                    <h1 class="description center-align post-title">ijkplayer iOS打包，支持HTTPS，升级ffmpeg4.0</h1>
                 </div>
             </div>
         </div>
@@ -339,8 +339,8 @@
                                 <span class="chip bg-color">iOS</span>
                             </a>
                         
-                            <a href="/tags/Object-C/">
-                                <span class="chip bg-color">Object-C</span>
+                            <a href="/tags/ijkplayer/">
+                                <span class="chip bg-color">ijkplayer</span>
                             </a>
                         
                     </div>
@@ -368,7 +368,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-01
+                    2020-04-10
                 </div>
                 
 
@@ -377,14 +377,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    927
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    7 分
                 </div>
                 
 
@@ -407,100 +407,197 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>　　有些特殊的时候会将APP设置成灰白的主题色，iOS不像在网页中有全局样式滤镜，那在iOS中应该如何便捷有效的实现该功能，接下来就分享我在项目中使用黑魔法（Method Swizzling）进行全局处理的一种实现方法。 　　</p>
-<h2 id="Method-Swizzling-原理"><a href="#Method-Swizzling-原理" class="headerlink" title="Method Swizzling 原理"></a>Method Swizzling 原理</h2><p>　　Object-C中每个类都维护着一个方法（Method）列表，Method 则包含 SEL 和其对应 IMP 的信息。在Objective-C中调用一个方法时，其实是向一个对象发送消息SEL,根据（Method）列表找到对应的 IMP 并执行。<br>黑魔法（Method Swizzling）要做的事情就是把 SEL 和 IMP 的对应关系断开，并和新 IMP 生成对应关系，进行交换，在运行时偷偷替换系统对应的实现方法，有点像Java中的AOP。 　　</p>
-<p>交换前：Asel－&gt;AImp Bsel－&gt;BImp<br>交换后：Asel－&gt;BImp Bsel－&gt;AImp</p>
-<p>更多Method Swizzling的相关知识可以到网上查找。</p>
-<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>　　因为项目主要使用UIImageView来呈现图片,所以创建一个UIImageView的Category，并在该Category中实现方法交换。先来看看具体实现代码：</p>
-<pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">//  UIImageView+xmtGrayImage.h
-#import &lt;UIKit/UIKit.h&gt;
+                <p>​    网上已经有很多关于打包IJKPlayer的教程，也基本能用。但关于如何升级ffmpeg内核以及HTTPS的还是比较少，现在我就分享一下如何升级ffmpeg，并总结一篇完整打包的流程。<br>　　打包参考：<a target="_blank" rel="noopener" href="https://juejin.im/post/6844903620597841933">https://juejin.im/post/6844903620597841933</a><br>　　ijkplayer github地址：<a target="_blank" rel="noopener" href="https://github.com/bilibili/ijkplayer">https://github.com/bilibili/ijkplayer</a></p>
+<h3 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 先切到桌面
+cd Desktop/
+# 克隆下ijkplayer的代码
+git clone https://github.com/Bilibili/ijkplayer.git
+cd ijkplayer
+# 切到最新版本k0.8.8
+git checkout -B latest k0.8.8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="配置解码器"><a href="#配置解码器" class="headerlink" title="配置解码器"></a>配置解码器</h3><ul>
+<li>module-default.sh 更多的编解码器/格式</li>
+<li>module-lite-hevc.sh 较少的编解码器/格式(包括hevc)</li>
+<li>module-lite.sh 较少的编解码器/格式(默认情况)<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd config
+# 删除默认的解码器
+rm module.sh
+# 创建一个软连接指向 module-lite-hevc.sh，这个可根据自己需求进行选择
+ln -s module-lite-hevc.sh module.sh
+cd ..
+cd ios
+sh compile-ffmpeg.sh clean<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="配置ffmpeg内核版本"><a href="#配置ffmpeg内核版本" class="headerlink" title="配置ffmpeg内核版本"></a>配置ffmpeg内核版本</h3>编辑 <font color="#ff0000">init-ios.sh</font> 文件<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ..
+vi init-ios.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment">#! /usr/bin/env bash</span>
+<span class="token comment">#</span>
+<span class="token comment"># Copyright (C) 2013-2015 Bilibili</span>
+<span class="token comment"># Copyright (C) 2013-2015 Zhang Rui &lt;bbcallen@gmail.com&gt;</span>
+<span class="token comment">#</span>
+<span class="token comment"># Licensed under the Apache License, Version 2.0 (the "License");</span>
+<span class="token comment"># you may not use this file except in compliance with the License.</span>
+<span class="token comment"># You may obtain a copy of the License at</span>
+<span class="token comment">#</span>
+<span class="token comment">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="token comment">#</span>
+<span class="token comment"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="token comment"># distributed under the License is distributed on an "AS IS" BASIS,</span>
+<span class="token comment"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="token comment"># See the License for the specific language governing permissions and</span>
+<span class="token comment"># limitations under the License.</span>
+<span class="token comment">#</span>
 
-NS_ASSUME_NONNULL_BEGIN
+<span class="token comment"># IJK_FFMPEG_UPSTREAM=git://git.videolan.org/ffmpeg.git</span>
+IJK_FFMPEG_UPSTREAM=https<span class="token punctuation">:</span>//github.com/Bilibili/FFmpeg.git
+IJK_FFMPEG_FORK=https<span class="token punctuation">:</span>//github.com/Bilibili/FFmpeg.git
+IJK_FFMPEG_COMMIT=ff3.4<span class="token punctuation">-</span><span class="token punctuation">-</span>ijk0.8.7<span class="token punctuation">-</span><span class="token punctuation">-</span>20180103<span class="token punctuation">-</span><span class="token number">-001</span>
+IJK_FFMPEG_LOCAL_REPO=extra/ffmpeg
 
-@interface UIImageView (xmtGrayImage)
+.
+.
+.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+打开后这可以大致看到这些内容，注意一下 <font color="#ff0000">IJK_FFMPEG_COMMIT</font>，就是在这个地方配置ffmpeg版本，如果不修改，默认是使用 ff3.4–ijk0.8.7–20180103–001 版本。<br>到bilibili fork的ffmpeg的库查看支持的版本 <a target="_blank" rel="noopener" href="https://github.com/bilibili/FFmpeg/releases">https://github.com/bilibili/FFmpeg/releases</a></li>
+</ul>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/9/1715df68ab362fd8~tplv-t2oaga2asx-image.image"><br>可以看到最新支持的版本是 <font color="#ff0000">ff4.0–ijk0.8.25–20200221–001</font>  ，由此见得，bilibili对ijkplayer这个库还是保持持续更新的。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">IJK_FFMPEG_COMMIT=ff4.0--ijk0.8.25--20200221--001<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>把对应的地方改成所选择的版本就可以了。</p>
+<h3 id="获取ffmpeg相关文件"><a href="#获取ffmpeg相关文件" class="headerlink" title="获取ffmpeg相关文件"></a>获取ffmpeg相关文件</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 获取依赖的文件，这个会久一点，中途有有失败再执行一下就可以了
+./init-ios.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="配置支持HTTPS"><a href="#配置支持HTTPS" class="headerlink" title="配置支持HTTPS"></a>配置支持HTTPS</h3><p>如果不需要HTTPS可以跳过这一步。<br>同样编辑 <font color="#ff0000">init-ios-openssl.sh</font> 文件配置https的版本。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vi init-ios-openssl.s<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>和升级ffmpeg一样，找到 <font color="#ff0000">IJK_OPENSSL_COMMIT</font> 项</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">IJK_OPENSSL_COMMIT=OpenSSL_1_0_2n<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以看到默认版本是 OpenSSL_1_0_2n<br>同样到 <a target="_blank" rel="noopener" href="https://github.com/bilibili/openssl/releases">https://github.com/bilibili/openssl/releases</a> 选择需要替换到版本,这里选择最新的 OpenSSL_1_0_2u 版本。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">IJK_OPENSSL_COMMIT=OpenSSL_1_0_2u<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="获取HTTPS相关文件"><a href="#获取HTTPS相关文件" class="headerlink" title="获取HTTPS相关文件"></a>获取HTTPS相关文件</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 耐心等待一下
+./init-ios-openssl.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="编辑-module-sh-文件"><a href="#编辑-module-sh-文件" class="headerlink" title="编辑 module.sh 文件"></a>编辑 module.sh 文件</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vi config/module.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在末尾加入 </p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 支持https
+export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --enable-openssl"
+# ffmpeg4.0 需要
+export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --disable-bsf=eac3_core"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>并注释掉以下这两项</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --disable-ffserver"
+#export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --disable-vda"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>参考 <a target="_blank" rel="noopener" href="https://github.com/bilibili/ijkplayer/issues/4772">https://github.com/bilibili/ijkplayer/issues/4772</a></p>
+<h3 id="更改最低支持的版本"><a href="#更改最低支持的版本" class="headerlink" title="更改最低支持的版本"></a>更改最低支持的版本</h3><p>因为ffmpeg4.0 使用的部分API是iOS8.0以上的，所以这里必须改一下最低支持的版本，不然编译ffmpeg会出现类似的错误</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">libavcodec/videotoolbox.c:862:9: error: 'VTDecompressionSessionInvalidate' is only available on iOS 8.0 or newer
+      [-Werror,-Wunguarded-availability]
+        VTDecompressionSessionInvalidate(videotoolbox-&gt;session);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>编辑 ios/tools/do-compile-ffmpeg.sh</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vi ios/tools/do-compile-ffmpeg.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>找到有关 <font color="#ff0000">version-min</font> 小于8.0的都改成8.0</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">if [ "$FF_ARCH" = "i386" ]; then
+    FF_BUILD_NAME="ffmpeg-i386"
+    FF_BUILD_NAME_OPENSSL=openssl-i386
+    FF_XCRUN_PLATFORM="iPhoneSimulator"
+    FF_XCRUN_OSVERSION="-mios-simulator-version-min=8.0"
+    FFMPEG_CFG_FLAGS="$FFMPEG_CFG_FLAGS $FFMPEG_CFG_FLAGS_SIMULATOR"
+elif [ "$FF_ARCH" = "x86_64" ]; then
+    FF_BUILD_NAME="ffmpeg-x86_64"
+    FF_BUILD_NAME_OPENSSL=openssl-x86_64
+    FF_XCRUN_PLATFORM="iPhoneSimulator"
+    FF_XCRUN_OSVERSION="-mios-simulator-version-min=8.0"
+    FFMPEG_CFG_FLAGS="$FFMPEG_CFG_FLAGS $FFMPEG_CFG_FLAGS_SIMULATOR"
+elif [ "$FF_ARCH" = "armv7" ]; then
+    FF_BUILD_NAME="ffmpeg-armv7"
+    FF_BUILD_NAME_OPENSSL=openssl-armv7
+    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
+    FF_XCODE_BITCODE="-fembed-bitcode"
+    FFMPEG_CFG_FLAGS="$FFMPEG_CFG_FLAGS $FFMPEG_CFG_FLAGS_ARM"
+#    FFMPEG_CFG_CPU="--cpu=cortex-a8"
+elif [ "$FF_ARCH" = "armv7s" ]; then
+    FF_BUILD_NAME="ffmpeg-armv7s"
+    FF_BUILD_NAME_OPENSSL=openssl-armv7s
+    FFMPEG_CFG_CPU="--cpu=swift"
+    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
+    FF_XCODE_BITCODE="-fembed-bitcode"
+    FFMPEG_CFG_FLAGS="$FFMPEG_CFG_FLAGS $FFMPEG_CFG_FLAGS_ARM"
+elif [ "$FF_ARCH" = "arm64" ]; then
+    FF_BUILD_NAME="ffmpeg-arm64"
+    FF_BUILD_NAME_OPENSSL=openssl-arm64
+    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
+    FF_XCODE_BITCODE="-fembed-bitcode"
+    FFMPEG_CFG_FLAGS="$FFMPEG_CFG_FLAGS $FFMPEG_CFG_FLAGS_ARM"
+    FF_GASPP_EXPORT="GASPP_FIX_XCODE5=1"
+else
+    echo "unknown architecture $FF_ARCH";
+    exit 1
+fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>同理编辑 ios/tools/do-compile-openssl.sh 文件</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vi ios/tools/do-compile-openssl.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">if [ "$FF_ARCH" = "i386" ]; then
+    FF_BUILD_NAME="openssl-i386"
+    FF_XCRUN_PLATFORM="iPhoneSimulator"
+    FF_XCRUN_OSVERSION="-mios-simulator-version-min=8.0"
+    OPENSSL_CFG_FLAGS="darwin-i386-cc $OPENSSL_CFG_FLAGS"
+elif [ "$FF_ARCH" = "x86_64" ]; then
+    FF_BUILD_NAME="openssl-x86_64"
+    FF_XCRUN_PLATFORM="iPhoneSimulator"
+    FF_XCRUN_OSVERSION="-mios-simulator-version-min=8.0"
+    OPENSSL_CFG_FLAGS="darwin64-x86_64-cc $OPENSSL_CFG_FLAGS"
+elif [ "$FF_ARCH" = "armv7" ]; then
+    FF_BUILD_NAME="openssl-armv7"
+    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
+    FF_XCODE_BITCODE="-fembed-bitcode"
+    OPENSSL_CFG_FLAGS="$OPENSSL_CFG_FLAGS_ARM $OPENSSL_CFG_FLAGS"
+#    OPENSSL_CFG_CPU="--cpu=cortex-a8"
+elif [ "$FF_ARCH" = "armv7s" ]; then
+    FF_BUILD_NAME="openssl-armv7s"
+    OPENSSL_CFG_CPU="--cpu=swift"
+    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
+    FF_XCODE_BITCODE="-fembed-bitcode"
+    OPENSSL_CFG_FLAGS="$OPENSSL_CFG_FLAGS_ARM $OPENSSL_CFG_FLAGS"
+elif [ "$FF_ARCH" = "arm64" ]; then
+    FF_BUILD_NAME="openssl-arm64"
+    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
+    FF_XCODE_BITCODE="-fembed-bitcode"
+    OPENSSL_CFG_FLAGS="$OPENSSL_CFG_FLAGS_ARM $OPENSSL_CFG_FLAGS"
+    FF_GASPP_EXPORT="GASPP_FIX_XCODE5=1"
+else
+    echo "unknown architecture $FF_ARCH";
+    exit 1
+fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="移除armv7"><a href="#移除armv7" class="headerlink" title="移除armv7"></a>移除armv7</h3><p>因为使用的是Xcode11.4打包，已经弱化了对 32 位的支持，所以需要移除armv7。如果想支持armv7,请使用低版本Xcode打包。<br>编辑 ios/compile-ffmpeg.sh 文件</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vi ios/compile-ffmpeg.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>　　找到 FF_ALL_ARCHS_IOS8_SDK=”<font color="#ff0000">armv7</font> arm64 i386 x86_64” 改为 FF_ALL_ARCHS_IOS8_SDK=”arm64 i386 x86_64”。<br>不然可能会出现一下的报错。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">./libavutil/arm/asm.S:50:9: error: unknown directive
+        .arch armv7-a
+        ^
+make: *** [libavcodec/arm/aacpsdsp_neon.o] Error 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">libswresample/arm/audio_convert_neon.S:25:1: error: invalid symbol redefinition
+_swri_oldapi_conv_flt_to_s16_neon:
+^
+libswresample/arm/audio_convert_neon.S:70:1: error: invalid symbol redefinition
+_swri_oldapi_conv_fltp_to_s16_2ch_neon:
+^
+make: *** [libswresample/arm/audio_convert_neon.o] Error 1
+make: *** Waiting for unfinished jobs....<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ios
+# 先编译OpenSSL，如果不需要支持https可以跳过
+./compile-openssl.sh all
+# 编译ffmpeg
+./compile-ffmpeg.sh all<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><p>打开 IJKMediaPlayer.xcodeproj</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">open IJKMediaPlayer/IJKMediaPlayer.xcodeproj<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="添加openssl"><a href="#添加openssl" class="headerlink" title="添加openssl"></a>添加openssl</h4><p>如果不需要支持HTTPS可以跳过。</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/171619026cf178b6~tplv-t2oaga2asx-image.image"><br>选择IJKMediaFramework,添加libcrypto.a和libssl.a这两个文件，如果一次加不进就再尝试一次。</p>
+<h4 id="配置打包版本"><a href="#配置打包版本" class="headerlink" title="配置打包版本"></a>配置打包版本</h4><p>因为我们前面已经把编译版本调到了最低支持8.0，最好把打包的版本也调到最低支持8.0。</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/171619691a65d74b~tplv-t2oaga2asx-image.image"></p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/17161972c5cb6cae~tplv-t2oaga2asx-image.image"><br>这两个地方都调到8.0</p>
+<h4 id="打真机包"><a href="#打真机包" class="headerlink" title="打真机包"></a>打真机包</h4><p>编辑scheme<br><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/1716198e3bf88eaf~tplv-t2oaga2asx-image.image"><br>改成Release<br><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/17161b43b45e9666~tplv-t2oaga2asx-image.image"></p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/17161b50a59355ce~tplv-t2oaga2asx-image.image"><br>直接键盘上按command + b 打包。<br>可能会碰到一下错误，是因为前面移除了armv7造成的。<br><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/17161b671d268eef~tplv-t2oaga2asx-image.image"><br>编辑 /build/universal/include/libavutil/avconfig.h 和 /build/universal/include/libffmpeg/config.h </p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/17161baa7e26416c~tplv-t2oaga2asx-image.image"><br>将 include “armv7/config.h” 这行注释掉，两个文件都修改，然后继续打包。</p>
+<h4 id="打模拟器包"><a href="#打模拟器包" class="headerlink" title="打模拟器包"></a>打模拟器包</h4><p>随便选择一个模拟器版本<br><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/17161bdd57039334~tplv-t2oaga2asx-image.image"></p>
+<p>直接键盘上按command + b 打包。</p>
+<h4 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h4><p>其实合不合都可以，合并后的包在真机或模拟器上都可以使用，但体积也会变大一倍。这个自行选择。</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/17161c1677f48dcd~tplv-t2oaga2asx-image.image"><br>直接打开包所在的路径<br>用终端进入 Products 目录</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd /Users/LSW/Library/Developer/Xcode/DerivedData/IJKMediaPlayer-hdieucicuskakgftfkjtnzhnbsme/Build/Products<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>用命令合并</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">lipo -create Release-iphoneos/IJKMediaFramework.framework/IJKMediaFramework Release-iphonesimulator/IJKMediaFramework.framework/IJKMediaFramework -output IJKMediaFramework<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-@end
-
-NS_ASSUME_NONNULL_END
-//  UIImageView+xmtGrayImage.m
-#import "UIImageView+xmtGrayImage.h"
-#import &lt;objc/runtime.h&gt;
-#import "UIImage+xmtImage.h"
-#import "xmtThemeManager.h"
-
-@implementation UIImageView (xmtGrayImage)
-
-#pragma mark - Swizzling
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&amp;onceToken, ^{
-        Method setImage = class_getInstanceMethod(self,@selector(setImage:));
-        Method xmtSwizzledSetImage = class_getInstanceMethod(self,@selector(xmtSwizzledSetImage:));
-        ///交换IMP
-        method_exchangeImplementations(setImage, xmtSwizzledSetImage);
-    });
-}
-- (void)xmtSwizzledSetImage:(UIImage *)image {
-    
-    if (ThemeManager.isGrayImage) {
-        /// 图片使用灰白处理
-        image = [UIImage grayImage:image];
-    }
-    [self xmtSwizzledSetImage:image];
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>在 + (void)load 方法中实现交换代码，可以保证在系统加载该类文件时就执行代码。</p>
-<pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&amp;onceToken, ^{
-   
-    });
-}
-static dispatch_once_t onceToken;
-dispatch_once(&amp;onceToken, ^{
-
-});<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>而 dispatch_once(&amp;onceToken 就是为了保证中括号内的代码只被执行一次，IMP 始终只被交换一次。</p>
-<pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">///获取 setImage: 方法的 IMP
-Method setImage = class_getInstanceMethod(self,@selector(setImage:));
-///获取 xmtSwizzledSetImage: 方法的 IMP
-Method xmtSwizzledSetImage = class_getInstanceMethod(self,@selector(xmtSwizzledSetImage:));
-///交换 IMP
-method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>而这三句话是将UIImageView中的setImage:和xmtSwizzledSetImage:的IMP交换。<br>接下来再看看交换IMP后的这段代码。</p>
-<pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">UIImageView *imageView = [UIImageView new];
-[imageView setImage:[UIImage imageNamed:@"xxxx.png"]];
-[imageView xmtSwizzledSetImage:[UIImage imageNamed:@"xxxx.png"]];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>　　因为对IMP进行交换，所以对 imageView 发送 [imageView setImage:[UIImage imageNamed:@”xxxx.png”]] 消息，系统执行的是 - (void)xmtSwizzledSetImage:(UIImage *)image 方法的实现代码；对 imageView 发送 [imageView xmtSwizzledSetImage:[UIImage imageNamed:@”xxxx.png”] 消息，系统执行的是 - (void)setImage:(UIImage *)image 的实现代码。</p>
-<p>　　这也是为什么在 - (void)xmtSwizzledSetImage:(UIImage *)image 调用 - (void)xmtSwizzledSetImage:(UIImage *)image 不会发生循环调用的原因。</p>
-<p>　　哈哈，是不是有点饶？啥发送消息，分明是调用方法？emmm…在OC中，调用方法就是对对象发送消息，等对象找到对应对IMP才是真正的执行方法，但为了通俗易懂，通常也会把发送消息说成调用方法。</p>
-<p>　　到这，我们想将图片的改为灰白，在 - (void)xmtSwizzledSetImage:(UIImage *)image 中做相应的处理即可，因为在项目中所有对UIImageView控件设置图片都会经过该方法。同理，其他的图片控件也可以用这种方法进行处理。</p>
-<p>　　顺道附一段对图片进行灰白处理对代码，有透明图层对也可以用。</p>
-<pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">+ (UIImage *)grayImage:(UIImage *)sourceImage {
-
-    int width = sourceImage.size.width;
-    int height = sourceImage.size.height;
-
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-    CGContextRef context = CGBitmapContextCreate(nil,width,height,8,0,colorSpace,kCGImageAlphaPremultipliedLast);
-    CGColorSpaceRelease(colorSpace);
-    if (context == NULL) {
-        return nil;
-    }
-
-    CGContextDrawImage(context,CGRectMake(0, 0, width, height), sourceImage.CGImage);
-    CGImageRef grayImageRef = CGBitmapContextCreateImage(context);
-    UIImage *grayImage = [UIImage imageWithCGImage:grayImageRef];
-    CGContextRelease(context);
-    CGImageRelease(grayImageRef);
-
-    return grayImage;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>　　通过黑魔法实现全局图片处理，也算有不小对收获吧。但自身对黑魔法只会些皮毛方法，有什么理解不对的地方还请赐教，及时指出</p>
+<p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/17161ca5f3dd2ff2~tplv-t2oaga2asx-image.image"><br>直接把打包好的 IJKMediaFramework 替换 Release-iphoneos/IJKMediaFramework.framework/IJKMediaFramework，真机那个就是模拟器真机都能用的包了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上就是我之前打包都完整过程了，至于如何导入在这就不提了，网上已经有很多文章。希望能帮到需要打包的同学，有问题请直接指出。</p>
 
                 
             </div>
@@ -527,7 +624,7 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/07/01/ios-shi-yong-hei-mo-fa-shi-xian-yi-jian-quan-ju-tu-pian-bian-hui-bai-de-yi-chong-fang-an/">http://example.com/2020/07/01/ios-shi-yong-hei-mo-fa-shi-xian-yi-jian-quan-ju-tu-pian-bian-hui-bai-de-yi-chong-fang-an/</a>
+                    <a href="http://example.com/2020/04/10/ijkplayer-ios-da-bao-zhi-chi-https-sheng-ji-ffmpeg4.0/">http://example.com/2020/04/10/ijkplayer-ios-da-bao-zhi-chi-https-sheng-ji-ffmpeg4.0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -569,8 +666,8 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                                     <span class="chip bg-color">iOS</span>
                                 </a>
                             
-                                <a href="/tags/Object-C/">
-                                    <span class="chip bg-color">Object-C</span>
+                                <a href="/tags/ijkplayer/">
+                                    <span class="chip bg-color">ijkplayer</span>
                                 </a>
                             
                         </div>
@@ -615,23 +712,23 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/02/22/liang-zhu-san-cong-shu-ju-ku-ji-qun-zhu-bei-chong-zuo-fang-fa/">
+                <a href="/2020/07/01/ios-shi-yong-hei-mo-fa-shi-xian-yi-jian-quan-ju-tu-pian-bian-hui-bai-de-yi-chong-fang-an/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240851557.jpg" class="responsive-img" alt="两主三从数据库集群主备重做方法">
+                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240854873.jpg" class="responsive-img" alt="iOS使用黑魔法实现一键全局图片变灰白的一种方案">
                         
-                        <span class="card-title">两主三从数据库集群主备重做方法</span>
+                        <span class="card-title">iOS使用黑魔法实现一键全局图片变灰白的一种方案</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            在多主多从数据库复制发生冲突时的解决方法
+                            产品要求开发个功能，APP在特殊日子需要一件变灰白主题色
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-01
                         </span>
                         <span class="publish-author">
                             
@@ -641,8 +738,8 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                                     技术
                                 </a>
                             
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/MySQL/" class="post-category">
-                                    MySQL
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/iOS/" class="post-category">
+                                    iOS
                                 </a>
                             
                             
@@ -652,8 +749,12 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MySQL/">
-                        <span class="chip bg-color">MySQL</span>
+                    <a href="/tags/iOS/">
+                        <span class="chip bg-color">iOS</span>
+                    </a>
+                    
+                    <a href="/tags/Object-C/">
+                        <span class="chip bg-color">Object-C</span>
                     </a>
                     
                 </div>
@@ -667,23 +768,23 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/10/ijkplayer-ios-da-bao-zhi-chi-https-sheng-ji-ffmpeg4.0/">
+                <a href="/2019/10/29/ios-pan-duan-ji-xing-shi-fou-wei-iphone-x-xr-xs-xsmax-de-fang-fa/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240844678.jpg" class="responsive-img" alt="ijkplayer iOS打包，支持HTTPS，升级ffmpeg4.0">
+                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202231727664.jpg" class="responsive-img" alt="iOS判断机型是否为iPhone X、XR、XS、XSMax的方法">
                         
-                        <span class="card-title">ijkplayer iOS打包，支持HTTPS，升级ffmpeg4.0</span>
+                        <span class="card-title">iOS判断机型是否为iPhone X、XR、XS、XSMax的方法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ijkplayer 是款出色的开源播放器，支持多个平台，但使用前需要自行配置打包。本文就ijkplayer打包流程做下简单的介绍。
+                            结束如何获取iPhone型号的一种方法
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-10-29
                             </span>
                         <span class="publish-author">
                             
@@ -708,8 +809,8 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                         <span class="chip bg-color">iOS</span>
                     </a>
                     
-                    <a href="/tags/ijkplayer/">
-                        <span class="chip bg-color">ijkplayer</span>
+                    <a href="/tags/Object-C/">
+                        <span class="chip bg-color">Object-C</span>
                     </a>
                     
                 </div>
