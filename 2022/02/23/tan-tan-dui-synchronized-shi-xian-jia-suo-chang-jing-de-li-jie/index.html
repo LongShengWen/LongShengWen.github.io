@@ -1042,7 +1042,7 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
     let gitalk = new Gitalk({
         clientID: '6f31034840720eea15fd',
         clientSecret: '02c0ea94a46335141fbad89e5a73b0a08992ae9b',
-        repo: 'blog-comment',
+        repo: 'LongShengWen.github.io',
         owner: 'LongShengWen',
         admin: "LongShengWen",
         id: '2022-02-23T17-45-29',
@@ -1072,29 +1072,28 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/02/23/tan-tan-dui-synchronized-shi-xian-jia-suo-chang-jing-de-li-jie/">
+                <a href="/2022/02/24/hexo-pei-zhi-gitalk-ping-lun-xi-tong/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240853016.jpg" class="responsive-img" alt="谈谈对synchronized实现加锁场景的理解">
+                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202241632363.jpg" class="responsive-img" alt="Hexo配置Gitalk评论系统">
                         
-                        <span class="card-title">谈谈对synchronized实现加锁场景的理解</span>
+                        <span class="card-title">Hexo配置Gitalk评论系统</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            synchronized 是Java多线程常用的关键词，现简单来分析一下其使用场景
+                            Hexo使用matery主题时继承Gittalk做评论系统的方法。
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-24
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1103,20 +1102,23 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
                                     技术
                                 </a>
                             
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" class="post-category">
-                                    Java
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Hexo/" class="post-category">
+                                    Hexo
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
+                    <a href="/tags/Hexo/">
+                        <span class="chip bg-color">Hexo</span>
+                    </a>
+                    
+                    <a href="/tags/matery/">
+                        <span class="chip bg-color">matery</span>
                     </a>
                     
                 </div>
@@ -1226,7 +1228,7 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
             tocSelector: '#toc-content',
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
-            collapseDepth: Number('0'),
+            collapseDepth: Number('3'),
             headingSelector: 'h2, h3, h4'
         });
 

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="iOS使用黑魔法实现一键全局图片变灰白的一种方案, 举头望明月">
+    <meta name="keywords" content="Hexo配置Gitalk评论系统, 举头望明月">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>iOS使用黑魔法实现一键全局图片变灰白的一种方案 | 举头望明月</title>
+    <title>Hexo配置Gitalk评论系统 | 举头望明月</title>
     <link rel="icon" type="image/png" href="/">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -236,12 +236,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240854873.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202241632363.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">iOS使用黑魔法实现一键全局图片变灰白的一种方案</h1>
+                    <h1 class="description center-align post-title">Hexo配置Gitalk评论系统</h1>
                 </div>
             </div>
         </div>
@@ -357,12 +357,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/iOS/">
-                                <span class="chip bg-color">iOS</span>
+                            <a href="/tags/Hexo/">
+                                <span class="chip bg-color">Hexo</span>
                             </a>
                         
-                            <a href="/tags/Object-C/">
-                                <span class="chip bg-color">Object-C</span>
+                            <a href="/tags/matery/">
+                                <span class="chip bg-color">matery</span>
                             </a>
                         
                     </div>
@@ -377,8 +377,8 @@
                                 技术
                             </a>
                         
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/iOS/" class="post-category">
-                                iOS
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Hexo/" class="post-category">
+                                Hexo
                             </a>
                         
                     </div>
@@ -390,7 +390,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-01
+                    2022-02-24
                 </div>
                 
 
@@ -399,14 +399,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    927
+                    630
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    2 分
                 </div>
                 
 
@@ -429,100 +429,96 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>　　有些特殊的时候会将APP设置成灰白的主题色，iOS不像在网页中有全局样式滤镜，那在iOS中应该如何便捷有效的实现该功能，接下来就分享我在项目中使用黑魔法（Method Swizzling）进行全局处理的一种实现方法。 　　</p>
-<h2 id="Method-Swizzling-原理"><a href="#Method-Swizzling-原理" class="headerlink" title="Method Swizzling 原理"></a>Method Swizzling 原理</h2><p>　　Object-C中每个类都维护着一个方法（Method）列表，Method 则包含 SEL 和其对应 IMP 的信息。在Objective-C中调用一个方法时，其实是向一个对象发送消息SEL,根据（Method）列表找到对应的 IMP 并执行。<br>黑魔法（Method Swizzling）要做的事情就是把 SEL 和 IMP 的对应关系断开，并和新 IMP 生成对应关系，进行交换，在运行时偷偷替换系统对应的实现方法，有点像Java中的AOP。 　　</p>
-<p>交换前：Asel－&gt;AImp Bsel－&gt;BImp<br>交换后：Asel－&gt;BImp Bsel－&gt;AImp</p>
-<p>更多Method Swizzling的相关知识可以到网上查找。</p>
-<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>　　因为项目主要使用UIImageView来呈现图片,所以创建一个UIImageView的Category，并在该Category中实现方法交换。先来看看具体实现代码：</p>
-<pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">//  UIImageView+xmtGrayImage.h
-#import &lt;UIKit/UIKit.h&gt;
+                <h2 id="Gitalk"><a href="#Gitalk" class="headerlink" title="Gitalk"></a>Gitalk</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Gitalk 是一款基于 GitHub Issue 和 Preact 开发的评论插件。</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>使用GitHub登录</li>
+<li>支持多语言</li>
+<li>支持个人或组织</li>
+<li>无干扰模式</li>
+<li>支持快捷键提交评论</li>
+</ul>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p>Gitalk 要想使用 Github 的 Issue 功能，则需要在 Github 上创建一个授权应用，拿到应用的 id 和 密钥配置到 Gitalk 脚本中就可以了。</p>
+<h2 id="配置Gitalk"><a href="#配置Gitalk" class="headerlink" title="配置Gitalk"></a>配置Gitalk</h2><h3 id="注册新应用"><a href="#注册新应用" class="headerlink" title="注册新应用"></a>注册新应用</h3><p>在GitHub上注册个新应用 <a target="_blank" rel="noopener" href="https://github.com/settings/applications/new">地址</a> </p>
+<img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240924020.png" alt="image-20220224092422913" style="zoom:100%;">
 
-NS_ASSUME_NONNULL_BEGIN
+<ul>
+<li>Application name：应用名称</li>
+<li>Homepage URL：hexo 博客的地址</li>
+<li>Application description：应用描述</li>
+<li>Authorization callback URL：hexo 博客的地址</li>
+</ul>
+<p>填写完成信息新建得到以下应用：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202241045071.png" alt="image-20220224092941086"></p>
+<p>图中的 <code>Client ID</code> 和 <code>Client secrets</code> 便是我们后面所需用到的信息。</p>
+<h2 id="存放评论的仓库"><a href="#存放评论的仓库" class="headerlink" title="存放评论的仓库"></a>存放评论的仓库</h2><blockquote>
+<p>这里可以新建个仓库存放评论，也可以直接用存放博客那个仓库，看个人选择。</p>
+</blockquote>
+<h3 id="新建"><a href="#新建" class="headerlink" title="新建"></a>新建</h3><p><img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202241046040.png" alt="image-20220224104429854"></p>
+<p>新建个仓库，名字自己确定，权限设置为公共。</p>
+<h2 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h2><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>这里我使用的主题是 matery，自身就继承了 <strong>Gitalk</strong> 组件。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitalk:
+  enable: true
+  owner:
+  repo:
+  oauth:
+    clientId: 
+    clientSecret: 
+  admin:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-@interface UIImageView (xmtGrayImage)
+<ul>
+<li>enable: true 开启评论组件</li>
+<li>owner: GitHub 的用户名</li>
+<li>repo: 存放仓库的名称，注意不是地址</li>
+<li>clientId: 创建 Gitalk 应用时得到的 clientId 信息</li>
+<li>clientSecret:  创建 Gitalk 应用时得到的 clientSecret 信息</li>
+<li>admin：GitHub 的用户名</li>
+</ul>
+<h3 id="解决403"><a href="#解决403" class="headerlink" title="解决403"></a>解决403</h3><p>在配置文件中配置一下 gitalk 代理地址</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitalk:
+  enable: true
+  owner: 
+  repo: blog-comment
+  oauth:
+    clientId: 
+    clientSecret: 
+  admin: 
+  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-@end
+<p>修改主题中 <strong>themes/hexo-theme-matery/layout/_partial/gitalk.ejs</strong> 文件，在21行处添加 <strong>proxy: ‘&lt;%- theme.gitalk.proxy %&gt;’,</strong></p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>link rel<span class="token operator">=</span><span class="token string">"stylesheet"</span> href<span class="token operator">=</span><span class="token string">"&lt;%- theme.jsDelivr.url %&gt;&lt;%- url_for(theme.libs.css.gitalk) %&gt;"</span><span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>link rel<span class="token operator">=</span><span class="token string">"stylesheet"</span> href<span class="token operator">=</span><span class="token string">"&lt;%- theme.jsDelivr.url %&gt;&lt;%- url_for('/css/my-gitalk.css') %&gt;"</span><span class="token operator">&gt;</span>
 
-NS_ASSUME_NONNULL_END
-//  UIImageView+xmtGrayImage.m
-#import "UIImageView+xmtGrayImage.h"
-#import &lt;objc/runtime.h&gt;
-#import "UIImage+xmtImage.h"
-#import "xmtThemeManager.h"
+<span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"card gitalk-card"</span> data<span class="token operator">-</span>aos<span class="token operator">=</span><span class="token string">"fade-up"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"comment_headling"</span> style<span class="token operator">=</span><span class="token string">"font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;"</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fas fa-comments fa-fw"</span> aria<span class="token operator">-</span>hidden<span class="token operator">=</span><span class="token string">"true"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>span<span class="token operator">&gt;</span>评论<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"gitalk-container"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"card-content"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
 
-@implementation UIImageView (xmtGrayImage)
+<span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"&lt;%- theme.jsDelivr.url %&gt;&lt;%- url_for(theme.libs.js.gitalk) %&gt;"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>script<span class="token operator">&gt;</span>
+    <span class="token keyword">let</span> gitalk <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Gitalk</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">clientID</span><span class="token operator">:</span> <span class="token string">'&lt;%- theme.gitalk.oauth.clientId %&gt;'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">clientSecret</span><span class="token operator">:</span> <span class="token string">'&lt;%- theme.gitalk.oauth.clientSecret %&gt;'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">repo</span><span class="token operator">:</span> <span class="token string">'&lt;%- theme.gitalk.repo %&gt;'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">owner</span><span class="token operator">:</span> <span class="token string">'&lt;%- theme.gitalk.owner %&gt;'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">admin</span><span class="token operator">:</span> <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>theme<span class="token punctuation">.</span>gitalk<span class="token punctuation">.</span>admin<span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token string">'&lt;%- date(page.date, '</span><span class="token constant">YYYY</span><span class="token operator">-</span><span class="token constant">MM</span><span class="token operator">-</span><span class="token constant">DDTHH</span><span class="token operator">-</span>mm<span class="token operator">-</span>ss<span class="token string">') %&gt;'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">proxy</span><span class="token operator">:</span> <span class="token string">'&lt;%- theme.gitalk.proxy %&gt;'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">distractionFreeMode</span><span class="token operator">:</span> <span class="token boolean">false</span>  <span class="token comment">// Facebook-like distraction free mode</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-#pragma mark - Swizzling
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&amp;onceToken, ^{
-        Method setImage = class_getInstanceMethod(self,@selector(setImage:));
-        Method xmtSwizzledSetImage = class_getInstanceMethod(self,@selector(xmtSwizzledSetImage:));
-        ///交换IMP
-        method_exchangeImplementations(setImage, xmtSwizzledSetImage);
-    });
-}
-- (void)xmtSwizzledSetImage:(UIImage *)image {
-    
-    if (ThemeManager.isGrayImage) {
-        /// 图片使用灰白处理
-        image = [UIImage grayImage:image];
-    }
-    [self xmtSwizzledSetImage:image];
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    gitalk<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token string">'gitalk-container'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>在 + (void)load 方法中实现交换代码，可以保证在系统加载该类文件时就执行代码。</p>
-<pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&amp;onceToken, ^{
-   
-    });
-}
-static dispatch_once_t onceToken;
-dispatch_once(&amp;onceToken, ^{
+<h3 id="发布生效"><a href="#发布生效" class="headerlink" title="发布生效"></a>发布生效</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">hexo clean
+hexo g -d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-});<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>而 dispatch_once(&amp;onceToken 就是为了保证中括号内的代码只被执行一次，IMP 始终只被交换一次。</p>
-<pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">///获取 setImage: 方法的 IMP
-Method setImage = class_getInstanceMethod(self,@selector(setImage:));
-///获取 xmtSwizzledSetImage: 方法的 IMP
-Method xmtSwizzledSetImage = class_getInstanceMethod(self,@selector(xmtSwizzledSetImage:));
-///交换 IMP
-method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>而这三句话是将UIImageView中的setImage:和xmtSwizzledSetImage:的IMP交换。<br>接下来再看看交换IMP后的这段代码。</p>
-<pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">UIImageView *imageView = [UIImageView new];
-[imageView setImage:[UIImage imageNamed:@"xxxx.png"]];
-[imageView xmtSwizzledSetImage:[UIImage imageNamed:@"xxxx.png"]];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>　　因为对IMP进行交换，所以对 imageView 发送 [imageView setImage:[UIImage imageNamed:@”xxxx.png”]] 消息，系统执行的是 - (void)xmtSwizzledSetImage:(UIImage *)image 方法的实现代码；对 imageView 发送 [imageView xmtSwizzledSetImage:[UIImage imageNamed:@”xxxx.png”] 消息，系统执行的是 - (void)setImage:(UIImage *)image 的实现代码。</p>
-<p>　　这也是为什么在 - (void)xmtSwizzledSetImage:(UIImage *)image 调用 - (void)xmtSwizzledSetImage:(UIImage *)image 不会发生循环调用的原因。</p>
-<p>　　哈哈，是不是有点饶？啥发送消息，分明是调用方法？emmm…在OC中，调用方法就是对对象发送消息，等对象找到对应对IMP才是真正的执行方法，但为了通俗易懂，通常也会把发送消息说成调用方法。</p>
-<p>　　到这，我们想将图片的改为灰白，在 - (void)xmtSwizzledSetImage:(UIImage *)image 中做相应的处理即可，因为在项目中所有对UIImageView控件设置图片都会经过该方法。同理，其他的图片控件也可以用这种方法进行处理。</p>
-<p>　　顺道附一段对图片进行灰白处理对代码，有透明图层对也可以用。</p>
-<pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">+ (UIImage *)grayImage:(UIImage *)sourceImage {
-
-    int width = sourceImage.size.width;
-    int height = sourceImage.size.height;
-
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-    CGContextRef context = CGBitmapContextCreate(nil,width,height,8,0,colorSpace,kCGImageAlphaPremultipliedLast);
-    CGColorSpaceRelease(colorSpace);
-    if (context == NULL) {
-        return nil;
-    }
-
-    CGContextDrawImage(context,CGRectMake(0, 0, width, height), sourceImage.CGImage);
-    CGImageRef grayImageRef = CGBitmapContextCreateImage(context);
-    UIImage *grayImage = [UIImage imageWithCGImage:grayImageRef];
-    CGContextRelease(context);
-    CGImageRelease(grayImageRef);
-
-    return grayImage;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>　　通过黑魔法实现全局图片处理，也算有不小对收获吧。但自身对黑魔法只会些皮毛方法，有什么理解不对的地方还请赐教，及时指出</p>
+<blockquote>
+<p>发布新文章后应该去打卡一下，让 gitalk 初始化 Issues。</p>
+</blockquote>
 
                 
             </div>
@@ -549,7 +545,7 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/07/01/ios-shi-yong-hei-mo-fa-shi-xian-yi-jian-quan-ju-tu-pian-bian-hui-bai-de-yi-chong-fang-an/">http://example.com/2020/07/01/ios-shi-yong-hei-mo-fa-shi-xian-yi-jian-quan-ju-tu-pian-bian-hui-bai-de-yi-chong-fang-an/</a>
+                    <a href="http://example.com/2022/02/24/hexo-pei-zhi-gitalk-ping-lun-xi-tong/">http://example.com/2022/02/24/hexo-pei-zhi-gitalk-ping-lun-xi-tong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -587,12 +583,12 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/iOS/">
-                                    <span class="chip bg-color">iOS</span>
+                                <a href="/tags/Hexo/">
+                                    <span class="chip bg-color">Hexo</span>
                                 </a>
                             
-                                <a href="/tags/Object-C/">
-                                    <span class="chip bg-color">Object-C</span>
+                                <a href="/tags/matery/">
+                                    <span class="chip bg-color">matery</span>
                                 </a>
                             
                         </div>
@@ -634,7 +630,7 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
         repo: 'LongShengWen.github.io',
         owner: 'LongShengWen',
         admin: "LongShengWen",
-        id: '2020-07-01T17-45-29',
+        id: '2022-02-24T16-30-29',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -661,28 +657,29 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/02/22/liang-zhu-san-cong-shu-ju-ku-ji-qun-zhu-bei-chong-zuo-fang-fa/">
+                <a href="/2022/02/24/hexo-pei-zhi-gitalk-ping-lun-xi-tong/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240851557.jpg" class="responsive-img" alt="两主三从数据库集群主备重做方法">
+                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202241632363.jpg" class="responsive-img" alt="Hexo配置Gitalk评论系统">
                         
-                        <span class="card-title">两主三从数据库集群主备重做方法</span>
+                        <span class="card-title">Hexo配置Gitalk评论系统</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            在多主多从数据库复制发生冲突时的解决方法
+                            Hexo使用matery主题时继承Gittalk做评论系统的方法。
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -691,19 +688,24 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                                     技术
                                 </a>
                             
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/MySQL/" class="post-category">
-                                    MySQL
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Hexo/" class="post-category">
+                                    Hexo
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MySQL/">
-                        <span class="chip bg-color">MySQL</span>
+                    <a href="/tags/Hexo/">
+                        <span class="chip bg-color">Hexo</span>
+                    </a>
+                    
+                    <a href="/tags/matery/">
+                        <span class="chip bg-color">matery</span>
                     </a>
                     
                 </div>
@@ -717,23 +719,23 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/10/ijkplayer-ios-da-bao-zhi-chi-https-sheng-ji-ffmpeg4.0/">
+                <a href="/2022/02/23/tan-tan-dui-synchronized-shi-xian-jia-suo-chang-jing-de-li-jie/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240844678.jpg" class="responsive-img" alt="ijkplayer iOS打包，支持HTTPS，升级ffmpeg4.0">
+                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202240853016.jpg" class="responsive-img" alt="谈谈对synchronized实现加锁场景的理解">
                         
-                        <span class="card-title">ijkplayer iOS打包，支持HTTPS，升级ffmpeg4.0</span>
+                        <span class="card-title">谈谈对synchronized实现加锁场景的理解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ijkplayer 是款出色的开源播放器，支持多个平台，但使用前需要自行配置打包。本文就ijkplayer打包流程做下简单的介绍。
+                            synchronized 是Java多线程常用的关键词，现简单来分析一下其使用场景
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-23
                             </span>
                         <span class="publish-author">
                             
@@ -743,8 +745,8 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                                     技术
                                 </a>
                             
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/iOS/" class="post-category">
-                                    iOS
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" class="post-category">
+                                    Java
                                 </a>
                             
                             
@@ -754,12 +756,8 @@ method_exchangeImplementations(setImage, xmtSwizzledSetImage);<span aria-hidden=
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/iOS/">
-                        <span class="chip bg-color">iOS</span>
-                    </a>
-                    
-                    <a href="/tags/ijkplayer/">
-                        <span class="chip bg-color">ijkplayer</span>
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
                     </a>
                     
                 </div>
