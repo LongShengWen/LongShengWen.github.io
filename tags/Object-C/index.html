@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <link rel="stylesheet" type="text/css" href="/css/loading.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
@@ -37,6 +38,27 @@
 
 
 <body>
+    
+    <div id="loading-box">
+        <div class="loading-left-bg"></div>
+        <div class="loading-right-bg"></div>
+        <div class="spinner-box">
+            <div class="configure-border-1">
+                <div class="configure-core"></div>
+            </div>
+            <div class="configure-border-2">
+                <div class="configure-core"></div>
+            </div>
+            <div class="loading-word">加载中...</div>
+        </div>
+    </div>
+    <script>
+        window.addEventListener('load', function(){
+            document.body.style.overflow = 'auto';
+            document.getElementById('loading-box').classList.add("loaded")
+        }, false)
+    </script>
+
     <!-- 暗黑主题 -->
     <!-- 白天和黑夜主题 -->
 <div class="sum-moon-box">
@@ -339,10 +361,19 @@
                 </a>
                 
                 
+                <a href="/tags/Innodb-Cluster/" title="Innodb Cluster: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Innodb Cluster" style="background-color: #E8F8F5;">Innodb Cluster
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/tags/Springboot/" title="Springboot: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Springboot" style="background-color: #E8F8F5;">Springboot
+                            data-tagname="Springboot" style="background-color: #FEF9E7;">Springboot
                         <span class="tag-length">3</span>
                     </span>
                 </a>
@@ -351,7 +382,7 @@
                 <a href="/tags/Java/" title="Java: 4">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Java" style="background-color: #FEF9E7;">Java
+                            data-tagname="Java" style="background-color: #F8F9F9;">Java
                         <span class="tag-length">4</span>
                     </span>
                 </a>
@@ -360,16 +391,7 @@
                 <a href="/tags/EasyExcel/" title="EasyExcel: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="EasyExcel" style="background-color: #F8F9F9;">EasyExcel
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Innodb-Cluster/" title="Innodb Cluster: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Innodb Cluster" style="background-color: #82E0AA;">Innodb Cluster
+                            data-tagname="EasyExcel" style="background-color: #82E0AA;">EasyExcel
                         <span class="tag-length">1</span>
                     </span>
                 </a>
