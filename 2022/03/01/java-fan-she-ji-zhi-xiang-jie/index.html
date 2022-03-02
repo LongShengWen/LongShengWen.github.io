@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Springboot优雅的验证接口参数, 举头望明月">
+    <meta name="keywords" content="Java反射机制详解, 举头望明月">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Springboot优雅的验证接口参数 | 举头望明月</title>
+    <title>Java反射机制详解 | 举头望明月</title>
     <link rel="icon" type="image/png" href="/">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -298,12 +298,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202251015600.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021114878.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Springboot优雅的验证接口参数</h1>
+                    <h1 class="description center-align post-title">Java反射机制详解</h1>
                 </div>
             </div>
         </div>
@@ -419,16 +419,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%90%8E%E7%AB%AF/">
-                                <span class="chip bg-color">后端</span>
-                            </a>
-                        
                             <a href="/tags/Java/">
                                 <span class="chip bg-color">Java</span>
                             </a>
                         
-                            <a href="/tags/Springboot/">
-                                <span class="chip bg-color">Springboot</span>
+                            <a href="/tags/JavaGuide/">
+                                <span class="chip bg-color">JavaGuide</span>
                             </a>
                         
                     </div>
@@ -443,8 +439,8 @@
                                 技术
                             </a>
                         
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/Springboot/" class="post-category">
-                                Springboot
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" class="post-category">
+                                Java
                             </a>
                         
                     </div>
@@ -456,7 +452,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-02-25
+                    2022-03-01
                 </div>
                 
 
@@ -465,14 +461,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    584
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    2 分
                 </div>
                 
 
@@ -495,133 +491,119 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>　　在后端写接口时，时常需要接收其他应用调用接口时所发送过来的参数，而往往这些参数后端使用时都需在使用前验证他们的合法性，已保证程序的安全性。一般情况下都是接收到参数然后直接用 if-else 来做判断，代码如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">@PostMapping("/test")
-@ApiOperation("测试接口")
-@CrossOrigin
-@ApiImplicitParams({
-        @ApiImplicitParam(name = "identify", value = "活动标识", required = true, paramType = "query"),
-        @ApiImplicitParam(name = "iptvId", value = "Iptv用户ID", required = true, paramType = "query"),
-        @ApiImplicitParam(name = "name", value = "姓名", required = true, paramType = "query"),
-        @ApiImplicitParam(name = "phone", value = "手机号", required = true, paramType = "query"),
-        @ApiImplicitParam(name = "address", value = "地址", required = true, paramType = "query"),
-        @ApiImplicitParam(name = "token", value = "加密串", required = true, paramType = "query")
-})
-public ResultApi test(String identify, String iptvId, String name, String phone, String address, String token) {
+                <blockquote>
+<p>JavaGuide学习笔记：<a target="_blank" rel="noopener" href="https://javaguide.cn/java/basis/reflection/#">JavaGuide</a></p>
+</blockquote>
+<h2 id="反射概念"><a href="#反射概念" class="headerlink" title="反射概念"></a>反射概念</h2><p>​    反射赋予了我们在运行时分析类以及执行类中方法的能力，通过反射你可以获取任意一个类的所有属性和方法，同时也可以调用这些方法和属性。</p>
+<h2 id="反射的应用场景"><a href="#反射的应用场景" class="headerlink" title="反射的应用场景"></a>反射的应用场景</h2><p>​    通过 JDK 实现动态代理的示例代码，其中就使用了反射类 <code>Method</code> 来调用指定的方法。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DebugInvocationHandler</span> <span class="token keyword">implements</span> <span class="token class-name">InvocationHandler</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * 代理类中的真实对象
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Object</span> target<span class="token punctuation">;</span>
 
-    if (StringUtils.isBlank(identify)) {
-        return ResultApi.error(ResultCode.PARAM_IS_BLANK);
-    }
-    if (StringUtils.isBlank(iptvId)) {
-        return ResultApi.error(ResultCode.PARAM_IS_BLANK);
-    }
-    if (StringUtils.isBlank(name)) {
-        return ResultApi.error(ResultCode.PARAM_IS_BLANK);
-    }
-    if (StringUtils.isBlank(phone)) {
-        return ResultApi.error(ResultCode.PARAM_IS_BLANK);
-    }
-    if (StringUtils.isBlank(address)) {
-        return ResultApi.error(ResultCode.PARAM_IS_BLANK);
-    }
-    if (StringUtils.isBlank(token)) {
-        return ResultApi.error(ResultCode.PARAM_IS_BLANK);
-    }
-    return ResultApi.success();
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>　　这里虽仅仅接收了5个参数，但需要用来做验证的代码就显得如此冗长了。如果是接收几十个甚至上百个参数，那么验证代码的长度可想而知。做为一个代码逻辑写得不怎样缺始终保持着良好代码风格的人来说，这样子做肯定是不允许的。接下来就简单地介绍一下如何使用 validation 来干净利落的接收接口的参数并进行验证。</p>
-<h2 id="validation-简介"><a href="#validation-简介" class="headerlink" title="validation 简介"></a>validation 简介</h2><p>　　JSR303 是一项标准,只提供规范不提供实现，规定一些校验规范即校验注解，如@Null，@NotNull，@Pattern，位于javax.validation.constraints包下。JSR-349是其的升级版本，添加了一些新特性。hibernate validation 是对这个规范的实现，并增加了一些其他校验注解，如@Email，@Length，@Range等等。</p>
-<h3 id="约束注解"><a href="#约束注解" class="headerlink" title="约束注解"></a>约束注解</h3><p>Bean Validation 提供了众多可以约束属性值的注解，如下：</p>
-<p>@Null：被注释的元素必须为null</p>
-<p>@NotNull：被注释的元素必须不为null</p>
-<p>@AssertTrue：被注释的元素必须为 true</p>
-<p>@AssertFalse：被注释的元素必须为 false</p>
-<p>@Min(value)：被注释的元素必须是一个数字，其值必须大于等于指定的最小值</p>
-<p>@Max(value)：被注释的元素必须是一个数字，其值必须小于等于指定的最大值</p>
-<p>@DecimalMin(value)：被注释的元素必须是一个数字，其值必须大于等于指定的最小值</p>
-<p>@DecimalMax(value)：被注释的元素必须是一个数字，其值必须小于等于指定的最大值</p>
-<p>@Size(max, min)：被注释的元素的大小必须在指定的范围内</p>
-<p>@Digits (integer, fraction)：被注释的元素必须是一个数字，其值必须在可接受的范围内</p>
-<p>@Past：被注释的元素必须是一个过去的日期</p>
-<p>@Future：被注释的元素必须是一个将来的日期</p>
-<p>@Pattern(value)：被注释的元素必须符合指定的正则表达式</p>
-<p>在Bean Validation 的基础上 Hibernate Validator 又添加了如下几项约束：</p>
-<p>@Email：被注释的元素必须是电子邮箱地址</p>
-<p>@Length：被注释的字符串的大小必须在指定的范围内</p>
-<p>@NotEmpty：被注释的字符串的必须非空</p>
-<p>@Range：被注释的元素必须在合适的范围内</p>
-<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>　　Bean Validation 和 Hibernate Validator 提供的注解足以满足一般情景下的使用需求，接下来直接使用 Validation 来对代码做修改。<br>　　我们先新建一个用来装载参数的bean，并将先前的接口做以下修改。</p>
-<pre class="line-numbers language-none"><code class="language-none">@ApiModel
-public class ApiIptvUserAddressTestDTO implements Serializable {
+    <span class="token keyword">public</span> <span class="token class-name">DebugInvocationHandler</span><span class="token punctuation">(</span><span class="token class-name">Object</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>target <span class="token operator">=</span> target<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @ApiModelProperty(name = "活动标识")
-    @NotBlank(message = "活动标识不能为空")
-    private String identify;
+    <span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">Object</span> proxy<span class="token punctuation">,</span> <span class="token class-name">Method</span> method<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InvocationTargetException</span><span class="token punctuation">,</span> <span class="token class-name">IllegalAccessException</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"before method "</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Object</span> result <span class="token operator">=</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"after method "</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    @ApiModelProperty(name = "IPTVId")
-    @NotBlank(message = "IPTVId不能为空")
-    private String iptvId;
+<blockquote>
+<p><strong>注解</strong>也用到反射！</p>
+</blockquote>
+<h2 id="反射优缺点"><a href="#反射优缺点" class="headerlink" title="反射优缺点"></a>反射优缺点</h2><ul>
+<li><p><strong>优点：</strong>可以让代码更加灵活、为各种框架提供开箱即用的功能提供了便利。</p>
+</li>
+<li><p><strong>缺点：</strong>增加了安全问题。</p>
+</li>
+</ul>
+<h2 id="反射实战"><a href="#反射实战" class="headerlink" title="反射实战"></a>反射实战</h2><h3 id="获取Class对象的四种方式"><a href="#获取Class对象的四种方式" class="headerlink" title="获取Class对象的四种方式"></a>获取Class对象的四种方式</h3><ol>
+<li><h5 id="知道具体类的情况下"><a href="#知道具体类的情况下" class="headerlink" title="知道具体类的情况下"></a>知道具体类的情况下</h5><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Class</span> helloWorld <span class="token operator">=</span> <span class="token class-name">HelloWorld</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<blockquote>
+<p>通过此方式获取的Class对象不会进行初始化。</p>
+</blockquote>
+<ol start="2">
+<li><h5 id="通过-Class-forName-方法获取"><a href="#通过-Class-forName-方法获取" class="headerlink" title="通过 Class.forName() 方法获取"></a>通过 <code>Class.forName()</code> 方法获取</h5></li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Class</span> helloWorld <span class="token operator">=</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.demo.proxy.general.HelloWorld"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-    @ApiModelProperty(name = "姓名")
-    private String name;
+<ol start="3">
+<li><h5 id="通过对象实例instance-getClass-获取"><a href="#通过对象实例instance-getClass-获取" class="headerlink" title="通过对象实例instance.getClass()获取"></a>通过对象实例<code>instance.getClass()</code>获取</h5></li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">HelloWorld</span> helloWorld <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HelloWorld</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Class</span> aClass <span class="token operator">=</span> helloWorld<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-    @ApiModelProperty(name = "手机号")
-    @Length(max = 11,message = "手机号不合法")
-    private String phone;
+<ol start="4">
+<li><h5 id="通过类加载器xxxClassLoader-loadClass-传入类路径获取"><a href="#通过类加载器xxxClassLoader-loadClass-传入类路径获取" class="headerlink" title="通过类加载器xxxClassLoader.loadClass()传入类路径获取"></a>通过类加载器<code>xxxClassLoader.loadClass()</code>传入类路径获取</h5></li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Class</span> aClass <span class="token operator">=</span> <span class="token class-name">ClassLoader</span><span class="token punctuation">.</span><span class="token function">getSystemClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">loadClass</span><span class="token punctuation">(</span><span class="token string">"com.demo.proxy.general.HelloWorld"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-    @ApiModelProperty(name = "地址")
-    private String address;
+<blockquote>
+<p>通过类加载器获取 Class 对象不会进行初始化，意味着不进行包括初始化等一系列步骤，静态块和静态对象不会得到执行</p>
+</blockquote>
+<h3 id="反射基本操作"><a href="#反射基本操作" class="headerlink" title="反射基本操作"></a>反射基本操作</h3><ol>
+<li><h5 id="创建基本类"><a href="#创建基本类" class="headerlink" title="创建基本类"></a>创建基本类</h5></li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">{</span>
 
-    @ApiModelProperty(name = "加密串")
-    @NotBlank(message = "加密串不能为空")
-    private String token;
+    <span class="token keyword">private</span> <span class="token class-name">String</span> value<span class="token punctuation">;</span>
 
-    public String getIdentify() { return identify; }
-
-    public void setIdentify(String identify) { this.identify = identify; }
-
-    public String getIptvId() { return iptvId; }
-
-    public void setIptvId(String iptvId) { this.iptvId = iptvId; }
-
-    public String getName() { return name; }
-
-    public void setName(String name) { this.name = name; }
-
-    public String getPhone() { return phone; }
-
-    public void setPhone(String phone) { this.phone = phone; }
-
-    public String getAddress() { return address; }
-
-    public void setAddress(String address) { this.address = address; }
-
-    public String getToken() { return token; }
-
-    public void setToken(String token) { this.token = token; }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-none"><code class="language-none">@PostMapping("/test")
-@ApiOperation("测试接口")
-@CrossOrigin
-public ResultApi test(@Validated ApiIptvUserAddressTestDTO dto) {
+    <span class="token keyword">public</span> <span class="token class-name">HelloWorld</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        value <span class="token operator">=</span> <span class="token string">"long"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     
-    return ResultApi.success();
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>　　这里需要使用 @Validated 注解来对 dto 进行标注，不然 dto 里面的参数约束注解并不会生效，这一点很重要。<br>　　经过这样一修改就可以把烦人且冗长的参数验证代码剥离到 DTO 中进行处理了，给 Controller 中腾出更多的空间去写业务代码，代码还美观。</p>
-<p>　　为了更方便的去统一接口返回的参数状态码，我们还需要去实现一个全局的异常捕捉方法，对参数验证不通过的BindException异常进行捕捉并处理，实现方法如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">@RestControllerAdvice
-public class RRExceptionHandler {
-  
-  /**
-   * 参数验证
-   */
-  @ExceptionHandler(BindException.class)
-  public ResultApi handleBindException(BindException e) {
-    logger.error(e.getBindingResult().getFieldError().getDefaultMessage());
-    return ResultApi.error(10002,e.getBindingResult().getFieldError().getDefaultMessage());
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>　　使用 validation 对参数进行验证有着让代码更为简洁美观的优点，同时还可以使用现有的注解对参数进行验证，可以减轻开发的工作量。但同时缺点也很明显，引入较多的DTO会使项目的文件越来越多。写出一手整洁、注释清晰的代码，可以为后续的代码维护工作打下良好的基石，所以使用 validation 对参数进行验证还是利大于弊的。</p>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">say</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"hello world! "</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">"!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">privateMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"value is "</span> <span class="token operator">+</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li><h5 id="使用反射操作类"><a href="#使用反射操作类" class="headerlink" title="使用反射操作类"></a>使用反射操作类</h5></li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">{</span>
+    <span class="token comment">// 创建 HelloWorld 实例</span>
+    <span class="token class-name">Class</span> tagetClass <span class="token operator">=</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.demo.proxy.general.HelloWorld"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">HelloWorld</span> helloWorld <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">HelloWorld</span><span class="token punctuation">)</span> tagetClass<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 获取类中所有方法</span>
+    <span class="token class-name">Method</span><span class="token punctuation">[</span><span class="token punctuation">]</span> methods <span class="token operator">=</span> tagetClass<span class="token punctuation">.</span><span class="token function">getDeclaredMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Method</span> method<span class="token operator">:</span> methods<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 获取类中指定的方法</span>
+    <span class="token class-name">Method</span> method <span class="token operator">=</span> tagetClass<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"say"</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>helloWorld<span class="token punctuation">,</span> <span class="token string">"java"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 获取指定参数</span>
+    <span class="token class-name">Field</span> field <span class="token operator">=</span> tagetClass<span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">"value"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 为了对类中的参数进行修改我们取消安全检查</span>
+    field<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 修改指定参数</span>
+    field<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>helloWorld<span class="token punctuation">,</span> <span class="token string">"java"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 调用私有方法</span>
+    <span class="token class-name">Method</span> privateMethod <span class="token operator">=</span> tagetClass<span class="token punctuation">.</span><span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span><span class="token string">"privateMethod"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 为了调用private方法我们取消安全检查</span>
+    privateMethod<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    privateMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>helloWorld<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>执行结果：</p>
+ <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">privateMethod
+say
+hello world! java!
+value is java
+
+Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
@@ -648,7 +630,7 @@ public class RRExceptionHandler {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://longshengwen.github.io/2022/02/25/springboot-you-ya-de-yan-zheng-jie-kou-can-shu/">https://longshengwen.github.io/2022/02/25/springboot-you-ya-de-yan-zheng-jie-kou-can-shu/</a>
+                    <a href="https://longshengwen.github.io/2022/03/01/java-fan-she-ji-zhi-xiang-jie/">https://longshengwen.github.io/2022/03/01/java-fan-she-ji-zhi-xiang-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -686,16 +668,12 @@ public class RRExceptionHandler {
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%90%8E%E7%AB%AF/">
-                                    <span class="chip bg-color">后端</span>
-                                </a>
-                            
                                 <a href="/tags/Java/">
                                     <span class="chip bg-color">Java</span>
                                 </a>
                             
-                                <a href="/tags/Springboot/">
-                                    <span class="chip bg-color">Springboot</span>
+                                <a href="/tags/JavaGuide/">
+                                    <span class="chip bg-color">JavaGuide</span>
                                 </a>
                             
                         </div>
@@ -745,7 +723,7 @@ public class RRExceptionHandler {
         repo: 'LongShengWen.github.io',
         owner: 'LongShengWen',
         admin: "LongShengWen",
-        id: '2022-02-25T10-14-30',
+        id: '2022-03-01T17-45-29',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -776,23 +754,23 @@ public class RRExceptionHandler {
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/03/01/java-fan-she-ji-zhi-xiang-jie/">
+                <a href="/2022/03/02/java-ming-ming-zhi-dao/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021114878.jpg" class="responsive-img" alt="Java反射机制详解">
+                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021117716.jpg" class="responsive-img" alt="Java命名之道">
                         
-                        <span class="card-title">Java反射机制详解</span>
+                        <span class="card-title">Java命名之道</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            在运行时我们可以通过反射获取任意一个类的所有属性和方法，同时也可以调用这些方法。
+                            好的代码本身就是注释，我们要尽量规范和美化自己的代码来减少不必要的注释。
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-01
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-02
                         </span>
                         <span class="publish-author">
                             
@@ -832,18 +810,18 @@ public class RRExceptionHandler {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/02/25/springboot-ji-cheng-swagger3.0/">
+                <a href="/2022/02/25/springboot-you-ya-de-yan-zheng-jie-kou-can-shu/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202251011942.jpg" class="responsive-img" alt="Springboot集成Swagger3.0">
+                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202251015600.jpg" class="responsive-img" alt="Springboot优雅的验证接口参数">
                         
-                        <span class="card-title">Springboot集成Swagger3.0</span>
+                        <span class="card-title">Springboot优雅的验证接口参数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Swagger是一套基于OpenAPI规范构建的开源工具，后来成为了Open API标准的主要定义者
+                            在开发接口时常需要对接口参数进行验证，本文将介绍Springboot如何优雅的验证接口参数。
                         
                     </div>
                     <div class="publish-info">
@@ -869,16 +847,16 @@ public class RRExceptionHandler {
                 
                 <div class="card-action article-tags">
                     
+                    <a href="/tags/%E5%90%8E%E7%AB%AF/">
+                        <span class="chip bg-color">后端</span>
+                    </a>
+                    
                     <a href="/tags/Java/">
                         <span class="chip bg-color">Java</span>
                     </a>
                     
                     <a href="/tags/Springboot/">
                         <span class="chip bg-color">Springboot</span>
-                    </a>
-                    
-                    <a href="/tags/Swagger3-0/">
-                        <span class="chip bg-color">Swagger3.0</span>
                     </a>
                     
                 </div>
