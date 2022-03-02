@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Java命名之道, 举头望明月">
+    <meta name="keywords" content="BigDecimal使用, 举头望明月">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Java命名之道 | 举头望明月</title>
+    <title>BigDecimal使用 | 举头望明月</title>
     <link rel="icon" type="image/png" href="/medias/logo.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -302,12 +302,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021117716.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021754196.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Java命名之道</h1>
+                    <h1 class="description center-align post-title">BigDecimal使用</h1>
                 </div>
             </div>
         </div>
@@ -465,7 +465,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    765
+                    482
                 </div>
                 
 
@@ -496,107 +496,80 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>JavaGuide学习笔记：<a target="_blank" rel="noopener" href="https://javaguide.cn/home/">JavaGuide</a></p>
+<p>JavaGuide学习笔记：<a target="_blank" rel="noopener" href="https://javaguide.cn/java/basis/bigdecimal/#">JavaGuide</a></p>
 </blockquote>
-<h2 id="命名的重要性"><a href="#命名的重要性" class="headerlink" title="命名的重要性"></a>命名的重要性</h2><p>《Clean Code》这本书明确指出：</p>
-<blockquote>
-<p>好的代码本身就是注释，我们要尽量规范和美化自己的代码来减少不必要的注释。</p>
-<p>若编程语言足够有表达力，就不需要注释，尽量通过代码来阐述。</p>
+<h2 id="BigDeciaml介绍"><a href="#BigDeciaml介绍" class="headerlink" title="BigDeciaml介绍"></a>BigDeciaml介绍</h2><p>​    <strong>BigDeciaml</strong> 可以实现对浮点数的运算，不会造成精度丢失。大部分需要浮点数精确运算结果的业务场景（比如涉及到钱的场景）都是通过 <strong>BigDecimal</strong> 来做的。</p>
+<p><strong>浮点数运算精度丢失：</strong>    </p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">float</span> a <span class="token operator">=</span> <span class="token number">2.0f</span> <span class="token operator">-</span> <span class="token number">1.9f</span><span class="token punctuation">;</span>
+<span class="token keyword">float</span> b <span class="token operator">=</span> <span class="token number">1.8f</span> <span class="token operator">-</span> <span class="token number">1.7f</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a <span class="token operator">==</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>输出：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">0.100000024
+0.099999905
+false
+
+Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>为什么会有精度丢失：</strong>    </p>
+<p>​    我们知道计算机是二进制的，而且计算机在表示一个数字时，宽度是有限的，无限循环的小数存储在计算机时，只能被截断，所以就会导致小数精度发生损失的情况。这也就是解释了为什么浮点数没有办法</p>
+<p>用二进制精确表示。</p>
+<h2 id="BigDeciaml用法"><a href="#BigDeciaml用法" class="headerlink" title="BigDeciaml用法"></a>BigDeciaml用法</h2><blockquote>
+<p>在使用 <code>BigDecimal</code> 时，为了防止精度丢失，推荐使用它的<code>BigDecimal(String val)</code>构造方法或者 <code>BigDecimal.valueOf(double val)</code> 静态方法来创建对象。</p>
 </blockquote>
-<h2 id="常见的命名规则以及使用场景"><a href="#常见的命名规则以及使用场景" class="headerlink" title="常见的命名规则以及使用场景"></a>常见的命名规则以及使用场景</h2><h3 id="驼峰命名法（CamelCase）"><a href="#驼峰命名法（CamelCase）" class="headerlink" title="驼峰命名法（CamelCase）"></a>驼峰命名法（CamelCase）</h3><p>​    驼峰命名法应该我们最常见的一个，这种命名方式使用单词首字母大写的格式来区别各个单词。</p>
-<h4 id="大驼峰命名法（UpperCamelCase"><a href="#大驼峰命名法（UpperCamelCase" class="headerlink" title="大驼峰命名法（UpperCamelCase)"></a>大驼峰命名法（UpperCamelCase)</h4><p>​    命名使用场景：<strong>类</strong></p>
-<p>正例：</p>
-<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">ServiceDiscovery、ServiceInstance、LruCacheFactory<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="加"><a href="#加" class="headerlink" title="加"></a>加</h3><p>​    <strong>add</strong> 方法用于将两个 <strong>BigDecimal</strong> 对象相加</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BigDecimal</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"2.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"3.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>反例：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">serviceDiscovery、<span class="token class-name">Serviceinstance</span>、<span class="token class-name">LRUCacheFactory</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>结果：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">5
 
-<h4 id="小驼峰命名法（lowerCamelCase）"><a href="#小驼峰命名法（lowerCamelCase）" class="headerlink" title="小驼峰命名法（lowerCamelCase）"></a>小驼峰命名法（lowerCamelCase）</h4><p>​    在大驼峰的基础上，第一个单词的首字母也为小写称为小驼峰。</p>
-<p>​    命名使用场景：<strong>方法名、参数名、成员变量、局部变量</strong></p>
-<p>正例：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">getUserInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token function">createCustomThreadPool</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token function">setNameFormat</span><span class="token punctuation">(</span><span class="token class-name">String</span> nameFormat<span class="token punctuation">)</span>
-<span class="token class-name">Uservice</span> userService<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>反例：</p>
-<pre class="line-numbers language-none"><code class="language-none">GetUserInfo()
-CreateCustomThreadPool()
-setNameFormat(String NameFormat)
-Uservice user_service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="减"><a href="#减" class="headerlink" title="减"></a>减</h3><p>​    <strong>subtract</strong> 方法用于将两个 <strong>BigDecimal</strong> 对象相减。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BigDecimal</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"2.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"3.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">subtract</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="蛇形命名法（snake-case"><a href="#蛇形命名法（snake-case" class="headerlink" title="蛇形命名法（snake_case)"></a>蛇形命名法（snake_case)</h3><p>​    蛇形命名法也称为下划线命名法，单词与单词之间使用下划线来区别各个单词。</p>
-<p>​    命名使用场景：<strong>测试方法名、常量、枚举名称</strong></p>
-<p>正例：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
-<span class="token keyword">void</span> <span class="token function">should_get_200_status_code_when_request_is_valid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>结果：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">-</span><span class="token number">1.0</span>
 
-<p>反例：</p>
-<pre class="line-numbers language-none"><code class="language-none">@Test
-void shouldGet200StatusCodeWhenRequestIsValid() {
-  ......
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token class-name">Process</span> finished <span class="token keyword">with</span> <span class="token namespace">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="串式命名法（kebab-case）"><a href="#串式命名法（kebab-case）" class="headerlink" title="串式命名法（kebab-case）"></a>串式命名法（kebab-case）</h3><p>​    串式命名法在单词与单词之间用中划线来区别各个单词。</p>
-<p>​    命名使用场景：<strong>项目文件夹</strong></p>
-<p>例子：</p>
-<pre class="line-numbers language-none"><code class="language-none">kebab-case
-dubbo-registry<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="乘"><a href="#乘" class="headerlink" title="乘"></a>乘</h3><p>​    <strong>multiply</strong> 方法用于将两个 <strong>BigDecimal</strong> 对象相乘</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BigDecimal</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"2.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"3.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">multiply</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="常见命名规范"><a href="#常见命名规范" class="headerlink" title="常见命名规范"></a>常见命名规范</h2><h3 id="Java语言基本命名规范"><a href="#Java语言基本命名规范" class="headerlink" title="Java语言基本命名规范"></a>Java语言基本命名规范</h3><p><strong>1. 包名统一使用小写，尽量使用单个名词作为包名，各个单词通过 “.” 分隔符连接，并且各个单词必须为单数。</strong></p>
-<p>正例：</p>
-<pre class="line-numbers language-none"><code class="language-none">org.apache.dubbo.common.threadlocal<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>结果：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">6.00
 
-<p>反例：</p>
-<pre class="line-numbers language-none"><code class="language-none">org.apache_dubbo.Common.threadLocals<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>**2. 抽象类命名使用 Abstract 开头。 **</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//为远程传输部分抽象出来的一个抽象类（出处：Dubbo源码）</span>
-<span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">AbstractClient</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractEndpoint</span> <span class="token keyword">implements</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+<h3 id="除"><a href="#除" class="headerlink" title="除"></a>除</h3><p>​    <strong>divide</strong> 方法用于将两个 <strong>BigDecimal</strong> 对象相除。</p>
+<p>​    当除不尽时，会抛出 <code>java.lang.ArithmeticException</code> 异常。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BigDecimal</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"2.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"3.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">divide</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token class-name">RoundingMode</span><span class="token punctuation">.</span>HALF_UP<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>结果：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">0.67
 
-<p><strong>3. 异常类命名使用 Exception 结尾。</strong></p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//自定义的 NoSuchMethodException（出处：Dubbo源码）</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">NoSuchMethodException</span> <span class="token keyword">extends</span> <span class="token class-name">RuntimeException</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2725364246023268766L</span><span class="token punctuation">;</span>
+Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token keyword">public</span> <span class="token class-name">NoSuchMethodException</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<h3 id="大小比较"><a href="#大小比较" class="headerlink" title="大小比较"></a>大小比较</h3><p>​    <strong>compareTo</strong> 方法用于比较 <strong>BigDecimal</strong> 的大小。</p>
+<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">BigDecimal a = new BigDecimal("2.0");
+BigDecimal b = new BigDecimal("3.0");
+System.out.println(a.compareTo(b));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token keyword">public</span> <span class="token class-name">NoSuchMethodException</span><span class="token punctuation">(</span><span class="token class-name">String</span> msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>结果：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-1
 
-<p><strong>4. 测试类命名以它要测试的类的名称开始，以 Test 结尾。</strong></p>
-<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">//为 AnnotationUtils 类写的测试类（出处：Dubbo源码）
-public class AnnotationUtilsTest {
-  ......
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
-<p>POJO 类中布尔类型的变量，都不要加 is 前缀，否则部分框架解析会引起序列化错误。</p>
-</blockquote>
-<h3 id="命名易读性规范"><a href="#命名易读性规范" class="headerlink" title="命名易读性规范"></a>命名易读性规范</h3><p><strong>1. 为了能让命名更加易懂和易读，尽量不要缩写/简写单词，除非这些单词已经被公认可以被这样缩写/简写。比如 <code>CustomThreadFactory</code> 不可以被写成 ~~`CustomTF` 。</strong></p>
-<p><strong>2. 命名不像函数一样要尽量追求短，可读性强的名字优先于简短的名字，虽然可读性强的名字会比较长一点。</strong></p>
-<p><strong>3. 避免无意义的命名，你起的每一个名字都要能表明意思。</strong></p>
-<p>正例：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">UserService</span> userService<span class="token punctuation">;</span>
-<span class="token keyword">int</span> userCount<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>反例：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">UserService</span> service<span class="token punctuation">;</span>
-<span class="token keyword">int</span> count<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p><strong>4. 避免命名过长（50 个字符以内最好），过长的命名难以阅读并且丑陋。</strong></p>
-<p><strong>5. 不要使用拼音，更不要使用中文。</strong></p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://github.com/Snailclimb/JavaGuide/blob/main/docs/system-design/basis/naming.md">Java命名之道</a></li>
-</ol>
 
                 
             </div>
@@ -623,7 +596,7 @@ public class AnnotationUtilsTest {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://longshengwen.github.io/2022/03/02/java-ming-ming-zhi-dao/">https://longshengwen.github.io/2022/03/02/java-ming-ming-zhi-dao/</a>
+                    <a href="https://longshengwen.github.io/2022/03/02/bigdecimal-shi-yong/">https://longshengwen.github.io/2022/03/02/bigdecimal-shi-yong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -716,7 +689,7 @@ public class AnnotationUtilsTest {
         repo: 'LongShengWen.github.io',
         owner: 'LongShengWen',
         admin: "LongShengWen",
-        id: '2022-03-02T11-15-29',
+        id: '2022-03-02T17-54-29',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -743,9 +716,10 @@ public class AnnotationUtilsTest {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/03/02/bigdecimal-shi-yong/">
                     <div class="card-image">
@@ -762,9 +736,9 @@ public class AnnotationUtilsTest {
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -781,6 +755,7 @@ public class AnnotationUtilsTest {
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -803,23 +778,23 @@ public class AnnotationUtilsTest {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/03/01/java-fan-she-ji-zhi-xiang-jie/">
+                <a href="/2022/03/02/java-ming-ming-zhi-dao/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021114878.jpg" class="responsive-img" alt="Java反射机制详解">
+                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021117716.jpg" class="responsive-img" alt="Java命名之道">
                         
-                        <span class="card-title">Java反射机制详解</span>
+                        <span class="card-title">Java命名之道</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            在运行时我们可以通过反射获取任意一个类的所有属性和方法，同时也可以调用这些方法。
+                            好的代码本身就是注释，我们要尽量规范和美化自己的代码来减少不必要的注释。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-02
                             </span>
                         <span class="publish-author">
                             
