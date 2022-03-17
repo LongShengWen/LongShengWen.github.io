@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="BigDecimal使用, 举头望明月">
+    <meta name="keywords" content="Java设计模式之工厂模式, 举头望明月">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>BigDecimal使用 | 举头望明月</title>
+    <title>Java设计模式之工厂模式 | 举头望明月</title>
     <link rel="icon" type="image/png" href="/medias/logo.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -302,12 +302,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021754196.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203171538960.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">BigDecimal使用</h1>
+                    <h1 class="description center-align post-title">Java设计模式之工厂模式</h1>
                 </div>
             </div>
         </div>
@@ -423,12 +423,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Java/">
-                                <span class="chip bg-color">Java</span>
-                            </a>
-                        
-                            <a href="/tags/JavaGuide/">
-                                <span class="chip bg-color">JavaGuide</span>
+                            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                                <span class="chip bg-color">设计模式</span>
                             </a>
                         
                     </div>
@@ -447,6 +443,10 @@
                                 Java
                             </a>
                         
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
+                                设计模式
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -456,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-02
+                    2022-03-17
                 </div>
                 
 
@@ -465,14 +465,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    482
+                    848
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    4 分
                 </div>
                 
 
@@ -496,79 +496,131 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>JavaGuide学习笔记：<a target="_blank" rel="noopener" href="https://javaguide.cn/java/basis/bigdecimal/#">JavaGuide</a></p>
+<p>设计模式学习笔记：<a target="_blank" rel="noopener" href="https://bugstack.cn/md/develop/design-pattern/">bugstack 虫洞栈</a></p>
 </blockquote>
-<h2 id="BigDeciaml介绍"><a href="#BigDeciaml介绍" class="headerlink" title="BigDeciaml介绍"></a>BigDeciaml介绍</h2><p>​    <strong>BigDeciaml</strong> 可以实现对浮点数的运算，不会造成精度丢失。大部分需要浮点数精确运算结果的业务场景（比如涉及到钱的场景）都是通过 <strong>BigDecimal</strong> 来做的。</p>
-<p><strong>浮点数运算精度丢失：</strong>    </p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">float</span> a <span class="token operator">=</span> <span class="token number">2.0f</span> <span class="token operator">-</span> <span class="token number">1.9f</span><span class="token punctuation">;</span>
-<span class="token keyword">float</span> b <span class="token operator">=</span> <span class="token number">1.8f</span> <span class="token operator">-</span> <span class="token number">1.7f</span><span class="token punctuation">;</span>
-<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a <span class="token operator">==</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><ul>
+<li>JDK 1.8</li>
+<li>IDEA</li>
+<li>Maven</li>
+</ul>
+<h2 id="工厂模式介绍"><a href="#工厂模式介绍" class="headerlink" title="工厂模式介绍"></a>工厂模式介绍</h2><p>工厂模式又称工厂方法模式，是一种创建型设计模式，其在父类中提供一个创建对象的方法，允许子类决定实例化对象的类型。</p>
+<p><strong>优点：</strong>提供代码结构的扩展性，屏蔽每一个功能类中的具体实现逻辑，让外部可以更加简单的只是知道调用即可。</p>
+<p><strong>缺点：</strong>需要实现的类非常多。</p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>模拟积分兑换中的发放多种类型奖品。</p>
+<h3 id="工程文件目录"><a href="#工程文件目录" class="headerlink" title="工程文件目录"></a>工程文件目录</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">├── pom.xml
+├── src
+│&nbsp;&nbsp; └── main
+│&nbsp;&nbsp;     ├── java
+│&nbsp;&nbsp;     │&nbsp;&nbsp; └── factory
+│&nbsp;&nbsp;     │&nbsp;&nbsp;     ├── StoreFactory.java
+│&nbsp;&nbsp;     │&nbsp;&nbsp;     ├── define
+│&nbsp;&nbsp;     │&nbsp;&nbsp;     │&nbsp;&nbsp; └── CommodityType.java
+│&nbsp;&nbsp;     │&nbsp;&nbsp;     └── store
+│&nbsp;&nbsp;     │&nbsp;&nbsp;         ├── ICommodity.java
+│&nbsp;&nbsp;     │&nbsp;&nbsp;         └── impl
+│&nbsp;&nbsp;     │&nbsp;&nbsp;             ├── CardCommodityService.java
+│&nbsp;&nbsp;     │&nbsp;&nbsp;             ├── CouponCommodityService.java
+│&nbsp;&nbsp;     │&nbsp;&nbsp;             └── GoodsCommodityService.java
+│&nbsp;&nbsp;     └── resources<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>输出：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">0.100000024
-0.099999905
-false
-
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>为什么会有精度丢失：</strong>    </p>
-<p>​    我们知道计算机是二进制的，而且计算机在表示一个数字时，宽度是有限的，无限循环的小数存储在计算机时，只能被截断，所以就会导致小数精度发生损失的情况。这也就是解释了为什么浮点数没有办法</p>
-<p>用二进制精确表示。</p>
-<h2 id="BigDeciaml用法"><a href="#BigDeciaml用法" class="headerlink" title="BigDeciaml用法"></a>BigDeciaml用法</h2><blockquote>
-<p>在使用 <code>BigDecimal</code> 时，为了防止精度丢失，推荐使用它的<code>BigDecimal(String val)</code>构造方法或者 <code>BigDecimal.valueOf(double val)</code> 静态方法来创建对象。</p>
+<h3 id="添加Maven依赖"><a href="#添加Maven依赖" class="headerlink" title="添加Maven依赖"></a>添加Maven依赖</h3><blockquote>
+<p>这里我使用了 <strong>lombok</strong> 插件，所以需要引用lombok依赖。</p>
 </blockquote>
-<h3 id="加"><a href="#加" class="headerlink" title="加"></a>加</h3><p>​    <strong>add</strong> 方法用于将两个 <strong>BigDecimal</strong> 对象相加</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BigDecimal</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"2.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"3.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>1.18.22<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">&gt;</span></span>provided<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>ch.qos.logback<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>logback-classic<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>1.2.3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.slf4j<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>slf4j-api<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>1.7.26<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.alibaba<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>fastjson<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>1.2.58<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>结果：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">5
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="定义奖品类型"><a href="#定义奖品类型" class="headerlink" title="定义奖品类型"></a>定义奖品类型</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">enum</span> <span class="token class-name">CommodityType</span> <span class="token punctuation">{</span>
+    <span class="token comment">/** 兑换卷 */</span>
+    <span class="token class-name">Card</span><span class="token punctuation">,</span>
+    <span class="token comment">/** 优惠卷 */</span>
+    <span class="token class-name">Coupon</span><span class="token punctuation">,</span>
+    <span class="token comment">/** 商品 */</span>
+    <span class="token class-name">Goods</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>创建全局的奖品定义，有利于今后对代码的维护工作。</p>
+<h4 id="定义发奖接口"><a href="#定义发奖接口" class="headerlink" title="定义发奖接口"></a>定义发奖接口</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">ICommodity</span> <span class="token punctuation">{</span>
+    <span class="token keyword">void</span> <span class="token function">sendCommodity</span><span class="token punctuation">(</span><span class="token class-name">String</span> uId<span class="token punctuation">,</span> <span class="token class-name">String</span> commodityId<span class="token punctuation">,</span> <span class="token class-name">String</span> bizId<span class="token punctuation">,</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> extMap<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="减"><a href="#减" class="headerlink" title="减"></a>减</h3><p>​    <strong>subtract</strong> 方法用于将两个 <strong>BigDecimal</strong> 对象相减。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BigDecimal</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"2.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"3.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">subtract</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="实现接口"><a href="#实现接口" class="headerlink" title="实现接口"></a>实现接口</h4><h5 id="兑换卷"><a href="#兑换卷" class="headerlink" title="兑换卷"></a>兑换卷</h5><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CardCommodityService</span> <span class="token keyword">implements</span> <span class="token class-name">ICommodity</span> <span class="token punctuation">{</span>
 
-<p>结果：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">-</span><span class="token number">1.0</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendCommodity</span><span class="token punctuation">(</span><span class="token class-name">String</span> uId<span class="token punctuation">,</span> <span class="token class-name">String</span> commodityId<span class="token punctuation">,</span> <span class="token class-name">String</span> bizId<span class="token punctuation">,</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> extMap<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"请求参数[兑换券] =&gt; uId：{} commodityId：{} bizId：{} extMap：{}"</span><span class="token punctuation">,</span> uId<span class="token punctuation">,</span> commodityId<span class="token punctuation">,</span> bizId<span class="token punctuation">,</span> JSON<span class="token punctuation">.</span><span class="token function">toJSON</span><span class="token punctuation">(</span>extMap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token class-name">Process</span> finished <span class="token keyword">with</span> <span class="token namespace">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h5 id="优惠卷"><a href="#优惠卷" class="headerlink" title="优惠卷"></a>优惠卷</h5><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CouponCommodityService</span> <span class="token keyword">implements</span> <span class="token class-name">ICommodity</span> <span class="token punctuation">{</span>
 
-<h3 id="乘"><a href="#乘" class="headerlink" title="乘"></a>乘</h3><p>​    <strong>multiply</strong> 方法用于将两个 <strong>BigDecimal</strong> 对象相乘</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BigDecimal</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"2.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"3.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">multiply</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendCommodity</span><span class="token punctuation">(</span><span class="token class-name">String</span> uId<span class="token punctuation">,</span> <span class="token class-name">String</span> commodityId<span class="token punctuation">,</span> <span class="token class-name">String</span> bizId<span class="token punctuation">,</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> extMap<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">"请求参数[优惠券] =&gt; uId：{} commodityId：{} bizId：{} extMap：{}"</span><span class="token punctuation">,</span> uId<span class="token punctuation">,</span> commodityId<span class="token punctuation">,</span> bizId<span class="token punctuation">,</span> JSON<span class="token punctuation">.</span><span class="token function">toJSON</span><span class="token punctuation">(</span>extMap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>结果：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">6.00
+<h5 id="奖品"><a href="#奖品" class="headerlink" title="奖品"></a>奖品</h5><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GoodsCommodityService</span> <span class="token keyword">implements</span> <span class="token class-name">ICommodity</span> <span class="token punctuation">{</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendCommodity</span><span class="token punctuation">(</span><span class="token class-name">String</span> uId<span class="token punctuation">,</span> <span class="token class-name">String</span> commodityId<span class="token punctuation">,</span> <span class="token class-name">String</span> bizId<span class="token punctuation">,</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> extMap<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"请求参数[商品] =&gt; uId：{} commodityId：{} bizId：{} extMap：{}"</span><span class="token punctuation">,</span> uId<span class="token punctuation">,</span> commodityId<span class="token punctuation">,</span> bizId<span class="token punctuation">,</span> JSON<span class="token punctuation">.</span><span class="token function">toJSON</span><span class="token punctuation">(</span>extMap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="除"><a href="#除" class="headerlink" title="除"></a>除</h3><p>​    <strong>divide</strong> 方法用于将两个 <strong>BigDecimal</strong> 对象相除。</p>
-<p>​    当除不尽时，会抛出 <code>java.lang.ArithmeticException</code> 异常。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BigDecimal</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"2.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">BigDecimal</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BigDecimal</span><span class="token punctuation">(</span><span class="token string">"3.0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">divide</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token class-name">RoundingMode</span><span class="token punctuation">.</span>HALF_UP<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="定义奖品工程类"><a href="#定义奖品工程类" class="headerlink" title="定义奖品工程类"></a>定义奖品工程类</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StoreFactory</span> <span class="token punctuation">{</span>
 
-<p>结果：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">0.67
+    <span class="token keyword">public</span> <span class="token class-name">ICommodity</span> <span class="token function">getCommodityService</span><span class="token punctuation">(</span><span class="token class-name">CommodityType</span> commodityType<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>commodityType<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">CommodityType<span class="token punctuation">.</span>Coupon</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">CouponCommodityService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>commodityType<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">CommodityType<span class="token punctuation">.</span>Goods</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">GoodsCommodityService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>commodityType<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">CommodityType<span class="token punctuation">.</span>Card</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">CardCommodityService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><blockquote>
+<p>调用统一的 <code>public ICommodity getCommodityService(CommodityType commodityType)</code> 方法，根据不同奖品类型返回不同的实现类，达到发放不同奖品的目的。</p>
+</blockquote>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
 
-<h3 id="大小比较"><a href="#大小比较" class="headerlink" title="大小比较"></a>大小比较</h3><p>​    <strong>compareTo</strong> 方法用于比较 <strong>BigDecimal</strong> 的大小。</p>
-<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">BigDecimal a = new BigDecimal("2.0");
-BigDecimal b = new BigDecimal("3.0");
-System.out.println(a.compareTo(b));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+    <span class="token class-name">StoreFactory</span> storeFactory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StoreFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 1. 优惠券</span>
+    <span class="token class-name">ICommodity</span> commodityService_1 <span class="token operator">=</span> storeFactory<span class="token punctuation">.</span><span class="token function">getCommodityService</span><span class="token punctuation">(</span><span class="token class-name">CommodityType<span class="token punctuation">.</span>Coupon</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    commodityService_1<span class="token punctuation">.</span><span class="token function">sendCommodity</span><span class="token punctuation">(</span><span class="token string">"10001"</span><span class="token punctuation">,</span> <span class="token string">"EGM1023938910232121323432"</span><span class="token punctuation">,</span> <span class="token string">"791098764902132"</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2. 实物商品</span>
+    <span class="token class-name">ICommodity</span> commodityService_2 <span class="token operator">=</span> storeFactory<span class="token punctuation">.</span><span class="token function">getCommodityService</span><span class="token punctuation">(</span><span class="token class-name">CommodityType<span class="token punctuation">.</span>Goods</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> extMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    extMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"consigneeUserName"</span><span class="token punctuation">,</span> <span class="token string">"谢飞机"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    commodityService_2<span class="token punctuation">.</span><span class="token function">sendCommodity</span><span class="token punctuation">(</span><span class="token string">"10001"</span><span class="token punctuation">,</span><span class="token string">"9820198721311"</span><span class="token punctuation">,</span><span class="token string">"1023000020112221113"</span><span class="token punctuation">,</span> extMap<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 3. 第三方兑换卡(爱奇艺)</span>
+    <span class="token class-name">ICommodity</span> commodityService_3 <span class="token operator">=</span> storeFactory<span class="token punctuation">.</span><span class="token function">getCommodityService</span><span class="token punctuation">(</span><span class="token class-name">CommodityType<span class="token punctuation">.</span>Card</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    commodityService_3<span class="token punctuation">.</span><span class="token function">sendCommodity</span><span class="token punctuation">(</span><span class="token string">"10001"</span><span class="token punctuation">,</span><span class="token string">"AQY1xjkUodl8LO975GdfrYUio"</span><span class="token punctuation">,</span><span class="token keyword">null</span><span class="token punctuation">,</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>结果：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-1
-
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h5 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">11:25:27.016 [main] DEBUG factory.store.impl.CouponCommodityService - 请求参数[优惠券] =&gt; uId：10001 commodityId：EGM1023938910232121323432 bizId：791098764902132 extMap：null
+11:25:27.036 [main] INFO factory.store.impl.GoodsCommodityService - 请求参数[商品] =&gt; uId：10001 commodityId：9820198721311 bizId：1023000020112221113 extMap：{"consigneeUserName":"谢飞机"}
+11:25:27.039 [main] INFO factory.store.impl.CardCommodityService - 请求参数[兑换券] =&gt; uId：10001 commodityId：AQY1xjkUodl8LO975GdfrYUio bizId：null extMap：null<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -596,7 +648,7 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://longshengwen.github.io/2022/03/02/bigdecimal-shi-yong/">https://longshengwen.github.io/2022/03/02/bigdecimal-shi-yong/</a>
+                    <a href="https://longshengwen.github.io/2022/03/17/java-she-ji-mo-shi-zhi-gong-han-mo-shi/">https://longshengwen.github.io/2022/03/17/java-she-ji-mo-shi-zhi-gong-han-mo-shi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -634,12 +686,8 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Java/">
-                                    <span class="chip bg-color">Java</span>
-                                </a>
-                            
-                                <a href="/tags/JavaGuide/">
-                                    <span class="chip bg-color">JavaGuide</span>
+                                <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                                    <span class="chip bg-color">设计模式</span>
                                 </a>
                             
                         </div>
@@ -689,7 +737,7 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
         repo: 'LongShengWen.github.io',
         owner: 'LongShengWen',
         admin: "LongShengWen",
-        id: '2022-03-02T17-54-29',
+        id: '2022-03-17T15-33-29',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -716,9 +764,10 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/03/17/java-she-ji-mo-shi-zhi-gong-han-mo-shi/">
                     <div class="card-image">
@@ -735,9 +784,9 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-17
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-17
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -758,6 +807,7 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -776,18 +826,18 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/03/02/java-ming-ming-zhi-dao/">
+                <a href="/2022/03/02/bigdecimal-shi-yong/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021117716.jpg" class="responsive-img" alt="Java命名之道">
+                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021754196.jpg" class="responsive-img" alt="BigDecimal使用">
                         
-                        <span class="card-title">Java命名之道</span>
+                        <span class="card-title">BigDecimal使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            好的代码本身就是注释，我们要尽量规范和美化自己的代码来减少不必要的注释。
+                            大部分需要浮点数精确运算结果的业务场景（比如涉及到钱的场景）都会使用BigDecimal。
                         
                     </div>
                     <div class="publish-info">
