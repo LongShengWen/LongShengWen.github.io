@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>记一次UITableView的内存泄露</title>
+      <link href="/2022/03/24/ji-yi-ci-uitableview-de-nei-cun-xie-lu/"/>
+      <url>/2022/03/24/ji-yi-ci-uitableview-de-nei-cun-xie-lu/</url>
+      
+        <content type="html"><![CDATA[<h2 id="泄露处代码"><a href="#泄露处代码" class="headerlink" title="泄露处代码"></a>泄露处代码</h2><pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {    if (indexPath.section == 0) {        swNewsVideoDetailIntroductionCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"swNewsVideoDetailIntroductionCell" forIndexPath:indexPath];        [tableCell setDataModel:self.baseModel];        tableCell.clickedTitleBlock = ^(BOOL isShowIntroduction) {            [_listView beginUpdates];            [_listView endUpdates];        };        tableCell.selectionStyle = UITableViewCellSelectionStyleNone;        return tableCell; }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>这里的 <strong>_listView</strong> 便是 tableView 本身。</p><h2 id="泄露原因"><a href="#泄露原因" class="headerlink" title="泄露原因"></a>泄露原因</h2><pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">tableCell.clickedTitleBlock = ^(BOOL isShowIntroduction) {    [_listView beginUpdates];    [_listView endUpdates];};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p> <strong>[_listView beginUpdates]<strong>和</strong>[_listView endUpdates]<strong>是强引用调用，出现了_<strong>listView</strong>引用</strong>Cell</strong>的同时<strong>Cell</strong>又对_<strong>listView</strong>进行了引用，出现循环引用，导致内存泄露。</p><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>将<strong>Cell</strong>对_<strong>listView</strong>引用改为弱引用。</p><pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {    if (indexPath.section == 0) {        swNewsVideoDetailIntroductionCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"swNewsVideoDetailIntroductionCell" forIndexPath:indexPath];        [tableCell setDataModel:self.baseModel];        __weak typeof(self) weakSelf = self;        tableCell.clickedTitleBlock = ^(BOOL isShowIntroduction) {            [weakSelf.listView beginUpdates];            [weakSelf.listView endUpdates];        };        tableCell.selectionStyle = UITableViewCellSelectionStyleNone;        return tableCell;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UITableView </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Java设计模式之工厂模式</title>
       <link href="/2022/03/17/java-she-ji-mo-shi-zhi-gong-han-mo-shi/"/>
       <url>/2022/03/17/java-she-ji-mo-shi-zhi-gong-han-mo-shi/</url>
@@ -23,6 +52,8 @@
       
       
         <tags>
+            
+            <tag> Java </tag>
             
             <tag> 设计模式 </tag>
             
