@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="记一次UITableView的内存泄露, 举头望明月">
+    <meta name="keywords" content="Swagger3.0在Srpingboot2.6.0中报错的问题, 举头望明月">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>记一次UITableView的内存泄露 | 举头望明月</title>
+    <title>Swagger3.0在Srpingboot2.6.0中报错的问题 | 举头望明月</title>
     <link rel="icon" type="image/png" href="/medias/logo.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -302,12 +302,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203231709873.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203251136058.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">记一次UITableView的内存泄露</h1>
+                    <h1 class="description center-align post-title">Swagger3.0在Srpingboot2.6.0中报错的问题</h1>
                 </div>
             </div>
         </div>
@@ -423,12 +423,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/iOS/">
-                                <span class="chip bg-color">iOS</span>
+                            <a href="/tags/Springboot/">
+                                <span class="chip bg-color">Springboot</span>
                             </a>
                         
-                            <a href="/tags/UITableView/">
-                                <span class="chip bg-color">UITableView</span>
+                            <a href="/tags/Swagger3-0/">
+                                <span class="chip bg-color">Swagger3.0</span>
                             </a>
                         
                     </div>
@@ -443,8 +443,8 @@
                                 技术
                             </a>
                         
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/iOS/" class="post-category">
-                                iOS
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Springboot/" class="post-category">
+                                Springboot
                             </a>
                         
                     </div>
@@ -456,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-24
+                    2022-03-25
                 </div>
                 
 
@@ -465,7 +465,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    156
+                    279
                 </div>
                 
 
@@ -495,38 +495,50 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="泄露处代码"><a href="#泄露处代码" class="headerlink" title="泄露处代码"></a>泄露处代码</h2><pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        swNewsVideoDetailIntroductionCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"swNewsVideoDetailIntroductionCell" forIndexPath:indexPath];
-        [tableCell setDataModel:self.baseModel];
-        tableCell.clickedTitleBlock = ^(BOOL isShowIntroduction) {
-            [_listView beginUpdates];
-            [_listView endUpdates];
-        };
-        tableCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return tableCell;
- }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <h2 id="错误描述"><a href="#错误描述" class="headerlink" title="错误描述"></a>错误描述</h2><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">org.springframework.context.ApplicationContextException: Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>这里的 <strong>_listView</strong> 便是 tableView 本身。</p>
-<h2 id="泄露原因"><a href="#泄露原因" class="headerlink" title="泄露原因"></a>泄露原因</h2><pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">tableCell.clickedTitleBlock = ^(BOOL isShowIntroduction) {
-    [_listView beginUpdates];
-    [_listView endUpdates];
-};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在Spirngboot项目启动时报以上异常信息，导致项目终止，启动失败。</p>
+<h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><ul>
+<li>Springboot:2.6.4</li>
+<li>Jdk:1.8</li>
+<li>Swagger:3.0</li>
+</ul>
+<h2 id="Maven依赖"><a href="#Maven依赖" class="headerlink" title="Maven依赖"></a>Maven依赖</h2><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- swagger3 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>io.springfox<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>springfox-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>3.0.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p> <strong>[_listView beginUpdates]<strong>和</strong>[_listView endUpdates]<strong>是强引用调用，出现了_<strong>listView</strong>引用</strong>Cell</strong>的同时<strong>Cell</strong>又对_<strong>listView</strong>进行了引用，出现循环引用，导致内存泄露。</p>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>将<strong>Cell</strong>对_<strong>listView</strong>引用改为弱引用。</p>
-<pre class="line-numbers language-objective-c" data-language="objective-c"><code class="language-objective-c">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        swNewsVideoDetailIntroductionCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"swNewsVideoDetailIntroductionCell" forIndexPath:indexPath];
-        [tableCell setDataModel:self.baseModel];
-        __weak typeof(self) weakSelf = self;
-        tableCell.clickedTitleBlock = ^(BOOL isShowIntroduction) {
-            [weakSelf.listView beginUpdates];
-            [weakSelf.listView endUpdates];
-        };
-        tableCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return tableCell;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><blockquote>
+<p>因为 Swagger3.0 不适配 Springboot2.6.0 以上的版本才出现的异常，也不懂 Swagger官方为什么解决这个问题，放弃了？</p>
+</blockquote>
+<p><strong>1.添加配置文件</strong></p>
+<p>在 <strong>application.yml</strong> 中添加以下参数</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mvc</span><span class="token punctuation">:</span>
+    <span class="token key atrule">pathmatch</span><span class="token punctuation">:</span>
+      <span class="token key atrule">matching-strategy</span><span class="token punctuation">:</span> ant_path_matcher<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>2.添加代码</strong></p>
+<p>在 <strong>Swagger3</strong> 的配置文件中添加以下代码</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">WebMvcEndpointHandlerMapping</span> <span class="token function">webEndpointServletHandlerMapping</span><span class="token punctuation">(</span><span class="token class-name">WebEndpointsSupplier</span> webEndpointsSupplier<span class="token punctuation">,</span> <span class="token class-name">ServletEndpointsSupplier</span> servletEndpointsSupplier<span class="token punctuation">,</span> <span class="token class-name">ControllerEndpointsSupplier</span> controllerEndpointsSupplier<span class="token punctuation">,</span> <span class="token class-name">EndpointMediaTypes</span> endpointMediaTypes<span class="token punctuation">,</span> <span class="token class-name">CorsEndpointProperties</span> corsProperties<span class="token punctuation">,</span> <span class="token class-name">WebEndpointProperties</span> webEndpointProperties<span class="token punctuation">,</span> <span class="token class-name">Environment</span> environment<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ExposableEndpoint</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> allEndpoints <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ExposableWebEndpoint</span><span class="token punctuation">&gt;</span></span> webEndpoints <span class="token operator">=</span> webEndpointsSupplier<span class="token punctuation">.</span><span class="token function">getEndpoints</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    allEndpoints<span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>webEndpoints<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    allEndpoints<span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>servletEndpointsSupplier<span class="token punctuation">.</span><span class="token function">getEndpoints</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    allEndpoints<span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>controllerEndpointsSupplier<span class="token punctuation">.</span><span class="token function">getEndpoints</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> basePath <span class="token operator">=</span> webEndpointProperties<span class="token punctuation">.</span><span class="token function">getBasePath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">EndpointMapping</span> endpointMapping <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EndpointMapping</span><span class="token punctuation">(</span>basePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">boolean</span> shouldRegisterLinksMapping <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">shouldRegisterLinksMapping</span><span class="token punctuation">(</span>webEndpointProperties<span class="token punctuation">,</span> environment<span class="token punctuation">,</span> basePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">WebMvcEndpointHandlerMapping</span><span class="token punctuation">(</span>endpointMapping<span class="token punctuation">,</span> webEndpoints<span class="token punctuation">,</span> endpointMediaTypes<span class="token punctuation">,</span> corsProperties<span class="token punctuation">.</span><span class="token function">toCorsConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">EndpointLinksResolver</span><span class="token punctuation">(</span>allEndpoints<span class="token punctuation">,</span> basePath<span class="token punctuation">)</span><span class="token punctuation">,</span> shouldRegisterLinksMapping<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">shouldRegisterLinksMapping</span><span class="token punctuation">(</span><span class="token class-name">WebEndpointProperties</span> webEndpointProperties<span class="token punctuation">,</span> <span class="token class-name">Environment</span> environment<span class="token punctuation">,</span> <span class="token class-name">String</span> basePath<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> webEndpointProperties<span class="token punctuation">.</span><span class="token function">getDiscovery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token function">hasText</span><span class="token punctuation">(</span>basePath<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token class-name">ManagementPortType</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>environment<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">ManagementPortType</span><span class="token punctuation">.</span>DIFFERENT<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -554,7 +566,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://longshengwen.github.io/2022/03/24/ji-yi-ci-uitableview-de-nei-cun-xie-lu/">https://longshengwen.github.io/2022/03/24/ji-yi-ci-uitableview-de-nei-cun-xie-lu/</a>
+                    <a href="https://longshengwen.github.io/2022/03/25/srpingboot2.6.0-jian-rong-swagger3.0-wen-ti/">https://longshengwen.github.io/2022/03/25/srpingboot2.6.0-jian-rong-swagger3.0-wen-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -592,12 +604,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/iOS/">
-                                    <span class="chip bg-color">iOS</span>
+                                <a href="/tags/Springboot/">
+                                    <span class="chip bg-color">Springboot</span>
                                 </a>
                             
-                                <a href="/tags/UITableView/">
-                                    <span class="chip bg-color">UITableView</span>
+                                <a href="/tags/Swagger3-0/">
+                                    <span class="chip bg-color">Swagger3.0</span>
                                 </a>
                             
                         </div>
@@ -647,7 +659,7 @@
         repo: 'LongShengWen.github.io',
         owner: 'LongShengWen',
         admin: "LongShengWen",
-        id: '2022-03-24T17-00-29',
+        id: '2022-03-25T11-30-29',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -674,9 +686,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/03/25/srpingboot2.6.0-jian-rong-swagger3.0-wen-ti/">
                     <div class="card-image">
@@ -693,9 +706,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -712,6 +725,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -734,23 +748,23 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/03/17/java-she-ji-mo-shi-zhi-gong-han-mo-shi/">
+                <a href="/2022/03/24/ji-yi-ci-uitableview-de-nei-cun-xie-lu/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203171538960.jpg" class="responsive-img" alt="Java设计模式之工厂模式">
+                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203231709873.jpg" class="responsive-img" alt="记一次UITableView的内存泄露">
                         
-                        <span class="card-title">Java设计模式之工厂模式</span>
+                        <span class="card-title">记一次UITableView的内存泄露</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            工厂模式又称工厂方法模式，是一种创建型设计模式。
+                            UITableView组件在iOS开发中极其常用，本文介绍因循环引用导致内存泄露的解决办法。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-24
                             </span>
                         <span class="publish-author">
                             
@@ -760,12 +774,8 @@
                                     技术
                                 </a>
                             
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" class="post-category">
-                                    Java
-                                </a>
-                            
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/iOS/" class="post-category">
+                                    iOS
                                 </a>
                             
                             
@@ -775,12 +785,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
+                    <a href="/tags/iOS/">
+                        <span class="chip bg-color">iOS</span>
                     </a>
                     
-                    <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                        <span class="chip bg-color">设计模式</span>
+                    <a href="/tags/UITableView/">
+                        <span class="chip bg-color">UITableView</span>
                     </a>
                     
                 </div>
