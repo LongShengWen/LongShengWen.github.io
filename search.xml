@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Iterm2使用expect脚本无法调用lrzsz</title>
+      <link href="/2023/02/22/jie-jue-iterm2-shi-yong-expect-jiao-ben-wu-fa-diao-yong-lrzsz/"/>
+      <url>/2023/02/22/jie-jue-iterm2-shi-yong-expect-jiao-ben-wu-fa-diao-yong-lrzsz/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>参考地址 <a href="https://www.cnblogs.com/snailon/p/14392884.html">https://www.cnblogs.com/snailon/p/14392884.html</a></p></blockquote><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>先将本地的LC_CTYPE环境变量设置成en_US，再执行expect脚本即可 </p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">export LC_CTYPE=en_US<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><blockquote><p>推荐将此变量放在脚本里设置，这样只是影响当前连接远程机器但session，如果设置在.bash_profile脚本里，则可能会有中文显示乱码问题。</p></blockquote><h2 id="完整脚本"><a href="#完整脚本" class="headerlink" title="完整脚本"></a>完整脚本</h2><h3 id="登陆脚本login-sh"><a href="#登陆脚本login-sh" class="headerlink" title="登陆脚本login.sh"></a>登陆脚本login.sh</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#!/bin/shbasepath=$(cd `dirname $0`; pwd)export LC_CTYPE=en_US#expect脚本所在位置expectFilePath=$basepath/$1if [ -f $expectFilePath ]; then  expect $expectFilePath $2else  echo "$expectFilePath 登陆脚本不存在"fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>该脚本接受两个参数，第一个是expect脚本的名称，第一个是expect脚本所需的参数。这里默认login.sh脚本和 expect脚本在同一个目录下</p><h3 id="iterm2调用"><a href="#iterm2调用" class="headerlink" title="iterm2调用"></a>iterm2调用</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">/Users/linuxLogin/login.sh test.sh 172.31.1.5<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> Mac </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Mac </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Swagger3.0在Srpingboot2.6.0中报错的问题</title>
       <link href="/2022/03/25/srpingboot2.6.0-jian-rong-swagger3.0-wen-ti/"/>
       <url>/2022/03/25/srpingboot2.6.0-jian-rong-swagger3.0-wen-ti/</url>
