@@ -502,7 +502,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="Jmeter"><a href="#Jmeter" class="headerlink" title="Jmeter"></a>Jmeter</h3><pre class="line-numbers language-none"><code class="language-none">sh jmeter -n -t /Users/longshengwen/Desktop/yache/ViewResultsTree.jmx -l  /Users/longshengwen/Desktop/yache/result.txt -e -o  /Users/longshengwen/Desktop/yache/webreport<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h3 id="Jmeter"><a href="#Jmeter" class="headerlink" title="Jmeter"></a>Jmeter</h3><pre class="line-numbers language-none"><code class="language-none">sh jmeter -n -t /Users/Desktop/yache/ViewResultsTree.jmx -l  /Users/Desktop/yache/result.txt -e -o  /Users/Desktop/yache/webreport<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
 <li>ViewResultsTree.jmx: 配置文件</li>
@@ -542,7 +542,7 @@
 </ul>
 <h4 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h4><pre class="line-numbers language-none"><code class="language-none">ab -n 100 -c 10 http://test.com/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h4 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h4><pre class="line-numbers language-none"><code class="language-none">ab -n 500 -c 10 -p /Users/longshengwen/Desktop/yache/params "http://172.31.130.21:9026/recommend-api/program/list/similarity"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h4><pre class="line-numbers language-none"><code class="language-none">ab -n 500 -c 10 -p /Users/Desktop/yache/params "http://127.0.0.1:9000/program/list/similarity"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
 <li>-p 参数</li>
@@ -551,12 +551,12 @@
 <pre class="line-numbers language-none"><code class="language-none">#测试服务器的名字
 Server Software:        nginx
 #请求的URL主机名
-Server Hostname:        172.31.130.21
+Server Hostname:        127.0.0.1
 #web服务器监听的端口
-Server Port:            9026
+Server Port:            9000
 
 #请求的URL中的根绝对路径
-Document Path:          /recommend-api/program/list/similarity
+Document Path:          /program/list/similarity
 #HTTP响应数据的正文长度
 Document Length:        40 bytes
 
