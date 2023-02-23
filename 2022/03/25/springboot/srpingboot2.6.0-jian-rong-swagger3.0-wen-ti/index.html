@@ -41,7 +41,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -506,7 +506,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="错误描述"><a href="#错误描述" class="headerlink" title="错误描述"></a>错误描述</h2><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">org.springframework.context.ApplicationContextException: Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h2 id="错误描述"><a href="#错误描述" class="headerlink" title="错误描述"></a>错误描述</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">org.springframework.context.ApplicationContextException: Failed to start bean <span class="token string">'documentationPluginsBootstrapper'</span><span class="token punctuation">;</span> nested exception is java.lang.NullPointerException<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>在Spirngboot项目启动时报以上异常信息，导致项目终止，启动失败。</p>
 <h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><ul>
@@ -514,7 +514,7 @@
 <li>Jdk:1.8</li>
 <li>Swagger:3.0</li>
 </ul>
-<h2 id="Maven依赖"><a href="#Maven依赖" class="headerlink" title="Maven依赖"></a>Maven依赖</h2><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- swagger3 --&gt;</span>
+<h2 id="Maven依赖"><a href="#Maven依赖" class="headerlink" title="Maven依赖"></a>Maven依赖</h2><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- swagger3 --&gt;</span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>io.springfox<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>springfox-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
@@ -548,7 +548,7 @@
 
 
 <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">shouldRegisterLinksMapping</span><span class="token punctuation">(</span><span class="token class-name">WebEndpointProperties</span> webEndpointProperties<span class="token punctuation">,</span> <span class="token class-name">Environment</span> environment<span class="token punctuation">,</span> <span class="token class-name">String</span> basePath<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> webEndpointProperties<span class="token punctuation">.</span><span class="token function">getDiscovery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token function">hasText</span><span class="token punctuation">(</span>basePath<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token class-name">ManagementPortType</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>environment<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">ManagementPortType</span><span class="token punctuation">.</span>DIFFERENT<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> webEndpointProperties<span class="token punctuation">.</span><span class="token function">getDiscovery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token function">hasText</span><span class="token punctuation">(</span>basePath<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token class-name">ManagementPortType</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>environment<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">ManagementPortType</span><span class="token punctuation">.</span><span class="token constant">DIFFERENT</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 

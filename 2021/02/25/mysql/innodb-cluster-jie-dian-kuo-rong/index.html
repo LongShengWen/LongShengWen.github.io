@@ -41,7 +41,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -506,7 +506,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="获取完整的数据备份"><a href="#获取完整的数据备份" class="headerlink" title="获取完整的数据备份"></a>获取完整的数据备份</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">/usr/local/mysql/bin/mysqldump --all-databases --add-drop-database --single-transaction --triggers --routines --port=mysql_port --user=root -p &gt; all.sql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h3 id="获取完整的数据备份"><a href="#获取完整的数据备份" class="headerlink" title="获取完整的数据备份"></a>获取完整的数据备份</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/usr/local/mysql/bin/mysqldump --all-databases --add-drop-database --single-transaction <span class="token parameter variable">--triggers</span> <span class="token parameter variable">--routines</span> <span class="token parameter variable">--port</span><span class="token operator">=</span>mysql_port <span class="token parameter variable">--user</span><span class="token operator">=</span>root <span class="token parameter variable">-p</span> <span class="token operator">&gt;</span> all.sql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="在需要添加的节点上操作"><a href="#在需要添加的节点上操作" class="headerlink" title="在需要添加的节点上操作"></a>在需要添加的节点上操作</h3><h4 id="停止组复制"><a href="#停止组复制" class="headerlink" title="停止组复制"></a>停止组复制</h4><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql"># 停止组复制
 STOP GROUP_REPLICATION;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h4 id="重置GTID"><a href="#重置GTID" class="headerlink" title="重置GTID"></a>重置GTID</h4><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql"># 查看GTID
@@ -536,8 +536,8 @@ mysql -uroot -p &lt; all.sql
 
 # 改为只读状态
 SET GLOBAL super_read_only = 1;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="将节点加入集群"><a href="#将节点加入集群" class="headerlink" title="将节点加入集群"></a>将节点加入集群</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">var c = dba.getCluster();
-c.addInstance('root@x.x.x.x:3306');<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="将节点加入集群"><a href="#将节点加入集群" class="headerlink" title="将节点加入集群"></a>将节点加入集群</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">var c <span class="token operator">=</span> dba.getCluster<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+c.addInstance<span class="token punctuation">(</span><span class="token string">'root@x.x.x.x:3306'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>

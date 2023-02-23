@@ -41,7 +41,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -434,12 +434,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Java/">
-                                <span class="chip bg-color">Java</span>
-                            </a>
-                        
                             <a href="/tags/Springboot/">
                                 <span class="chip bg-color">Springboot</span>
+                            </a>
+                        
+                            <a href="/tags/Java/">
+                                <span class="chip bg-color">Java</span>
                             </a>
                         
                             <a href="/tags/Swagger3-0/">
@@ -516,13 +516,21 @@
 <h2 id="Swagger-包含以下三部分"><a href="#Swagger-包含以下三部分" class="headerlink" title="Swagger 包含以下三部分"></a>Swagger 包含以下三部分</h2><ul>
 <li>Swagger Editor：基于浏览器的编辑器，我们可以使用它编写我们 OpenAPI 规范。</li>
 <li>Swagger UI：它会将我们编写的 OpenAPI 规范呈现为交互式的 API 文档，后文我将使用浏览器来查看并且操作我们的 Rest API。</li>
-<li>Swagger Codegen：它可以通过为 OpenAPI（以前称为 Swagger）规范定义的任何 API 生成服务器存根和客户端 SDK 来简化构建过程。<h2 id="SpringFox-3-0-0-发布"><a href="#SpringFox-3-0-0-发布" class="headerlink" title="SpringFox 3.0.0 发布"></a>SpringFox 3.0.0 发布</h2></li>
+<li>Swagger Codegen：它可以通过为 OpenAPI（以前称为 Swagger）规范定义的任何 API 生成服务器存根和客户端 SDK 来简化构建过程。</li>
+</ul>
+<h2 id="SpringFox-3-0-0-发布"><a href="#SpringFox-3-0-0-发布" class="headerlink" title="SpringFox 3.0.0 发布"></a>SpringFox 3.0.0 发布</h2><ul>
 <li>SpringFox 3.0.0 发布了，SpringFox 的前身是 swagger-springmvc，是一个开源的 API doc 框架，可以将 Controller 的方法以文档的形式展现。</li>
 <li>首先，非常感谢社区让我有动力参与这个项目。在这个版本中，在代码、注释、bug报告方面有一些非常惊人的贡献，看到人们在问题论坛上跳槽来解决问题，我感到很谦卑。它确实激励我克服“困难”，开始认真地工作。有什么更好的办法来摆脱科维德的忧郁！</li>
-<li>注意：这是一个突破性的变更版本，我们已经尽可能地保持与springfox早期版本的向后兼容性。在2.9之前被弃用的api已经被积极地删除，并且标记了将在不久的将来消失的新api。所以请注意这些，并报告任何遗漏的内容。<h2 id="兼容性说明"><a href="#兼容性说明" class="headerlink" title="兼容性说明"></a>兼容性说明</h2></li>
+<li>注意：这是一个突破性的变更版本，我们已经尽可能地保持与springfox早期版本的向后兼容性。在2.9之前被弃用的api已经被积极地删除，并且标记了将在不久的将来消失的新api。所以请注意这些，并报告任何遗漏的内容。</li>
+</ul>
+<h2 id="兼容性说明"><a href="#兼容性说明" class="headerlink" title="兼容性说明"></a>兼容性说明</h2><ul>
 <li>需要Java 8</li>
 <li>需要Spring5.x</li>
-<li>需要SpringBoot 2.2+<h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2>这里使用Maven依赖包。<h3 id="Maven依赖安装"><a href="#Maven依赖安装" class="headerlink" title="Maven依赖安装"></a>Maven依赖安装</h3>在依赖文件中引入 springfox-boot-starter<pre class="line-numbers language-none"><code class="language-none">&lt;dependency&gt;
+<li>需要SpringBoot 2.2+</li>
+</ul>
+<h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2><p>这里使用Maven依赖包。</p>
+<h3 id="Maven依赖安装"><a href="#Maven依赖安装" class="headerlink" title="Maven依赖安装"></a>Maven依赖安装</h3><p>在依赖文件中引入 springfox-boot-starter</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;dependency&gt;
     &lt;groupId&gt;io.springfox&lt;/groupId&gt;
     &lt;artifactId&gt;springfox-boot-starter&lt;/artifactId&gt;
     &lt;version&gt;3.0.0&lt;/version&gt;
@@ -695,30 +703,54 @@ public class SwaggerConfiguration {
     }
 }
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Swagger-注解使用"><a href="#Swagger-注解使用" class="headerlink" title="Swagger 注解使用"></a>Swagger 注解使用</h2><h3 id="Api"><a href="#Api" class="headerlink" title="@Api"></a>@Api</h3>该注解将一个Controller（Class）标注为一个swagger资源（API）。</li>
+<h2 id="Swagger-注解使用"><a href="#Swagger-注解使用" class="headerlink" title="Swagger 注解使用"></a>Swagger 注解使用</h2><h3 id="Api"><a href="#Api" class="headerlink" title="@Api"></a>@Api</h3><p>该注解将一个Controller（Class）标注为一个swagger资源（API）。</p>
+<ul>
 <li>tags<br>API分组标签。具有相同标签的API将会被归并在一组内展示。</li>
 <li>value<br>如果tags没有定义，value将作为Api的tags使用</li>
-<li>description<br>API的详细描述，在1.5.X版本之后不再使用，但实际发现在2.0.0版本中仍然可以使用<h3 id="ApiOperation"><a href="#ApiOperation" class="headerlink" title="@ApiOperation"></a>@ApiOperation</h3>该注解在指定的（路由）路径上，对一个操作或HTTP方法进行描述。</li>
+<li>description<br>API的详细描述，在1.5.X版本之后不再使用，但实际发现在2.0.0版本中仍然可以使用</li>
+</ul>
+<h3 id="ApiOperation"><a href="#ApiOperation" class="headerlink" title="@ApiOperation"></a>@ApiOperation</h3><p>该注解在指定的（路由）路径上，对一个操作或HTTP方法进行描述。</p>
+<ul>
 <li>value<br>对操作的简单说明，长度为120个字母，60个汉字。</li>
 <li>notes<br>对操作的详细说明。</li>
 <li>httpMethod<br>HTTP请求的动作名，可选值有：”GET”, “HEAD”, “POST”, “PUT”, “DELETE”, “OPTIONS” and “PATCH”。</li>
-<li>code<br>默认为200，有效值必须符合标准的HTTP Status Code Definitions。<h3 id="ApiImplicitParams"><a href="#ApiImplicitParams" class="headerlink" title="@ApiImplicitParams"></a>@ApiImplicitParams</h3>注解ApiImplicitParam的容器类，以数组方式存储。<h3 id="ApiImplicitParam"><a href="#ApiImplicitParam" class="headerlink" title="@ApiImplicitParam"></a>@ApiImplicitParam</h3>对API的单一参数进行注解。</li>
+<li>code<br>默认为200，有效值必须符合标准的HTTP Status Code Definitions。</li>
+</ul>
+<h3 id="ApiImplicitParams"><a href="#ApiImplicitParams" class="headerlink" title="@ApiImplicitParams"></a>@ApiImplicitParams</h3><p>注解ApiImplicitParam的容器类，以数组方式存储。</p>
+<h3 id="ApiImplicitParam"><a href="#ApiImplicitParam" class="headerlink" title="@ApiImplicitParam"></a>@ApiImplicitParam</h3><p>对API的单一参数进行注解。</p>
+<ul>
 <li>name<br>参数名称</li>
 <li>value<br>参数的简短描述</li>
 <li>required<br>是否为必传参数</li>
 <li>dataType<br>参数类型，可以为类名，也可以为基本类型（String，int、boolean等）</li>
-<li>paramType<br>参数的传入（请求）类型，可选的值有path, query, body, header or form。<h3 id="ApiParam"><a href="#ApiParam" class="headerlink" title="@ApiParam"></a>@ApiParam</h3>增加对参数的元信息说明。</li>
+<li>paramType<br>参数的传入（请求）类型，可选的值有path, query, body, header or form。</li>
+</ul>
+<h3 id="ApiParam"><a href="#ApiParam" class="headerlink" title="@ApiParam"></a>@ApiParam</h3><p>增加对参数的元信息说明。</p>
+<ul>
 <li>required<br>是否为必传参数</li>
-<li>value<br>参数简短说明<h3 id="ApiResponses"><a href="#ApiResponses" class="headerlink" title="@ApiResponses"></a>@ApiResponses</h3>注解@ApiResponse的包装类，数组结构。<h3 id="ApiResponse"><a href="#ApiResponse" class="headerlink" title="@ApiResponse"></a>@ApiResponse</h3>描述一个操作可能的返回结果。</li>
+<li>value<br>参数简短说明</li>
+</ul>
+<h3 id="ApiResponses"><a href="#ApiResponses" class="headerlink" title="@ApiResponses"></a>@ApiResponses</h3><p>注解@ApiResponse的包装类，数组结构。</p>
+<h3 id="ApiResponse"><a href="#ApiResponse" class="headerlink" title="@ApiResponse"></a>@ApiResponse</h3><p>描述一个操作可能的返回结果。</p>
+<ul>
 <li>code<br>HTTP请求返回码。有效值必须符合标准的HTTP Status Code Definitions。</li>
 <li>message<br>更加易于理解的文本消息</li>
 <li>response<br>返回类型信息，必须使用完全限定类名，比如“com.xyz.cc.Person.class”。</li>
-<li>responseContainer<br>如果返回类型为容器类型，可以设置相应的值。有效值为 “List”, “Set” or “Map”，其他任何无效的值都会被忽略。<h2 id="Model-注解"><a href="#Model-注解" class="headerlink" title="Model 注解"></a>Model 注解</h2>对于Model的注解，Swagger提供了两个：@ApiModel及@ApiModelProperty，分别用以描述Model及Model内的属性。<h3 id="ApiModel"><a href="#ApiModel" class="headerlink" title="@ApiModel"></a>@ApiModel</h3>&amp;ensp;&amp;ensp;&amp;ensp;提供对Swagger model额外信息的描述。在标注@ApiOperation注解的操作内，所有的类将自动被内省（introspected），但利用这个注解可以做一些更加详细的model结构说明。主要属性有：</li>
+<li>responseContainer<br>如果返回类型为容器类型，可以设置相应的值。有效值为 “List”, “Set” or “Map”，其他任何无效的值都会被忽略。</li>
+</ul>
+<h2 id="Model-注解"><a href="#Model-注解" class="headerlink" title="Model 注解"></a>Model 注解</h2><p>对于Model的注解，Swagger提供了两个：@ApiModel及@ApiModelProperty，分别用以描述Model及Model内的属性。</p>
+<h3 id="ApiModel"><a href="#ApiModel" class="headerlink" title="@ApiModel"></a>@ApiModel</h3><p>&amp;ensp;&amp;ensp;&amp;ensp;提供对Swagger model额外信息的描述。在标注@ApiOperation注解的操作内，所有的类将自动被内省（introspected），但利用这个注解可以做一些更加详细的model结构说明。主要属性有：</p>
+<ul>
 <li>value<br>model的别名，默认为类名  </li>
-<li>description<br>model的详细描述  <h3 id="ApiModelProperty"><a href="#ApiModelProperty" class="headerlink" title="@ApiModelProperty"></a>@ApiModelProperty</h3>对model属性的注解，主要的属性值有：</li>
+<li>description<br>model的详细描述</li>
+</ul>
+<h3 id="ApiModelProperty"><a href="#ApiModelProperty" class="headerlink" title="@ApiModelProperty"></a>@ApiModelProperty</h3><p>对model属性的注解，主要的属性值有：</p>
+<ul>
 <li>value<br>属性简短描述</li>
 <li>example<br>属性的示例值</li>
-<li>required<br>是否为必须值<h3 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h3><h4 id="常规使用"><a href="#常规使用" class="headerlink" title="常规使用"></a>常规使用</h4><pre class="line-numbers language-none"><code class="language-none">@RestController
+<li>required<br>是否为必须值</li>
+</ul>
+<h3 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h3><h4 id="常规使用"><a href="#常规使用" class="headerlink" title="常规使用"></a>常规使用</h4><pre class="line-numbers language-none"><code class="language-none">@RestController
 @RequestMapping("/test")
 @Api(tags = "测试接口")
 public class TestController {
@@ -779,9 +811,7 @@ public class TestController {
 
         return RestResponse.success();
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -845,12 +875,12 @@ public class TestController {
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Java/">
-                                    <span class="chip bg-color">Java</span>
-                                </a>
-                            
                                 <a href="/tags/Springboot/">
                                     <span class="chip bg-color">Springboot</span>
+                                </a>
+                            
+                                <a href="/tags/Java/">
+                                    <span class="chip bg-color">Java</span>
                                 </a>
                             
                                 <a href="/tags/Swagger3-0/">
@@ -972,16 +1002,16 @@ public class TestController {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
-                    </a>
-                    
                     <a href="/tags/%E5%90%8E%E7%AB%AF/">
                         <span class="chip bg-color">后端</span>
                     </a>
                     
                     <a href="/tags/Springboot/">
                         <span class="chip bg-color">Springboot</span>
+                    </a>
+                    
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
                     </a>
                     
                 </div>

@@ -41,7 +41,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -506,27 +506,29 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>​    网上已经有很多关于打包IJKPlayer的教程，也基本能用。但关于如何升级ffmpeg内核以及HTTPS的还是比较少，现在我就分享一下如何升级ffmpeg，并总结一篇完整打包的流程。<br>　　打包参考：<a target="_blank" rel="noopener" href="https://juejin.im/post/6844903620597841933">https://juejin.im/post/6844903620597841933</a><br>　　ijkplayer github地址：<a target="_blank" rel="noopener" href="https://github.com/bilibili/ijkplayer">https://github.com/bilibili/ijkplayer</a></p>
-<h3 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 先切到桌面
-cd Desktop/
-# 克隆下ijkplayer的代码
-git clone https://github.com/Bilibili/ijkplayer.git
-cd ijkplayer
-# 切到最新版本k0.8.8
-git checkout -B latest k0.8.8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <p>​	网上已经有很多关于打包IJKPlayer的教程，也基本能用。但关于如何升级ffmpeg内核以及HTTPS的还是比较少，现在我就分享一下如何升级ffmpeg，并总结一篇完整打包的流程。<br>　　打包参考：<a target="_blank" rel="noopener" href="https://juejin.im/post/6844903620597841933">https://juejin.im/post/6844903620597841933</a><br>　　ijkplayer github地址：<a target="_blank" rel="noopener" href="https://github.com/bilibili/ijkplayer">https://github.com/bilibili/ijkplayer</a></p>
+<h3 id="获取代码"><a href="#获取代码" class="headerlink" title="获取代码"></a>获取代码</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 先切到桌面</span>
+<span class="token builtin class-name">cd</span> Desktop/
+<span class="token comment"># 克隆下ijkplayer的代码</span>
+<span class="token function">git</span> clone https://github.com/Bilibili/ijkplayer.git
+<span class="token builtin class-name">cd</span> ijkplayer
+<span class="token comment"># 切到最新版本k0.8.8</span>
+<span class="token function">git</span> checkout <span class="token parameter variable">-B</span> latest k0.8.8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="配置解码器"><a href="#配置解码器" class="headerlink" title="配置解码器"></a>配置解码器</h3><ul>
 <li>module-default.sh 更多的编解码器/格式</li>
 <li>module-lite-hevc.sh 较少的编解码器/格式(包括hevc)</li>
-<li>module-lite.sh 较少的编解码器/格式(默认情况)<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd config
-# 删除默认的解码器
-rm module.sh
-# 创建一个软连接指向 module-lite-hevc.sh，这个可根据自己需求进行选择
-ln -s module-lite-hevc.sh module.sh
-cd ..
-cd ios
-sh compile-ffmpeg.sh clean<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="配置ffmpeg内核版本"><a href="#配置ffmpeg内核版本" class="headerlink" title="配置ffmpeg内核版本"></a>配置ffmpeg内核版本</h3>编辑 <font color="#ff0000">init-ios.sh</font> 文件<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ..
-vi init-ios.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<li>module-lite.sh 较少的编解码器/格式(默认情况)<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> config
+<span class="token comment"># 删除默认的解码器</span>
+<span class="token function">rm</span> module.sh
+<span class="token comment"># 创建一个软连接指向 module-lite-hevc.sh，这个可根据自己需求进行选择</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> module-lite-hevc.sh module.sh
+<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+<span class="token builtin class-name">cd</span> ios
+<span class="token function">sh</span> compile-ffmpeg.sh clean<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h3 id="配置ffmpeg内核版本"><a href="#配置ffmpeg内核版本" class="headerlink" title="配置ffmpeg内核版本"></a>配置ffmpeg内核版本</h3><p>编辑 <font color="#ff0000">init-ios.sh</font> 文件</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+<span class="token function">vi</span> init-ios.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment">#! /usr/bin/env bash</span>
 <span class="token comment">#</span>
 <span class="token comment"># Copyright (C) 2013-2015 Bilibili</span>
@@ -554,131 +556,130 @@ IJK_FFMPEG_LOCAL_REPO=extra/ffmpeg
 .
 .
 .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-打开后这可以大致看到这些内容，注意一下 <font color="#ff0000">IJK_FFMPEG_COMMIT</font>，就是在这个地方配置ffmpeg版本，如果不修改，默认是使用 ff3.4–ijk0.8.7–20180103–001 版本。<br>到bilibili fork的ffmpeg的库查看支持的版本 <a target="_blank" rel="noopener" href="https://github.com/bilibili/FFmpeg/releases">https://github.com/bilibili/FFmpeg/releases</a></li>
-</ul>
+<p>打开后这可以大致看到这些内容，注意一下 <font color="#ff0000">IJK_FFMPEG_COMMIT</font>，就是在这个地方配置ffmpeg版本，如果不修改，默认是使用 ff3.4–ijk0.8.7–20180103–001 版本。<br>到bilibili fork的ffmpeg的库查看支持的版本 <a target="_blank" rel="noopener" href="https://github.com/bilibili/FFmpeg/releases">https://github.com/bilibili/FFmpeg/releases</a>  </p>
 <p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/9/1715df68ab362fd8~tplv-t2oaga2asx-image.image"><br>可以看到最新支持的版本是 <font color="#ff0000">ff4.0–ijk0.8.25–20200221–001</font>  ，由此见得，bilibili对ijkplayer这个库还是保持持续更新的。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">IJK_FFMPEG_COMMIT=ff4.0--ijk0.8.25--20200221--001<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">IJK_FFMPEG_COMMIT</span><span class="token operator">=</span>ff4.0--ijk0.8.25--20200221--001<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>把对应的地方改成所选择的版本就可以了。</p>
-<h3 id="获取ffmpeg相关文件"><a href="#获取ffmpeg相关文件" class="headerlink" title="获取ffmpeg相关文件"></a>获取ffmpeg相关文件</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 获取依赖的文件，这个会久一点，中途有有失败再执行一下就可以了
+<h3 id="获取ffmpeg相关文件"><a href="#获取ffmpeg相关文件" class="headerlink" title="获取ffmpeg相关文件"></a>获取ffmpeg相关文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 获取依赖的文件，这个会久一点，中途有有失败再执行一下就可以了</span>
 ./init-ios.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h3 id="配置支持HTTPS"><a href="#配置支持HTTPS" class="headerlink" title="配置支持HTTPS"></a>配置支持HTTPS</h3><p>如果不需要HTTPS可以跳过这一步。<br>同样编辑 <font color="#ff0000">init-ios-openssl.sh</font> 文件配置https的版本。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vi init-ios-openssl.s<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> init-ios-openssl.s<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>和升级ffmpeg一样，找到 <font color="#ff0000">IJK_OPENSSL_COMMIT</font> 项</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">IJK_OPENSSL_COMMIT=OpenSSL_1_0_2n<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">IJK_OPENSSL_COMMIT</span><span class="token operator">=</span>OpenSSL_1_0_2n<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>可以看到默认版本是 OpenSSL_1_0_2n<br>同样到 <a target="_blank" rel="noopener" href="https://github.com/bilibili/openssl/releases">https://github.com/bilibili/openssl/releases</a> 选择需要替换到版本,这里选择最新的 OpenSSL_1_0_2u 版本。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">IJK_OPENSSL_COMMIT=OpenSSL_1_0_2u<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="获取HTTPS相关文件"><a href="#获取HTTPS相关文件" class="headerlink" title="获取HTTPS相关文件"></a>获取HTTPS相关文件</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 耐心等待一下
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">IJK_OPENSSL_COMMIT</span><span class="token operator">=</span>OpenSSL_1_0_2u<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="获取HTTPS相关文件"><a href="#获取HTTPS相关文件" class="headerlink" title="获取HTTPS相关文件"></a>获取HTTPS相关文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 耐心等待一下</span>
 ./init-ios-openssl.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="编辑-module-sh-文件"><a href="#编辑-module-sh-文件" class="headerlink" title="编辑 module.sh 文件"></a>编辑 module.sh 文件</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vi config/module.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="编辑-module-sh-文件"><a href="#编辑-module-sh-文件" class="headerlink" title="编辑 module.sh 文件"></a>编辑 module.sh 文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> config/module.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>在末尾加入 </p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 支持https
-export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --enable-openssl"
-# ffmpeg4.0 需要
-export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --disable-bsf=eac3_core"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 支持https</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">COMMON_FF_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$COMMON_FF_CFG_FLAGS</span> --enable-openssl"</span>
+<span class="token comment"># ffmpeg4.0 需要</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">COMMON_FF_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$COMMON_FF_CFG_FLAGS</span> --disable-bsf=eac3_core"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>并注释掉以下这两项</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --disable-ffserver"
-#export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --disable-vda"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --disable-ffserver"</span>
+<span class="token comment">#export COMMON_FF_CFG_FLAGS="$COMMON_FF_CFG_FLAGS --disable-vda"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>参考 <a target="_blank" rel="noopener" href="https://github.com/bilibili/ijkplayer/issues/4772">https://github.com/bilibili/ijkplayer/issues/4772</a></p>
 <h3 id="更改最低支持的版本"><a href="#更改最低支持的版本" class="headerlink" title="更改最低支持的版本"></a>更改最低支持的版本</h3><p>因为ffmpeg4.0 使用的部分API是iOS8.0以上的，所以这里必须改一下最低支持的版本，不然编译ffmpeg会出现类似的错误</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">libavcodec/videotoolbox.c:862:9: error: 'VTDecompressionSessionInvalidate' is only available on iOS 8.0 or newer
-      [-Werror,-Wunguarded-availability]
-        VTDecompressionSessionInvalidate(videotoolbox-&gt;session);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">libavcodec/videotoolbox.c:862:9: error: <span class="token string">'VTDecompressionSessionInvalidate'</span> is only available on iOS <span class="token number">8.0</span> or newer
+      <span class="token punctuation">[</span>-Werror,-Wunguarded-availability<span class="token punctuation">]</span>
+        VTDecompressionSessionInvalidate<span class="token punctuation">(</span>videotoolbox-<span class="token operator">&gt;</span>session<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>编辑 ios/tools/do-compile-ffmpeg.sh</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vi ios/tools/do-compile-ffmpeg.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> ios/tools/do-compile-ffmpeg.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>找到有关 <font color="#ff0000">version-min</font> 小于8.0的都改成8.0</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">if [ "$FF_ARCH" = "i386" ]; then
-    FF_BUILD_NAME="ffmpeg-i386"
-    FF_BUILD_NAME_OPENSSL=openssl-i386
-    FF_XCRUN_PLATFORM="iPhoneSimulator"
-    FF_XCRUN_OSVERSION="-mios-simulator-version-min=8.0"
-    FFMPEG_CFG_FLAGS="$FFMPEG_CFG_FLAGS $FFMPEG_CFG_FLAGS_SIMULATOR"
-elif [ "$FF_ARCH" = "x86_64" ]; then
-    FF_BUILD_NAME="ffmpeg-x86_64"
-    FF_BUILD_NAME_OPENSSL=openssl-x86_64
-    FF_XCRUN_PLATFORM="iPhoneSimulator"
-    FF_XCRUN_OSVERSION="-mios-simulator-version-min=8.0"
-    FFMPEG_CFG_FLAGS="$FFMPEG_CFG_FLAGS $FFMPEG_CFG_FLAGS_SIMULATOR"
-elif [ "$FF_ARCH" = "armv7" ]; then
-    FF_BUILD_NAME="ffmpeg-armv7"
-    FF_BUILD_NAME_OPENSSL=openssl-armv7
-    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
-    FF_XCODE_BITCODE="-fembed-bitcode"
-    FFMPEG_CFG_FLAGS="$FFMPEG_CFG_FLAGS $FFMPEG_CFG_FLAGS_ARM"
-#    FFMPEG_CFG_CPU="--cpu=cortex-a8"
-elif [ "$FF_ARCH" = "armv7s" ]; then
-    FF_BUILD_NAME="ffmpeg-armv7s"
-    FF_BUILD_NAME_OPENSSL=openssl-armv7s
-    FFMPEG_CFG_CPU="--cpu=swift"
-    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
-    FF_XCODE_BITCODE="-fembed-bitcode"
-    FFMPEG_CFG_FLAGS="$FFMPEG_CFG_FLAGS $FFMPEG_CFG_FLAGS_ARM"
-elif [ "$FF_ARCH" = "arm64" ]; then
-    FF_BUILD_NAME="ffmpeg-arm64"
-    FF_BUILD_NAME_OPENSSL=openssl-arm64
-    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
-    FF_XCODE_BITCODE="-fembed-bitcode"
-    FFMPEG_CFG_FLAGS="$FFMPEG_CFG_FLAGS $FFMPEG_CFG_FLAGS_ARM"
-    FF_GASPP_EXPORT="GASPP_FIX_XCODE5=1"
-else
-    echo "unknown architecture $FF_ARCH";
-    exit 1
-fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$FF_ARCH</span>"</span> <span class="token operator">=</span> <span class="token string">"i386"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">FF_BUILD_NAME</span><span class="token operator">=</span><span class="token string">"ffmpeg-i386"</span>
+    <span class="token assign-left variable">FF_BUILD_NAME_OPENSSL</span><span class="token operator">=</span>openssl-i386
+    <span class="token assign-left variable">FF_XCRUN_PLATFORM</span><span class="token operator">=</span><span class="token string">"iPhoneSimulator"</span>
+    <span class="token assign-left variable">FF_XCRUN_OSVERSION</span><span class="token operator">=</span><span class="token string">"-mios-simulator-version-min=8.0"</span>
+    <span class="token assign-left variable">FFMPEG_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$FFMPEG_CFG_FLAGS</span> <span class="token variable">$FFMPEG_CFG_FLAGS_SIMULATOR</span>"</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$FF_ARCH</span>"</span> <span class="token operator">=</span> <span class="token string">"x86_64"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">FF_BUILD_NAME</span><span class="token operator">=</span><span class="token string">"ffmpeg-x86_64"</span>
+    <span class="token assign-left variable">FF_BUILD_NAME_OPENSSL</span><span class="token operator">=</span>openssl-x86_64
+    <span class="token assign-left variable">FF_XCRUN_PLATFORM</span><span class="token operator">=</span><span class="token string">"iPhoneSimulator"</span>
+    <span class="token assign-left variable">FF_XCRUN_OSVERSION</span><span class="token operator">=</span><span class="token string">"-mios-simulator-version-min=8.0"</span>
+    <span class="token assign-left variable">FFMPEG_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$FFMPEG_CFG_FLAGS</span> <span class="token variable">$FFMPEG_CFG_FLAGS_SIMULATOR</span>"</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$FF_ARCH</span>"</span> <span class="token operator">=</span> <span class="token string">"armv7"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">FF_BUILD_NAME</span><span class="token operator">=</span><span class="token string">"ffmpeg-armv7"</span>
+    <span class="token assign-left variable">FF_BUILD_NAME_OPENSSL</span><span class="token operator">=</span>openssl-armv7
+    <span class="token assign-left variable">FF_XCRUN_OSVERSION</span><span class="token operator">=</span><span class="token string">"-miphoneos-version-min=8.0"</span>
+    <span class="token assign-left variable">FF_XCODE_BITCODE</span><span class="token operator">=</span><span class="token string">"-fembed-bitcode"</span>
+    <span class="token assign-left variable">FFMPEG_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$FFMPEG_CFG_FLAGS</span> <span class="token variable">$FFMPEG_CFG_FLAGS_ARM</span>"</span>
+<span class="token comment">#    FFMPEG_CFG_CPU="--cpu=cortex-a8"</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$FF_ARCH</span>"</span> <span class="token operator">=</span> <span class="token string">"armv7s"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">FF_BUILD_NAME</span><span class="token operator">=</span><span class="token string">"ffmpeg-armv7s"</span>
+    <span class="token assign-left variable">FF_BUILD_NAME_OPENSSL</span><span class="token operator">=</span>openssl-armv7s
+    <span class="token assign-left variable">FFMPEG_CFG_CPU</span><span class="token operator">=</span><span class="token string">"--cpu=swift"</span>
+    <span class="token assign-left variable">FF_XCRUN_OSVERSION</span><span class="token operator">=</span><span class="token string">"-miphoneos-version-min=8.0"</span>
+    <span class="token assign-left variable">FF_XCODE_BITCODE</span><span class="token operator">=</span><span class="token string">"-fembed-bitcode"</span>
+    <span class="token assign-left variable">FFMPEG_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$FFMPEG_CFG_FLAGS</span> <span class="token variable">$FFMPEG_CFG_FLAGS_ARM</span>"</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$FF_ARCH</span>"</span> <span class="token operator">=</span> <span class="token string">"arm64"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">FF_BUILD_NAME</span><span class="token operator">=</span><span class="token string">"ffmpeg-arm64"</span>
+    <span class="token assign-left variable">FF_BUILD_NAME_OPENSSL</span><span class="token operator">=</span>openssl-arm64
+    <span class="token assign-left variable">FF_XCRUN_OSVERSION</span><span class="token operator">=</span><span class="token string">"-miphoneos-version-min=8.0"</span>
+    <span class="token assign-left variable">FF_XCODE_BITCODE</span><span class="token operator">=</span><span class="token string">"-fembed-bitcode"</span>
+    <span class="token assign-left variable">FFMPEG_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$FFMPEG_CFG_FLAGS</span> <span class="token variable">$FFMPEG_CFG_FLAGS_ARM</span>"</span>
+    <span class="token assign-left variable">FF_GASPP_EXPORT</span><span class="token operator">=</span><span class="token string">"GASPP_FIX_XCODE5=1"</span>
+<span class="token keyword">else</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"unknown architecture <span class="token variable">$FF_ARCH</span>"</span><span class="token punctuation">;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>同理编辑 ios/tools/do-compile-openssl.sh 文件</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vi ios/tools/do-compile-openssl.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">if [ "$FF_ARCH" = "i386" ]; then
-    FF_BUILD_NAME="openssl-i386"
-    FF_XCRUN_PLATFORM="iPhoneSimulator"
-    FF_XCRUN_OSVERSION="-mios-simulator-version-min=8.0"
-    OPENSSL_CFG_FLAGS="darwin-i386-cc $OPENSSL_CFG_FLAGS"
-elif [ "$FF_ARCH" = "x86_64" ]; then
-    FF_BUILD_NAME="openssl-x86_64"
-    FF_XCRUN_PLATFORM="iPhoneSimulator"
-    FF_XCRUN_OSVERSION="-mios-simulator-version-min=8.0"
-    OPENSSL_CFG_FLAGS="darwin64-x86_64-cc $OPENSSL_CFG_FLAGS"
-elif [ "$FF_ARCH" = "armv7" ]; then
-    FF_BUILD_NAME="openssl-armv7"
-    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
-    FF_XCODE_BITCODE="-fembed-bitcode"
-    OPENSSL_CFG_FLAGS="$OPENSSL_CFG_FLAGS_ARM $OPENSSL_CFG_FLAGS"
-#    OPENSSL_CFG_CPU="--cpu=cortex-a8"
-elif [ "$FF_ARCH" = "armv7s" ]; then
-    FF_BUILD_NAME="openssl-armv7s"
-    OPENSSL_CFG_CPU="--cpu=swift"
-    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
-    FF_XCODE_BITCODE="-fembed-bitcode"
-    OPENSSL_CFG_FLAGS="$OPENSSL_CFG_FLAGS_ARM $OPENSSL_CFG_FLAGS"
-elif [ "$FF_ARCH" = "arm64" ]; then
-    FF_BUILD_NAME="openssl-arm64"
-    FF_XCRUN_OSVERSION="-miphoneos-version-min=8.0"
-    FF_XCODE_BITCODE="-fembed-bitcode"
-    OPENSSL_CFG_FLAGS="$OPENSSL_CFG_FLAGS_ARM $OPENSSL_CFG_FLAGS"
-    FF_GASPP_EXPORT="GASPP_FIX_XCODE5=1"
-else
-    echo "unknown architecture $FF_ARCH";
-    exit 1
-fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> ios/tools/do-compile-openssl.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$FF_ARCH</span>"</span> <span class="token operator">=</span> <span class="token string">"i386"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">FF_BUILD_NAME</span><span class="token operator">=</span><span class="token string">"openssl-i386"</span>
+    <span class="token assign-left variable">FF_XCRUN_PLATFORM</span><span class="token operator">=</span><span class="token string">"iPhoneSimulator"</span>
+    <span class="token assign-left variable">FF_XCRUN_OSVERSION</span><span class="token operator">=</span><span class="token string">"-mios-simulator-version-min=8.0"</span>
+    <span class="token assign-left variable">OPENSSL_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"darwin-i386-cc <span class="token variable">$OPENSSL_CFG_FLAGS</span>"</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$FF_ARCH</span>"</span> <span class="token operator">=</span> <span class="token string">"x86_64"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">FF_BUILD_NAME</span><span class="token operator">=</span><span class="token string">"openssl-x86_64"</span>
+    <span class="token assign-left variable">FF_XCRUN_PLATFORM</span><span class="token operator">=</span><span class="token string">"iPhoneSimulator"</span>
+    <span class="token assign-left variable">FF_XCRUN_OSVERSION</span><span class="token operator">=</span><span class="token string">"-mios-simulator-version-min=8.0"</span>
+    <span class="token assign-left variable">OPENSSL_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"darwin64-x86_64-cc <span class="token variable">$OPENSSL_CFG_FLAGS</span>"</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$FF_ARCH</span>"</span> <span class="token operator">=</span> <span class="token string">"armv7"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">FF_BUILD_NAME</span><span class="token operator">=</span><span class="token string">"openssl-armv7"</span>
+    <span class="token assign-left variable">FF_XCRUN_OSVERSION</span><span class="token operator">=</span><span class="token string">"-miphoneos-version-min=8.0"</span>
+    <span class="token assign-left variable">FF_XCODE_BITCODE</span><span class="token operator">=</span><span class="token string">"-fembed-bitcode"</span>
+    <span class="token assign-left variable">OPENSSL_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$OPENSSL_CFG_FLAGS_ARM</span> <span class="token variable">$OPENSSL_CFG_FLAGS</span>"</span>
+<span class="token comment">#    OPENSSL_CFG_CPU="--cpu=cortex-a8"</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$FF_ARCH</span>"</span> <span class="token operator">=</span> <span class="token string">"armv7s"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">FF_BUILD_NAME</span><span class="token operator">=</span><span class="token string">"openssl-armv7s"</span>
+    <span class="token assign-left variable">OPENSSL_CFG_CPU</span><span class="token operator">=</span><span class="token string">"--cpu=swift"</span>
+    <span class="token assign-left variable">FF_XCRUN_OSVERSION</span><span class="token operator">=</span><span class="token string">"-miphoneos-version-min=8.0"</span>
+    <span class="token assign-left variable">FF_XCODE_BITCODE</span><span class="token operator">=</span><span class="token string">"-fembed-bitcode"</span>
+    <span class="token assign-left variable">OPENSSL_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$OPENSSL_CFG_FLAGS_ARM</span> <span class="token variable">$OPENSSL_CFG_FLAGS</span>"</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$FF_ARCH</span>"</span> <span class="token operator">=</span> <span class="token string">"arm64"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">FF_BUILD_NAME</span><span class="token operator">=</span><span class="token string">"openssl-arm64"</span>
+    <span class="token assign-left variable">FF_XCRUN_OSVERSION</span><span class="token operator">=</span><span class="token string">"-miphoneos-version-min=8.0"</span>
+    <span class="token assign-left variable">FF_XCODE_BITCODE</span><span class="token operator">=</span><span class="token string">"-fembed-bitcode"</span>
+    <span class="token assign-left variable">OPENSSL_CFG_FLAGS</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$OPENSSL_CFG_FLAGS_ARM</span> <span class="token variable">$OPENSSL_CFG_FLAGS</span>"</span>
+    <span class="token assign-left variable">FF_GASPP_EXPORT</span><span class="token operator">=</span><span class="token string">"GASPP_FIX_XCODE5=1"</span>
+<span class="token keyword">else</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"unknown architecture <span class="token variable">$FF_ARCH</span>"</span><span class="token punctuation">;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="移除armv7"><a href="#移除armv7" class="headerlink" title="移除armv7"></a>移除armv7</h3><p>因为使用的是Xcode11.4打包，已经弱化了对 32 位的支持，所以需要移除armv7。如果想支持armv7,请使用低版本Xcode打包。<br>编辑 ios/compile-ffmpeg.sh 文件</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">vi ios/compile-ffmpeg.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> ios/compile-ffmpeg.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>　　找到 FF_ALL_ARCHS_IOS8_SDK=”<font color="#ff0000">armv7</font> arm64 i386 x86_64” 改为 FF_ALL_ARCHS_IOS8_SDK=”arm64 i386 x86_64”。<br>不然可能会出现一下的报错。</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">./libavutil/arm/asm.S:50:9: error: unknown directive
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./libavutil/arm/asm.S:50:9: error: unknown directive
         .arch armv7-a
         ^
-make: *** [libavcodec/arm/aacpsdsp_neon.o] Error 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">libswresample/arm/audio_convert_neon.S:25:1: error: invalid symbol redefinition
+make: *** <span class="token punctuation">[</span>libavcodec/arm/aacpsdsp_neon.o<span class="token punctuation">]</span> Error <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">libswresample/arm/audio_convert_neon.S:25:1: error: invalid symbol redefinition
 _swri_oldapi_conv_flt_to_s16_neon:
 ^
 libswresample/arm/audio_convert_neon.S:70:1: error: invalid symbol redefinition
 _swri_oldapi_conv_fltp_to_s16_2ch_neon:
 ^
-make: *** [libswresample/arm/audio_convert_neon.o] Error 1
-make: *** Waiting for unfinished jobs....<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ios
-# 先编译OpenSSL，如果不需要支持https可以跳过
+make: *** <span class="token punctuation">[</span>libswresample/arm/audio_convert_neon.o<span class="token punctuation">]</span> Error <span class="token number">1</span>
+make: *** Waiting <span class="token keyword">for</span> unfinished jobs<span class="token punctuation">..</span><span class="token punctuation">..</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ios
+<span class="token comment"># 先编译OpenSSL，如果不需要支持https可以跳过</span>
 ./compile-openssl.sh all
-# 编译ffmpeg
+<span class="token comment"># 编译ffmpeg</span>
 ./compile-ffmpeg.sh all<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><p>打开 IJKMediaPlayer.xcodeproj</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">open IJKMediaPlayer/IJKMediaPlayer.xcodeproj<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">open</span> IJKMediaPlayer/IJKMediaPlayer.xcodeproj<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="添加openssl"><a href="#添加openssl" class="headerlink" title="添加openssl"></a>添加openssl</h4><p>如果不需要支持HTTPS可以跳过。</p>
 <p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/171619026cf178b6~tplv-t2oaga2asx-image.image"><br>选择IJKMediaFramework,添加libcrypto.a和libssl.a这两个文件，如果一次加不进就再尝试一次。</p>
 <h4 id="配置打包版本"><a href="#配置打包版本" class="headerlink" title="配置打包版本"></a>配置打包版本</h4><p>因为我们前面已经把编译版本调到了最低支持8.0，最好把打包的版本也调到最低支持8.0。</p>
@@ -691,9 +692,9 @@ make: *** Waiting for unfinished jobs....<span aria-hidden="true" class="line-nu
 <p>直接键盘上按command + b 打包。</p>
 <h4 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h4><p>其实合不合都可以，合并后的包在真机或模拟器上都可以使用，但体积也会变大一倍。这个自行选择。</p>
 <p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/17161c1677f48dcd~tplv-t2oaga2asx-image.image"><br>直接打开包所在的路径<br>用终端进入 Products 目录</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd /Users/LSW/Library/Developer/Xcode/DerivedData/IJKMediaPlayer-hdieucicuskakgftfkjtnzhnbsme/Build/Products<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /Users/LSW/Library/Developer/Xcode/DerivedData/IJKMediaPlayer-hdieucicuskakgftfkjtnzhnbsme/Build/Products<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>用命令合并</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">lipo -create Release-iphoneos/IJKMediaFramework.framework/IJKMediaFramework Release-iphonesimulator/IJKMediaFramework.framework/IJKMediaFramework -output IJKMediaFramework<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lipo <span class="token parameter variable">-create</span> Release-iphoneos/IJKMediaFramework.framework/IJKMediaFramework Release-iphonesimulator/IJKMediaFramework.framework/IJKMediaFramework <span class="token parameter variable">-output</span> IJKMediaFramework<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/4/10/17161ca5f3dd2ff2~tplv-t2oaga2asx-image.image"><br>直接把打包好的 IJKMediaFramework 替换 Release-iphoneos/IJKMediaFramework.framework/IJKMediaFramework，真机那个就是模拟器真机都能用的包了。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上就是我之前打包都完整过程了，至于如何导入在这就不提了，网上已经有很多文章。希望能帮到需要打包的同学，有问题请直接指出。</p>

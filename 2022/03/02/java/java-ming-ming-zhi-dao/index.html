@@ -41,7 +41,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -514,16 +514,16 @@
 <p>好的代码本身就是注释，我们要尽量规范和美化自己的代码来减少不必要的注释。</p>
 <p>若编程语言足够有表达力，就不需要注释，尽量通过代码来阐述。</p>
 </blockquote>
-<h2 id="常见的命名规则以及使用场景"><a href="#常见的命名规则以及使用场景" class="headerlink" title="常见的命名规则以及使用场景"></a>常见的命名规则以及使用场景</h2><h3 id="驼峰命名法（CamelCase）"><a href="#驼峰命名法（CamelCase）" class="headerlink" title="驼峰命名法（CamelCase）"></a>驼峰命名法（CamelCase）</h3><p>​    驼峰命名法应该我们最常见的一个，这种命名方式使用单词首字母大写的格式来区别各个单词。</p>
-<h4 id="大驼峰命名法（UpperCamelCase"><a href="#大驼峰命名法（UpperCamelCase" class="headerlink" title="大驼峰命名法（UpperCamelCase)"></a>大驼峰命名法（UpperCamelCase)</h4><p>​    命名使用场景：<strong>类</strong></p>
+<h2 id="常见的命名规则以及使用场景"><a href="#常见的命名规则以及使用场景" class="headerlink" title="常见的命名规则以及使用场景"></a>常见的命名规则以及使用场景</h2><h3 id="驼峰命名法（CamelCase）"><a href="#驼峰命名法（CamelCase）" class="headerlink" title="驼峰命名法（CamelCase）"></a>驼峰命名法（CamelCase）</h3><p>​	驼峰命名法应该我们最常见的一个，这种命名方式使用单词首字母大写的格式来区别各个单词。</p>
+<h4 id="大驼峰命名法（UpperCamelCase"><a href="#大驼峰命名法（UpperCamelCase" class="headerlink" title="大驼峰命名法（UpperCamelCase)"></a>大驼峰命名法（UpperCamelCase)</h4><p>​	命名使用场景：<strong>类</strong></p>
 <p>正例：</p>
 <pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">ServiceDiscovery、ServiceInstance、LruCacheFactory<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>反例：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">serviceDiscovery、<span class="token class-name">Serviceinstance</span>、<span class="token class-name">LRUCacheFactory</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h4 id="小驼峰命名法（lowerCamelCase）"><a href="#小驼峰命名法（lowerCamelCase）" class="headerlink" title="小驼峰命名法（lowerCamelCase）"></a>小驼峰命名法（lowerCamelCase）</h4><p>​    在大驼峰的基础上，第一个单词的首字母也为小写称为小驼峰。</p>
-<p>​    命名使用场景：<strong>方法名、参数名、成员变量、局部变量</strong></p>
+<h4 id="小驼峰命名法（lowerCamelCase）"><a href="#小驼峰命名法（lowerCamelCase）" class="headerlink" title="小驼峰命名法（lowerCamelCase）"></a>小驼峰命名法（lowerCamelCase）</h4><p>​	在大驼峰的基础上，第一个单词的首字母也为小写称为小驼峰。</p>
+<p>​	命名使用场景：<strong>方法名、参数名、成员变量、局部变量</strong></p>
 <p>正例：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">getUserInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token function">createCustomThreadPool</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -536,8 +536,8 @@ CreateCustomThreadPool()
 setNameFormat(String NameFormat)
 Uservice user_service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="蛇形命名法（snake-case"><a href="#蛇形命名法（snake-case" class="headerlink" title="蛇形命名法（snake_case)"></a>蛇形命名法（snake_case)</h3><p>​    蛇形命名法也称为下划线命名法，单词与单词之间使用下划线来区别各个单词。</p>
-<p>​    命名使用场景：<strong>测试方法名、常量、枚举名称</strong></p>
+<h3 id="蛇形命名法（snake-case"><a href="#蛇形命名法（snake-case" class="headerlink" title="蛇形命名法（snake_case)"></a>蛇形命名法（snake_case)</h3><p>​	蛇形命名法也称为下划线命名法，单词与单词之间使用下划线来区别各个单词。</p>
+<p>​	命名使用场景：<strong>测试方法名、常量、枚举名称</strong></p>
 <p>正例：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
 <span class="token keyword">void</span> <span class="token function">should_get_200_status_code_when_request_is_valid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -550,8 +550,8 @@ void shouldGet200StatusCodeWhenRequestIsValid() {
   ......
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="串式命名法（kebab-case）"><a href="#串式命名法（kebab-case）" class="headerlink" title="串式命名法（kebab-case）"></a>串式命名法（kebab-case）</h3><p>​    串式命名法在单词与单词之间用中划线来区别各个单词。</p>
-<p>​    命名使用场景：<strong>项目文件夹</strong></p>
+<h3 id="串式命名法（kebab-case）"><a href="#串式命名法（kebab-case）" class="headerlink" title="串式命名法（kebab-case）"></a>串式命名法（kebab-case）</h3><p>​	串式命名法在单词与单词之间用中划线来区别各个单词。</p>
+<p>​	命名使用场景：<strong>项目文件夹</strong></p>
 <p>例子：</p>
 <pre class="line-numbers language-none"><code class="language-none">kebab-case
 dubbo-registry<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>

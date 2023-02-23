@@ -41,7 +41,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -549,14 +549,14 @@
 
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>结果：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-1 : 2
-Thread-1 : 1
-Thread-0 : 1
-Thread-0 : 0
-Thread-1 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>　　由执行结果可见，两个线程是异步执行的。  </p>
 <p>2、普通方法加锁  </p>
 <h3 id="多线程单对象执行"><a href="#多线程单对象执行" class="headerlink" title="多线程单对象执行"></a>多线程单对象执行</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SynchronizedTest</span><span class="token punctuation">{</span>
@@ -589,14 +589,14 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-0 : 1
-Thread-0 : 0
-Thread-1 : 2
-Thread-1 : 1
-Thread-1 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>　　结果表明，虽然加了多线程，但加了synchronized关键字的方法还是同步执行的。  </p>
 <h3 id="多线程多对象执行"><a href="#多线程多对象执行" class="headerlink" title="多线程多对象执行"></a>多线程多对象执行</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SynchronizedTest</span><span class="token punctuation">{</span>
 
@@ -628,14 +628,14 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
         test<span class="token punctuation">.</span><span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-1 : 2
-Thread-1 : 1
-Thread-0 : 1
-Thread-1 : 0
-Thread-0 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>　　可以看到，虽然加了同步锁，但是不生效。</p>
 <pre class="line-numbers language-none"><code class="language-none">当一个对象中有synchronized method或synchronized block的时候调用此对象的同步方法或进入其同步区域时，就必须先获得对象锁。如果此对象的对象锁已被其他调用者占用，则需要等待此锁被释放。  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>　　因为这里两个线程执行时都新建一个对象，所以从执行对象中获取到的对象锁是不同的两个，也就是为什么锁不生效的原因了。   </p>
@@ -669,14 +669,14 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
         <span class="token class-name">SynchronizedTest</span><span class="token punctuation">.</span><span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-0 : 1
-Thread-0 : 0
-Thread-1 : 2
-Thread-1 : 1
-Thread-1 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>　　因为静态方法在执行时无需新建对象，直接由Class对象，只有一个Class对象，所以获取到锁是同一个。 </p>
 <p>4、利用this对代码块加锁  </p>
 <h3 id="多线程单对象执行-1"><a href="#多线程单对象执行-1" class="headerlink" title="多线程单对象执行"></a>多线程单对象执行</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SynchronizedTest</span><span class="token punctuation">{</span>
@@ -710,14 +710,14 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
         synchronizedTest<span class="token punctuation">.</span><span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-0 : 1
-Thread-0 : 0
-Thread-1 : 2
-Thread-1 : 1
-Thread-1 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>　　因为是调用同一个对象的方法，用this获取到的锁是同一个，所以是同步执行的。  </p>
 <h3 id="多线程多对象执行-1"><a href="#多线程多对象执行-1" class="headerlink" title="多线程多对象执行"></a>多线程多对象执行</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SynchronizedTest</span><span class="token punctuation">{</span>
 
@@ -751,14 +751,14 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
         test<span class="token punctuation">.</span><span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-1 : 2
-Thread-1 : 1
-Thread-0 : 1
-Thread-0 : 0
-Thread-1 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>　　在不同的对象中执行，获取到的锁不是同一个，所以是异步的。 </p>
 <p>5、利用类对代码块加锁  </p>
 <h3 id="多线程单对象执行-2"><a href="#多线程单对象执行-2" class="headerlink" title="多线程单对象执行"></a>多线程单对象执行</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SynchronizedTest</span><span class="token punctuation">{</span>
@@ -792,14 +792,14 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
         synchronizedTest<span class="token punctuation">.</span><span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-0 : 1
-Thread-0 : 0
-Thread-1 : 2
-Thread-1 : 1
-Thread-1 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="多线程多对象执行-2"><a href="#多线程多对象执行-2" class="headerlink" title="多线程多对象执行"></a>多线程多对象执行</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SynchronizedTest</span><span class="token punctuation">{</span>
     
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -832,14 +832,14 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
         test<span class="token punctuation">.</span><span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-0 : 1
-Thread-0 : 0
-Thread-1 : 2
-Thread-1 : 1
-Thread-1 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>　　无论是单对象还是多对象执行都是可以同步的，因为SynchronizedTest.class 类对象只有一个，所以拿到的对象锁是同一个。  </p>
 <p>6、利用普通变量对代码块加锁</p>
 <h3 id="多线程单对象执行-3"><a href="#多线程单对象执行-3" class="headerlink" title="多线程单对象执行"></a>多线程单对象执行</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SynchronizedTest</span><span class="token punctuation">{</span>
@@ -876,14 +876,14 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-0 : 1
-Thread-0 : 0
-Thread-1 : 2
-Thread-1 : 1
-Thread-1 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="多线程多对象执行-3"><a href="#多线程多对象执行-3" class="headerlink" title="多线程多对象执行"></a>多线程多对象执行</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SynchronizedTest</span><span class="token punctuation">{</span>
 
@@ -919,14 +919,14 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
         test<span class="token punctuation">.</span><span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-1 : 2
-Thread-0 : 1
-Thread-1 : 1
-Thread-0 : 0
-Thread-1 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>　　由此可见，普通的类属性并不能实现全局锁。  </p>
 <p>6、利用类静态变量对代码块加锁</p>
 <h3 id="多线程单对象执行-4"><a href="#多线程单对象执行-4" class="headerlink" title="多线程单对象执行"></a>多线程单对象执行</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SynchronizedTest</span><span class="token punctuation">{</span>
@@ -963,14 +963,14 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-0 : 1
-Thread-0 : 0
-Thread-1 : 2
-Thread-1 : 1
-Thread-1 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="多线程多对象执行-4"><a href="#多线程多对象执行-4" class="headerlink" title="多线程多对象执行"></a>多线程多对象执行</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SynchronizedTest</span><span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> string <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1005,14 +1005,14 @@ Process finished with exit code 0<span aria-hidden="true" class="line-numbers-ro
         test<span class="token punctuation">.</span><span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Thread-0 : 2
-Thread-0 : 1
-Thread-0 : 0
-Thread-1 : 2
-Thread-1 : 1
-Thread-1 : 0
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Thread-0 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-0 <span class="token builtin class-name">:</span> <span class="token number">0</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Thread-1 <span class="token builtin class-name">:</span> <span class="token number">0</span>
 
-Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>　　很明显，类静态变量也是可以实现全局加锁的，原因是对象获取到到锁是同一个。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>　　上面分析了那么多种实现场景，对比了各场景是否能实现全局加锁。得出到结论是只要获取到的锁是同一个，那就能实现全局加锁，这里的全局加锁也就是所谓的类锁吧。<br>　　当然这种全局加锁只能在单实例中用用，如果是多实例，那也达不到全局锁的效果。这时还得看分布式锁。<br>　　对synchronized关键字理解对就那么多，有偏差的地方请指出。</p>
 

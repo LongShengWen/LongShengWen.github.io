@@ -41,7 +41,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -520,14 +520,14 @@
 <blockquote>
 <p>Java之所以强，并完全是因为其夸平台性，同时也因为其用户群体大，简单易学，生态强大等。</p>
 </blockquote>
-<h3 id="JVM、JDK、JRE区别"><a href="#JVM、JDK、JRE区别" class="headerlink" title="JVM、JDK、JRE区别"></a>JVM、JDK、JRE区别</h3><h4 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h4><p>​    Java 虚拟机（JVM）是运行 Java 字节码的虚拟机。JVM 有针对不同系统的特定实现（Windows，Linux，macOS），目的是使用相同的字节码，它们都会给出相同的结果。字节码和不同系统的 JVM 实</p>
+<h3 id="JVM、JDK、JRE区别"><a href="#JVM、JDK、JRE区别" class="headerlink" title="JVM、JDK、JRE区别"></a>JVM、JDK、JRE区别</h3><h4 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h4><p>​	Java 虚拟机（JVM）是运行 Java 字节码的虚拟机。JVM 有针对不同系统的特定实现（Windows，Linux，macOS），目的是使用相同的字节码，它们都会给出相同的结果。字节码和不同系统的 JVM 实</p>
 <p>现是 Java 语言“一次编译，随处可以运行”的关键所在。</p>
 <blockquote>
 <p>JVM 并不是只有一种！只要满足 JVM 规范，每个公司、组织或者个人都可以开发自己的专属 JVM。</p>
 </blockquote>
-<h4 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h4><p>​    JDK 是 Java Development Kit 缩写，它是功能齐全的 Java SDK。它拥有 JRE 所拥有的一切，还有编译器（javac）和工具（如 javadoc 和 jdb），它能够创建和编译程序。</p>
-<h4 id="JRE"><a href="#JRE" class="headerlink" title="JRE"></a>JRE</h4><p>​    JRE 是 Java 运行时环境。它是运行已编译 Java 程序所需的所有内容的集合，包括 Java 虚拟机（JVM），Java 类库，java 命令和其他的一些基础构件。</p>
-<h3 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h3><p>​    在 Java 中，JVM 可以理解的代码就叫做字节码（即扩展名为 <code>.class</code> 的文件），它不面向任何特定的处理器，只面向虚拟机。Java 语言通过字节码的方式，在一定程度上解决了传统解释型语言执行</p>
+<h4 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h4><p>​	JDK 是 Java Development Kit 缩写，它是功能齐全的 Java SDK。它拥有 JRE 所拥有的一切，还有编译器（javac）和工具（如 javadoc 和 jdb），它能够创建和编译程序。</p>
+<h4 id="JRE"><a href="#JRE" class="headerlink" title="JRE"></a>JRE</h4><p>​	JRE 是 Java 运行时环境。它是运行已编译 Java 程序所需的所有内容的集合，包括 Java 虚拟机（JVM），Java 类库，java 命令和其他的一些基础构件。</p>
+<h3 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h3><p>​	在 Java 中，JVM 可以理解的代码就叫做字节码（即扩展名为 <code>.class</code> 的文件），它不面向任何特定的处理器，只面向虚拟机。Java 语言通过字节码的方式，在一定程度上解决了传统解释型语言执行</p>
 <p>效率低的问题，同时又保留了解释型语言可移植的特点。</p>
 <h3 id="Java和C-的区别"><a href="#Java和C-的区别" class="headerlink" title="Java和C++的区别"></a>Java和C++的区别</h3><ul>
 <li>都是面向对象的语言，都支持封装、继承和多态</li>
@@ -614,8 +614,8 @@
 <blockquote>
 <p>Java 每种基本类型所占存储空间是固定的，和运行平台无关。</p>
 </blockquote>
-<h3 id="可变长参数"><a href="#可变长参数" class="headerlink" title="可变长参数"></a>可变长参数</h3><p>​    从 <strong>Java5</strong> 开始，Java 支持定义可变长参数，所谓可变长参数就是允许在调用方法时传入不定长度的参数。</p>
-<p>​    <strong>prints</strong>方法接受0个或N个字符串参数，<code>可变参数只能放在最后一位</code>。</p>
+<h3 id="可变长参数"><a href="#可变长参数" class="headerlink" title="可变长参数"></a>可变长参数</h3><p>​	从 <strong>Java5</strong> 开始，Java 支持定义可变长参数，所谓可变长参数就是允许在调用方法时传入不定长度的参数。</p>
+<p>​	<strong>prints</strong>方法接受0个或N个字符串参数，<code>可变参数只能放在最后一位</code>。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">prints</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token comment">//...</span>
 <span class="token punctuation">}</span>
@@ -761,7 +761,7 @@
 <li>重载就是同样的一个方法能够根据输入数据的不同，做出不同的处理</li>
 <li>重写就是当子类继承自父类的相同方法，输入数据一样，但要做出有别于父类的响应时，你就要覆盖父类方法</li>
 </ul>
-<h4 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h4><p>​    发生在同一个类中或者父类和子类之间，方法名必须相同，参数类型不同、个数不同、顺序不同，<strong>方法返回值和访问修饰符可以不同</strong>。同一个类中多个同名方法根据不同的传参来执行不同的逻辑处理。</p>
+<h4 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h4><p>​	发生在同一个类中或者父类和子类之间，方法名必须相同，参数类型不同、个数不同、顺序不同，<strong>方法返回值和访问修饰符可以不同</strong>。同一个类中多个同名方法根据不同的传参来执行不同的逻辑处理。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Car</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">Integer</span> speed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -779,7 +779,7 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h4><p>​    重写发生在运行期，是子类对父类的允许访问的方法的实现过程进行重新编写。</p>
+<h4 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h4><p>​	重写发生在运行期，是子类对父类的允许访问的方法的实现过程进行重新编写。</p>
 <pre><code>1. 方法名、参数列表必须相同，子类方法返回值类型应比父类方法返回值类型更小或相等，抛出的异常范围小于等于父类，访问修饰符范围大于等于父类
 1. 如果父类方法访问修饰符为 `private/final/static` 则子类就不能重写该方法，但是被 `static` 修饰的方法能够被再次声明。
 1. 构造方法无法被重写
@@ -848,10 +848,10 @@
 		<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="hashCode-和equals"><a href="#hashCode-和equals" class="headerlink" title="hashCode()和equals()"></a>hashCode()和equals()</h3><p>​    hashCode()的作用是获取哈希码（int整数），也称为散列码，用于确定该对象在哈希表中的索引位置。hashCode() 被定义于Object类中，这就意味着 Java 中的任何类都包含有该函数。</p>
-<p>​    <strong>hashCode() 和 equals()都是用于比较两个对象是否相等。</strong></p>
-<h3 id="包装类型的常量池技术"><a href="#包装类型的常量池技术" class="headerlink" title="包装类型的常量池技术"></a>包装类型的常量池技术</h3><p>​    Java基本类型的包装类的大部分都实现了常量池技术, <code>Float</code> 和 <code>Double</code> 没有实现常量池技术。</p>
-<p>​    Byte,Short,Integer,Long 这 4 种包装类默认创建了数值 <strong>[-128，127]</strong> 的相应类型的缓存数据，Character 创建了数值在 <strong>[0,127]</strong> 范围的缓存数据，Boolean 直接返回 True or False。</p>
+<h3 id="hashCode-和equals"><a href="#hashCode-和equals" class="headerlink" title="hashCode()和equals()"></a>hashCode()和equals()</h3><p>​	hashCode()的作用是获取哈希码（int整数），也称为散列码，用于确定该对象在哈希表中的索引位置。hashCode() 被定义于Object类中，这就意味着 Java 中的任何类都包含有该函数。</p>
+<p>​	<strong>hashCode() 和 equals()都是用于比较两个对象是否相等。</strong></p>
+<h3 id="包装类型的常量池技术"><a href="#包装类型的常量池技术" class="headerlink" title="包装类型的常量池技术"></a>包装类型的常量池技术</h3><p>​	Java基本类型的包装类的大部分都实现了常量池技术, <code>Float</code> 和 <code>Double</code> 没有实现常量池技术。</p>
+<p>​	Byte,Short,Integer,Long 这 4 种包装类默认创建了数值 <strong>[-128，127]</strong> 的相应类型的缓存数据，Character 创建了数值在 <strong>[0,127]</strong> 范围的缓存数据，Boolean 直接返回 True or False。</p>
 <p><strong>Integer 缓存源码：</strong></p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Integer</span> <span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;=</span> <span class="token class-name">IntegerCache</span><span class="token punctuation">.</span>low <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;=</span> <span class="token class-name">IntegerCache</span><span class="token punctuation">.</span>high<span class="token punctuation">)</span>
@@ -920,9 +920,9 @@
 <li><p><strong>默认值</strong>：从变量是否有默认值来看，成员变量如果没有被赋初，则会自动以类型的默认值而赋值（一种情况例外:被 <code>final</code> 修饰的成员变量也必须显式地赋值），而局部变量则不会自动赋值。</p>
 </li>
 </ul>
-<h3 id="面向对象三大特征"><a href="#面向对象三大特征" class="headerlink" title="面向对象三大特征"></a>面向对象三大特征</h3><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><p>​    封装是指把一个对象的状态信息（也就是属性）隐藏在对象内部，不允许外部对象直接访问对象的内部信息。但是可以提供一些可以被外界访问的方法来操作属性。</p>
-<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>​    继承是使用已存在的类的定义作为基础建立新类的技术，新类的定义可以增加新的数据或新的功能，也可以用父类的功能，但不能选择性地继承父类。通过使用继承，可以快速地创建新的类，可以提高代码的重用，程序的可维护性，节省大量创建新类的时间 ，提高我们的开发效率。</p>
-<h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><p>​    多态，顾名思义，表示一个对象具有多种的状态，具体表现为父类的引用指向子类的实例。</p>
+<h3 id="面向对象三大特征"><a href="#面向对象三大特征" class="headerlink" title="面向对象三大特征"></a>面向对象三大特征</h3><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><p>​	封装是指把一个对象的状态信息（也就是属性）隐藏在对象内部，不允许外部对象直接访问对象的内部信息。但是可以提供一些可以被外界访问的方法来操作属性。</p>
+<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>​	继承是使用已存在的类的定义作为基础建立新类的技术，新类的定义可以增加新的数据或新的功能，也可以用父类的功能，但不能选择性地继承父类。通过使用继承，可以快速地创建新的类，可以提高代码的重用，程序的可维护性，节省大量创建新类的时间 ，提高我们的开发效率。</p>
+<h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><p>​	多态，顾名思义，表示一个对象具有多种的状态，具体表现为父类的引用指向子类的实例。</p>
 <p>特点：</p>
 <ul>
 <li>对象类型和引用类型之间具有继承（类）/实现（接口）的关系。</li>
@@ -936,7 +936,7 @@
 <li><p><strong>深拷贝</strong>：深拷贝会完全复制整个对象，包括这个对象所包含的内部对象。</p>
 </li>
 </ul>
-<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p>​    <strong>Java 泛型（generics）</strong> 是 JDK 5 中引入的一个新特性, 泛型提供了编译时类型安全检测机制，该机制允许程序员在编译时检测到非法的类型。泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。</p>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p>​	<strong>Java 泛型（generics）</strong> 是 JDK 5 中引入的一个新特性, 泛型提供了编译时类型安全检测机制，该机制允许程序员在编译时检测到非法的类型。泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。</p>
 <blockquote>
 <p>Java 的泛型是伪泛型，这是因为 Java 在运行期间，所有的泛型信息都会被擦掉，这也就是通常所说类型擦除 。</p>
 </blockquote>
@@ -988,15 +988,15 @@
 <span class="token function">printArray</span><span class="token punctuation">(</span>intArray<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">printArray</span><span class="token punctuation">(</span>stringArray<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>​    反射赋予了我们在运行时分析类以及执行类中方法的能力，通过反射你可以获取任意一个类的所有属性和方法，你还可以调用这些方法和属性。</p>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>​	反射赋予了我们在运行时分析类以及执行类中方法的能力，通过反射你可以获取任意一个类的所有属性和方法，你还可以调用这些方法和属性。</p>
 <h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
 <li><strong>优点：</strong>可以让咱们的代码更加灵活、为各种框架提供开箱即用的功能提供了便利。</li>
 <li><strong>缺点：</strong>让我们在运行时有了分析操作类的能力，这同样也增加了安全问题。</li>
 </ul>
-<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>​    <code>Annontation</code>(注解）是Java5 开始引入的新特性，可以看作是一种特殊的注释，主要用于修饰类、方法或者变量。</p>
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>​	<code>Annontation</code>(注解）是Java5 开始引入的新特性，可以看作是一种特殊的注释，主要用于修饰类、方法或者变量。</p>
 <p>注解本质是一个继承了<code>Annotation</code> 的特殊接口：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span>METHOD<span class="token punctuation">)</span>
-<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span>SOURCE<span class="token punctuation">)</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">METHOD</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span><span class="token constant">SOURCE</span><span class="token punctuation">)</span>
 <span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">Override</span> <span class="token punctuation">{</span>
 
 <span class="token punctuation">}</span>
@@ -1012,7 +1012,7 @@
 <li><p><strong>运行期通过反射处理</strong>：像框架中自带的注解(比如 Spring 框架的 <code>@Value</code> 、<code>@Component</code>)都是通过反射来进行处理的。</p>
 </li>
 </ul>
-<h2 id="I-x2F-O"><a href="#I-x2F-O" class="headerlink" title="I/O"></a>I/O</h2><h3 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h3><p>​    如果我们需要持久化Java对象比如Java对象保存在文件中，或者在网络传输Java对象，这些场景都需要用到序列化。</p>
+<h2 id="I-x2F-O"><a href="#I-x2F-O" class="headerlink" title="I/O"></a>I/O</h2><h3 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h3><p>​	如果我们需要持久化Java对象比如Java对象保存在文件中，或者在网络传输Java对象，这些场景都需要用到序列化。</p>
 <ul>
 <li><strong>序列化：</strong>将数据结构或对象转换成二进制字节流的过程。</li>
 <li><strong>反序列化：</strong>将在序列化过程中所生成的二进制字节流转换为数据机构或者对象的过程。</li>

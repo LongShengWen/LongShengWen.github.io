@@ -41,7 +41,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -480,7 +480,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    848
+                    800
                 </div>
                 
 
@@ -522,26 +522,26 @@
 <p><strong>优点：</strong>提供代码结构的扩展性，屏蔽每一个功能类中的具体实现逻辑，让外部可以更加简单的只是知道调用即可。</p>
 <p><strong>缺点：</strong>需要实现的类非常多。</p>
 <h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>模拟积分兑换中的发放多种类型奖品。</p>
-<h3 id="工程文件目录"><a href="#工程文件目录" class="headerlink" title="工程文件目录"></a>工程文件目录</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">├── pom.xml
+<h3 id="工程文件目录"><a href="#工程文件目录" class="headerlink" title="工程文件目录"></a>工程文件目录</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">├── pom.xml
 ├── src
-│&nbsp;&nbsp; └── main
-│&nbsp;&nbsp;     ├── java
-│&nbsp;&nbsp;     │&nbsp;&nbsp; └── factory
-│&nbsp;&nbsp;     │&nbsp;&nbsp;     ├── StoreFactory.java
-│&nbsp;&nbsp;     │&nbsp;&nbsp;     ├── define
-│&nbsp;&nbsp;     │&nbsp;&nbsp;     │&nbsp;&nbsp; └── CommodityType.java
-│&nbsp;&nbsp;     │&nbsp;&nbsp;     └── store
-│&nbsp;&nbsp;     │&nbsp;&nbsp;         ├── ICommodity.java
-│&nbsp;&nbsp;     │&nbsp;&nbsp;         └── impl
-│&nbsp;&nbsp;     │&nbsp;&nbsp;             ├── CardCommodityService.java
-│&nbsp;&nbsp;     │&nbsp;&nbsp;             ├── CouponCommodityService.java
-│&nbsp;&nbsp;     │&nbsp;&nbsp;             └── GoodsCommodityService.java
-│&nbsp;&nbsp;     └── resources<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+│   └── main
+│       ├── <span class="token function">java</span>
+│       │   └── factory
+│       │       ├── StoreFactory.java
+│       │       ├── define
+│       │       │   └── CommodityType.java
+│       │       └── store
+│       │           ├── ICommodity.java
+│       │           └── impl
+│       │               ├── CardCommodityService.java
+│       │               ├── CouponCommodityService.java
+│       │               └── GoodsCommodityService.java
+│       └── resources<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="添加Maven依赖"><a href="#添加Maven依赖" class="headerlink" title="添加Maven依赖"></a>添加Maven依赖</h3><blockquote>
 <p>这里我使用了 <strong>lombok</strong> 插件，所以需要引用lombok依赖。</p>
 </blockquote>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>1.18.22<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
@@ -582,7 +582,7 @@
 
     <span class="token annotation punctuation">@Override</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendCommodity</span><span class="token punctuation">(</span><span class="token class-name">String</span> uId<span class="token punctuation">,</span> <span class="token class-name">String</span> commodityId<span class="token punctuation">,</span> <span class="token class-name">String</span> bizId<span class="token punctuation">,</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> extMap<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
-        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"请求参数[兑换券] =&gt; uId：{} commodityId：{} bizId：{} extMap：{}"</span><span class="token punctuation">,</span> uId<span class="token punctuation">,</span> commodityId<span class="token punctuation">,</span> bizId<span class="token punctuation">,</span> JSON<span class="token punctuation">.</span><span class="token function">toJSON</span><span class="token punctuation">(</span>extMap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"请求参数[兑换券] =&gt; uId：{} commodityId：{} bizId：{} extMap：{}"</span><span class="token punctuation">,</span> uId<span class="token punctuation">,</span> commodityId<span class="token punctuation">,</span> bizId<span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">toJSON</span><span class="token punctuation">(</span>extMap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
@@ -591,7 +591,7 @@
 
     <span class="token annotation punctuation">@Override</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendCommodity</span><span class="token punctuation">(</span><span class="token class-name">String</span> uId<span class="token punctuation">,</span> <span class="token class-name">String</span> commodityId<span class="token punctuation">,</span> <span class="token class-name">String</span> bizId<span class="token punctuation">,</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> extMap<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
-        log<span class="token punctuation">.</span><span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">"请求参数[优惠券] =&gt; uId：{} commodityId：{} bizId：{} extMap：{}"</span><span class="token punctuation">,</span> uId<span class="token punctuation">,</span> commodityId<span class="token punctuation">,</span> bizId<span class="token punctuation">,</span> JSON<span class="token punctuation">.</span><span class="token function">toJSON</span><span class="token punctuation">(</span>extMap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        log<span class="token punctuation">.</span><span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">"请求参数[优惠券] =&gt; uId：{} commodityId：{} bizId：{} extMap：{}"</span><span class="token punctuation">,</span> uId<span class="token punctuation">,</span> commodityId<span class="token punctuation">,</span> bizId<span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">toJSON</span><span class="token punctuation">(</span>extMap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
@@ -600,7 +600,7 @@
 
     <span class="token annotation punctuation">@Override</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendCommodity</span><span class="token punctuation">(</span><span class="token class-name">String</span> uId<span class="token punctuation">,</span> <span class="token class-name">String</span> commodityId<span class="token punctuation">,</span> <span class="token class-name">String</span> bizId<span class="token punctuation">,</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> extMap<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
-        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"请求参数[商品] =&gt; uId：{} commodityId：{} bizId：{} extMap：{}"</span><span class="token punctuation">,</span> uId<span class="token punctuation">,</span> commodityId<span class="token punctuation">,</span> bizId<span class="token punctuation">,</span> JSON<span class="token punctuation">.</span><span class="token function">toJSON</span><span class="token punctuation">(</span>extMap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"请求参数[商品] =&gt; uId：{} commodityId：{} bizId：{} extMap：{}"</span><span class="token punctuation">,</span> uId<span class="token punctuation">,</span> commodityId<span class="token punctuation">,</span> bizId<span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">toJSON</span><span class="token punctuation">(</span>extMap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
@@ -633,9 +633,9 @@
     commodityService_3<span class="token punctuation">.</span><span class="token function">sendCommodity</span><span class="token punctuation">(</span><span class="token string">"10001"</span><span class="token punctuation">,</span><span class="token string">"AQY1xjkUodl8LO975GdfrYUio"</span><span class="token punctuation">,</span><span class="token keyword">null</span><span class="token punctuation">,</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h5 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">11:25:27.016 [main] DEBUG factory.store.impl.CouponCommodityService - 请求参数[优惠券] =&gt; uId：10001 commodityId：EGM1023938910232121323432 bizId：791098764902132 extMap：null
-11:25:27.036 [main] INFO factory.store.impl.GoodsCommodityService - 请求参数[商品] =&gt; uId：10001 commodityId：9820198721311 bizId：1023000020112221113 extMap：{"consigneeUserName":"谢飞机"}
-11:25:27.039 [main] INFO factory.store.impl.CardCommodityService - 请求参数[兑换券] =&gt; uId：10001 commodityId：AQY1xjkUodl8LO975GdfrYUio bizId：null extMap：null<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h5 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">11</span>:25:27.016 <span class="token punctuation">[</span>main<span class="token punctuation">]</span> DEBUG factory.store.impl.CouponCommodityService - 请求参数<span class="token punctuation">[</span>优惠券<span class="token punctuation">]</span> <span class="token operator">=</span><span class="token operator">&gt;</span> uId：10001 commodityId：EGM1023938910232121323432 bizId：791098764902132 extMap：null
+<span class="token number">11</span>:25:27.036 <span class="token punctuation">[</span>main<span class="token punctuation">]</span> INFO factory.store.impl.GoodsCommodityService - 请求参数<span class="token punctuation">[</span>商品<span class="token punctuation">]</span> <span class="token operator">=</span><span class="token operator">&gt;</span> uId：10001 commodityId：9820198721311 bizId：1023000020112221113 extMap：<span class="token punctuation">{</span><span class="token string">"consigneeUserName"</span><span class="token builtin class-name">:</span><span class="token string">"谢飞机"</span><span class="token punctuation">}</span>
+<span class="token number">11</span>:25:27.039 <span class="token punctuation">[</span>main<span class="token punctuation">]</span> INFO factory.store.impl.CardCommodityService - 请求参数<span class="token punctuation">[</span>兑换券<span class="token punctuation">]</span> <span class="token operator">=</span><span class="token operator">&gt;</span> uId：10001 commodityId：AQY1xjkUodl8LO975GdfrYUio bizId：null extMap：null<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 
                 

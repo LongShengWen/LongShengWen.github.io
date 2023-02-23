@@ -41,7 +41,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -502,37 +502,37 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="集群结构图"><a href="#集群结构图" class="headerlink" title="集群结构图"></a>集群结构图</h2><p>​    该集群一共有五台设备，其中两台主，三台备。两台主机相互同步，三台主机各自分为两个通道同步两台主机，以达到数据同步到效果。</p>
+                <h2 id="集群结构图"><a href="#集群结构图" class="headerlink" title="集群结构图"></a>集群结构图</h2><p>​	该集群一共有五台设备，其中两台主，三台备。两台主机相互同步，三台主机各自分为两个通道同步两台主机，以达到数据同步到效果。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202201291017365.png" alt="结构图"></p>
 <h2 id="主从同步恢复"><a href="#主从同步恢复" class="headerlink" title="主从同步恢复"></a>主从同步恢复</h2><p>在某些情况下，导致同步出错，需要重做主备来恢复数据库。</p>
 <h3 id="制作数据包"><a href="#制作数据包" class="headerlink" title="制作数据包"></a>制作数据包</h3><p>选取一台数据相对准确的主机，这里我们选择Master1。登录机器制作全库数据包</p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysqldump -uroot -p*** --single-transaction --no-autocommit --set-gtid-purged=OFF --master-data=2 -A &gt;test.sql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="查看数据包复制节点"><a href="#查看数据包复制节点" class="headerlink" title="查看数据包复制节点"></a>查看数据包复制节点</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">head -25 test.sql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="查看数据包复制节点"><a href="#查看数据包复制节点" class="headerlink" title="查看数据包复制节点"></a>查看数据包复制节点</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">head</span> <span class="token parameter variable">-25</span> test.sql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>执行以上代码，回得到下面的输出结果</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">-- MySQL dump 10.13  Distrib 8.0.22, for Linux (x86_64)
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">-- MySQL dump <span class="token number">10.13</span>  Distrib <span class="token number">8.0</span>.22, <span class="token keyword">for</span> Linux <span class="token punctuation">(</span>x86_64<span class="token punctuation">)</span>
 --
 -- Host: localhost    Database:
 -- ------------------------------------------------------
--- Server version	8.0.22
+-- Server version	<span class="token number">8.0</span>.22
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!50606 SET @OLD_INNODB_STATS_AUTO_RECALC=@@INNODB_STATS_AUTO_RECALC */;
-/*!50606 SET GLOBAL INNODB_STATS_AUTO_RECALC=OFF */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*<span class="token operator">!</span><span class="token number">40101</span> SET @OLD_CHARACTER_SET_CLIENT<span class="token operator">=</span>@@CHARACTER_SET_CLIENT */<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">40101</span> SET @OLD_CHARACTER_SET_RESULTS<span class="token operator">=</span>@@CHARACTER_SET_RESULTS */<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">40101</span> SET @OLD_COLLATION_CONNECTION<span class="token operator">=</span>@@COLLATION_CONNECTION */<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">50503</span> SET NAMES utf8mb4 */<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">40103</span> SET @OLD_TIME_ZONE<span class="token operator">=</span>@@TIME_ZONE */<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">40103</span> SET <span class="token assign-left variable">TIME_ZONE</span><span class="token operator">=</span><span class="token string">'+00:00'</span> */<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">50606</span> SET @OLD_INNODB_STATS_AUTO_RECALC<span class="token operator">=</span>@@INNODB_STATS_AUTO_RECALC */<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">50606</span> SET GLOBAL <span class="token assign-left variable">INNODB_STATS_AUTO_RECALC</span><span class="token operator">=</span>OFF */<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">40014</span> SET @OLD_UNIQUE_CHECKS<span class="token operator">=</span>@@UNIQUE_CHECKS, <span class="token assign-left variable">UNIQUE_CHECKS</span><span class="token operator">=</span><span class="token number">0</span> */<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">40014</span> SET @OLD_FOREIGN_KEY_CHECKS<span class="token operator">=</span>@@FOREIGN_KEY_CHECKS, <span class="token assign-left variable">FOREIGN_KEY_CHECKS</span><span class="token operator">=</span><span class="token number">0</span> */<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">40101</span> SET @OLD_SQL_MODE<span class="token operator">=</span>@@SQL_MODE, <span class="token assign-left variable">SQL_MODE</span><span class="token operator">=</span><span class="token string">'NO_AUTO_VALUE_ON_ZERO'</span> */<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">40111</span> SET @OLD_SQL_NOTES<span class="token operator">=</span>@@SQL_NOTES, <span class="token assign-left variable">SQL_NOTES</span><span class="token operator">=</span><span class="token number">0</span> */<span class="token punctuation">;</span>
 
 --
 -- Position to start replication or point-in-time recovery from
 --
 
--- CHANGE MASTER TO MASTER_LOG_FILE='binlog.000188', MASTER_LOG_POS=2316558;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+-- CHANGE MASTER TO <span class="token assign-left variable">MASTER_LOG_FILE</span><span class="token operator">=</span><span class="token string">'binlog.000188'</span>, <span class="token assign-left variable">MASTER_LOG_POS</span><span class="token operator">=</span><span class="token number">2316558</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>CHANGE MASTER TO MASTER_LOG_FILE=’binlog.000188’, MASTER_LOG_POS=2316558;</p>
 </blockquote>
