@@ -4,13 +4,29 @@
   
     
     <entry>
-      <title></title>
+      <title>解决Iterm2使用expect脚本窗口大小无法监听的问题.md</title>
       <link href="/2023/03/14/ri-chang/jie-jue-iterm2-shi-yong-expect-jiao-ben-chuang-kou-da-xiao-wu-fa-jian-ting-de-wen-ti/"/>
       <url>/2023/03/14/ri-chang/jie-jue-iterm2-shi-yong-expect-jiao-ben-chuang-kou-da-xiao-wu-fa-jian-ting-de-wen-ti/</url>
       
-        <content type="html"><![CDATA[<pre class="line-numbers language-none"><code class="language-none">title: 解决Iterm2使用expect脚本窗口大小无法监听的问题.mdsummary: 在用Profiles配置文件快速新建窗口并用expect脚本进行登陆时，窗口大小无法监听date: 2023-03-14 09:41:23img: top: falsehide: falsecover: falsepassword: mathjax: falsecategories:   - 技术  - Mactags:  - Mac  - iterm2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>在expect脚本的开头进入以下代码</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#trap sigwinch spawned</span><span class="token comment">#捕获窗口大小改变的信息</span><span class="token builtin class-name">trap</span> <span class="token punctuation">{</span>    <span class="token builtin class-name">set</span> rows <span class="token punctuation">[</span>stty rows<span class="token punctuation">]</span>    <span class="token builtin class-name">set</span> cols <span class="token punctuation">[</span>stty columns<span class="token punctuation">]</span>    stty rows <span class="token variable">$rows</span> columns <span class="token variable">$cols</span> <span class="token operator">&lt;</span> <span class="token variable">$spawn_out</span><span class="token punctuation">(</span>slave,name<span class="token punctuation">)</span><span class="token punctuation">}</span> WINCH<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>在expect脚本的开头进入以下代码</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#trap sigwinch spawned</span><span class="token comment">#捕获窗口大小改变的信息</span><span class="token builtin class-name">trap</span> <span class="token punctuation">{</span>    <span class="token builtin class-name">set</span> rows <span class="token punctuation">[</span>stty rows<span class="token punctuation">]</span>    <span class="token builtin class-name">set</span> cols <span class="token punctuation">[</span>stty columns<span class="token punctuation">]</span>    stty rows <span class="token variable">$rows</span> columns <span class="token variable">$cols</span> <span class="token operator">&lt;</span> <span class="token variable">$spawn_out</span><span class="token punctuation">(</span>slave,name<span class="token punctuation">)</span><span class="token punctuation">}</span> WINCH<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> Mac </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Mac </tag>
+            
+            <tag> iterm2 </tag>
+            
+        </tags>
       
     </entry>
     
