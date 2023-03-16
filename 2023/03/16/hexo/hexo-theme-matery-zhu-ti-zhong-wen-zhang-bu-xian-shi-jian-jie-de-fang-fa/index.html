@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Java反射机制详解, LSW">
+    <meta name="keywords" content="hexo-theme-matery主题中文章不显示简介的方法, LSW">
     <meta name="description" content="用于日常工作记录">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -27,7 +27,7 @@
 </script>
 
 
-    <title>Java反射机制详解 | 举头望明月</title>
+    <title>hexo-theme-matery主题中文章不显示简介的方法 | 举头望明月</title>
     <link rel="icon" type="image/png" href="/medias/logo.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021114878.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Java反射机制详解</h1>
+                    <h1 class="description center-align post-title">hexo-theme-matery主题中文章不显示简介的方法</h1>
                 </div>
             </div>
         </div>
@@ -434,12 +434,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Java/">
-                                <span class="chip bg-color">Java</span>
+                            <a href="/tags/Hexo/">
+                                <span class="chip bg-color">Hexo</span>
                             </a>
                         
-                            <a href="/tags/JavaGuide/">
-                                <span class="chip bg-color">JavaGuide</span>
+                            <a href="/tags/matery/">
+                                <span class="chip bg-color">matery</span>
                             </a>
                         
                     </div>
@@ -454,8 +454,8 @@
                                 技术
                             </a>
                         
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" class="post-category">
-                                Java
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Hexo/" class="post-category">
+                                Hexo
                             </a>
                         
                     </div>
@@ -467,7 +467,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-01
+                    2023-03-16
                 </div>
                 
 
@@ -476,7 +476,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    584
+                    458
                 </div>
                 
 
@@ -507,121 +507,55 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>JavaGuide学习笔记：<a target="_blank" rel="noopener" href="https://javaguide.cn/java/basis/reflection/#">JavaGuide</a></p>
-</blockquote>
-<h2 id="反射概念"><a href="#反射概念" class="headerlink" title="反射概念"></a>反射概念</h2><p>​	反射赋予了我们在运行时分析类以及执行类中方法的能力，通过反射你可以获取任意一个类的所有属性和方法，同时也可以调用这些方法和属性。</p>
-<h2 id="反射的应用场景"><a href="#反射的应用场景" class="headerlink" title="反射的应用场景"></a>反射的应用场景</h2><p>​	通过 JDK 实现动态代理的示例代码，其中就使用了反射类 <code>Method</code> 来调用指定的方法。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DebugInvocationHandler</span> <span class="token keyword">implements</span> <span class="token class-name">InvocationHandler</span> <span class="token punctuation">{</span>
-    <span class="token comment">/**
-     * 代理类中的真实对象
-     */</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Object</span> target<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token class-name">DebugInvocationHandler</span><span class="token punctuation">(</span><span class="token class-name">Object</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>target <span class="token operator">=</span> target<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">Object</span> proxy<span class="token punctuation">,</span> <span class="token class-name">Method</span> method<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InvocationTargetException</span><span class="token punctuation">,</span> <span class="token class-name">IllegalAccessException</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"before method "</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">Object</span> result <span class="token operator">=</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"after method "</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<blockquote>
-<p><strong>注解</strong>也用到反射！</p>
-</blockquote>
-<h2 id="反射优缺点"><a href="#反射优缺点" class="headerlink" title="反射优缺点"></a>反射优缺点</h2><ul>
-<li><p><strong>优点：</strong>可以让代码更加灵活、为各种框架提供开箱即用的功能提供了便利。</p>
-</li>
-<li><p><strong>缺点：</strong>增加了安全问题。</p>
-</li>
+<p>在用 hexo-theme-matery 做个人博客，文章信息有个字段可以添加文章简介，当不主动添加时系统会默认截取一段文字来充当简介。</p>
+<p>我不希望他自动帮我添加，原因有三：</p>
+<ul>
+<li>文章封面添加简介后页面显得很乱</li>
+<li>提炼简介也是一门技术</li>
+<li>我懒得添加</li>
 </ul>
-<h2 id="反射实战"><a href="#反射实战" class="headerlink" title="反射实战"></a>反射实战</h2><h3 id="获取Class对象的四种方式"><a href="#获取Class对象的四种方式" class="headerlink" title="获取Class对象的四种方式"></a>获取Class对象的四种方式</h3><ol>
-<li><h5 id="知道具体类的情况下"><a href="#知道具体类的情况下" class="headerlink" title="知道具体类的情况下"></a>知道具体类的情况下</h5></li>
-</ol>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Class</span> helloWorld <span class="token operator">=</span> <span class="token class-name">HelloWorld</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<blockquote>
-<p>通过此方式获取的Class对象不会进行初始化。</p>
 </blockquote>
-<ol start="2">
-<li><h5 id="通过-Class-forName-方法获取"><a href="#通过-Class-forName-方法获取" class="headerlink" title="通过 Class.forName() 方法获取"></a>通过 <code>Class.forName()</code> 方法获取</h5></li>
-</ol>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Class</span> helloWorld <span class="token operator">=</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.demo.proxy.general.HelloWorld"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="去掉首页文章简介"><a href="#去掉首页文章简介" class="headerlink" title="去掉首页文章简介"></a>去掉首页文章简介</h2><p>编辑文件 /hexo-theme-matery/layout/index.ejs</p>
+<p>查找 summary 关键字，大概在80行处，注释掉一下代码</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"summary block-with-text"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>post<span class="token punctuation">.</span>summary <span class="token operator">&amp;&amp;</span> post<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> post<span class="token punctuation">.</span>summary <span class="token operator">%</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>post<span class="token punctuation">.</span>excerpt <span class="token operator">&amp;&amp;</span> post<span class="token punctuation">.</span>excerpt<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> <span class="token function">strip_html</span><span class="token punctuation">(</span>post<span class="token punctuation">.</span>excerpt<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>post<span class="token punctuation">.</span>content <span class="token operator">&amp;&amp;</span> post<span class="token punctuation">.</span>content<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> <span class="token function">strip_html</span><span class="token punctuation">(</span>post<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<ol start="3">
-<li><h5 id="通过对象实例instance-getClass-获取"><a href="#通过对象实例instance-getClass-获取" class="headerlink" title="通过对象实例instance.getClass()获取"></a>通过对象实例<code>instance.getClass()</code>获取</h5></li>
-</ol>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">HelloWorld</span> helloWorld <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HelloWorld</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">Class</span> aClass <span class="token operator">=</span> helloWorld<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="去掉文章详情底部上一篇和下一篇文章的简介"><a href="#去掉文章详情底部上一篇和下一篇文章的简介" class="headerlink" title="去掉文章详情底部上一篇和下一篇文章的简介"></a>去掉文章详情底部上一篇和下一篇文章的简介</h2><p>编辑文件 /hexo-theme-matery/layout/_partial/prev-next.ejs</p>
+<p>查找 summary 关键字，找到以下代码，然后全部注释掉</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"summary block-with-text"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>page<span class="token punctuation">.</span>prev<span class="token punctuation">.</span>summary <span class="token operator">&amp;&amp;</span> page<span class="token punctuation">.</span>prev<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> page<span class="token punctuation">.</span>prev<span class="token punctuation">.</span>summary <span class="token operator">%</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> <span class="token function">strip_html</span><span class="token punctuation">(</span>page<span class="token punctuation">.</span>prev<span class="token punctuation">.</span>excerpt<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<ol start="4">
-<li><h5 id="通过类加载器xxxClassLoader-loadClass-传入类路径获取"><a href="#通过类加载器xxxClassLoader-loadClass-传入类路径获取" class="headerlink" title="通过类加载器xxxClassLoader.loadClass()传入类路径获取"></a>通过类加载器<code>xxxClassLoader.loadClass()</code>传入类路径获取</h5></li>
-</ol>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Class</span> aClass <span class="token operator">=</span> <span class="token class-name">ClassLoader</span><span class="token punctuation">.</span><span class="token function">getSystemClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">loadClass</span><span class="token punctuation">(</span><span class="token string">"com.demo.proxy.general.HelloWorld"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="去掉标签和分类中文章的简介"><a href="#去掉标签和分类中文章的简介" class="headerlink" title="去掉标签和分类中文章的简介"></a>去掉标签和分类中文章的简介</h2><p>编辑文件 /hexo-theme-matery/layout/category.ejs</p>
+<p>查找 summary 关键字，大概在40行处，注释掉一下代码</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"summary block-with-text"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>post<span class="token punctuation">.</span>summary <span class="token operator">&amp;&amp;</span> post<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> post<span class="token punctuation">.</span>summary <span class="token operator">%</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> <span class="token function">strip_html</span><span class="token punctuation">(</span>post<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
-<p>通过类加载器获取 Class 对象不会进行初始化，意味着不进行包括初始化等一系列步骤，静态块和静态对象不会得到执行</p>
-</blockquote>
-<h3 id="反射基本操作"><a href="#反射基本操作" class="headerlink" title="反射基本操作"></a>反射基本操作</h3><ol>
-<li><h5 id="创建基本类"><a href="#创建基本类" class="headerlink" title="创建基本类"></a>创建基本类</h5></li>
-</ol>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">private</span> <span class="token class-name">String</span> value<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token class-name">HelloWorld</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        value <span class="token operator">=</span> <span class="token string">"long"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">say</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"hello world! "</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">"!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">privateMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"value is "</span> <span class="token operator">+</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ol start="2">
-<li><h5 id="使用反射操作类"><a href="#使用反射操作类" class="headerlink" title="使用反射操作类"></a>使用反射操作类</h5></li>
-</ol>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">{</span>
-    <span class="token comment">// 创建 HelloWorld 实例</span>
-    <span class="token class-name">Class</span> tagetClass <span class="token operator">=</span> <span class="token class-name">Class</span><span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.demo.proxy.general.HelloWorld"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token class-name">HelloWorld</span> helloWorld <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">HelloWorld</span><span class="token punctuation">)</span> tagetClass<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 获取类中所有方法</span>
-    <span class="token class-name">Method</span><span class="token punctuation">[</span><span class="token punctuation">]</span> methods <span class="token operator">=</span> tagetClass<span class="token punctuation">.</span><span class="token function">getDeclaredMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Method</span> method<span class="token operator">:</span> methods<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment">// 获取类中指定的方法</span>
-    <span class="token class-name">Method</span> method <span class="token operator">=</span> tagetClass<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"say"</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>helloWorld<span class="token punctuation">,</span> <span class="token string">"java"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 获取指定参数</span>
-    <span class="token class-name">Field</span> field <span class="token operator">=</span> tagetClass<span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">"value"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 为了对类中的参数进行修改我们取消安全检查</span>
-    field<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 修改指定参数</span>
-    field<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>helloWorld<span class="token punctuation">,</span> <span class="token string">"java"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 调用私有方法</span>
-    <span class="token class-name">Method</span> privateMethod <span class="token operator">=</span> tagetClass<span class="token punctuation">.</span><span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span><span class="token string">"privateMethod"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 为了调用private方法我们取消安全检查</span>
-    privateMethod<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    privateMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>helloWorld<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>执行结果：</p>
- <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">privateMethod
-say
-hello world<span class="token operator">!</span> java<span class="token operator">!</span>
-value is <span class="token function">java</span>
-
-Process finished with <span class="token builtin class-name">exit</span> code <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
+<h2 id="去掉归档中文章的简介"><a href="#去掉归档中文章的简介" class="headerlink" title="去掉归档中文章的简介"></a>去掉归档中文章的简介</h2><p>编辑文件 /hexo-theme-matery/layout/archive.ejs</p>
+<p>查找 summary 关键字，大概在82行处，注释掉一下代码</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"summary block-with-text"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>post<span class="token punctuation">.</span>summary <span class="token operator">&amp;&amp;</span> post<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> post<span class="token punctuation">.</span>summary <span class="token operator">%</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> <span class="token function">strip_html</span><span class="token punctuation">(</span>post<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -647,7 +581,7 @@ Process finished with <span class="token builtin class-name">exit</span> code <s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://longshengwen.github.io/2022/03/01/java/java-fan-she-ji-zhi-xiang-jie/">https://longshengwen.github.io/2022/03/01/java/java-fan-she-ji-zhi-xiang-jie/</a>
+                    <a href="https://longshengwen.github.io/2023/03/16/hexo/hexo-theme-matery-zhu-ti-zhong-wen-zhang-bu-xian-shi-jian-jie-de-fang-fa/">https://longshengwen.github.io/2023/03/16/hexo/hexo-theme-matery-zhu-ti-zhong-wen-zhang-bu-xian-shi-jian-jie-de-fang-fa/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -685,12 +619,12 @@ Process finished with <span class="token builtin class-name">exit</span> code <s
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Java/">
-                                    <span class="chip bg-color">Java</span>
+                                <a href="/tags/Hexo/">
+                                    <span class="chip bg-color">Hexo</span>
                                 </a>
                             
-                                <a href="/tags/JavaGuide/">
-                                    <span class="chip bg-color">JavaGuide</span>
+                                <a href="/tags/matery/">
+                                    <span class="chip bg-color">matery</span>
                                 </a>
                             
                         </div>
@@ -740,7 +674,7 @@ Process finished with <span class="token builtin class-name">exit</span> code <s
         repo: 'LongShengWen.github.io',
         owner: 'LongShengWen',
         admin: "LongShengWen",
-        id: '2022-03-01T17-45-29',
+        id: '2023-03-16T10-10-35',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -767,28 +701,30 @@ Process finished with <span class="token builtin class-name">exit</span> code <s
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/03/02/java/java-ming-ming-zhi-dao/">
+                <a href="/2023/03/16/hexo/hexo-theme-matery-zhu-ti-zhong-wen-zhang-bu-xian-shi-jian-jie-de-fang-fa/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202203021117716.jpg" class="responsive-img" alt="Java命名之道">
                         
-                        <span class="card-title">Java命名之道</span>
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="hexo-theme-matery主题中文章不显示简介的方法">
+                        
+                        <span class="card-title">hexo-theme-matery主题中文章不显示简介的方法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <!-- <div class="summary block-with-text">
                         
-                            好的代码本身就是注释，我们要尽量规范和美化自己的代码来减少不必要的注释。
+                            
                         
                     </div> -->
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -797,23 +733,24 @@ Process finished with <span class="token builtin class-name">exit</span> code <s
                                     技术
                                 </a>
                             
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" class="post-category">
-                                    Java
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Hexo/" class="post-category">
+                                    Hexo
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
+                    <a href="/tags/Hexo/">
+                        <span class="chip bg-color">Hexo</span>
                     </a>
                     
-                    <a href="/tags/JavaGuide/">
-                        <span class="chip bg-color">JavaGuide</span>
+                    <a href="/tags/matery/">
+                        <span class="chip bg-color">matery</span>
                     </a>
                     
                 </div>
@@ -827,23 +764,24 @@ Process finished with <span class="token builtin class-name">exit</span> code <s
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/02/25/springboot/springboot-you-ya-de-yan-zheng-jie-kou-can-shu/">
+                <a href="/2023/03/14/ri-chang/jie-jue-iterm2-shi-yong-expect-jiao-ben-shi-chuang-kou-da-xiao-wu-fa-jian-ting-de-wen-ti/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LongShengWen/image@main/data/202202251015600.jpg" class="responsive-img" alt="Springboot优雅的验证接口参数">
                         
-                        <span class="card-title">Springboot优雅的验证接口参数</span>
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="解决Iterm2使用expect脚本时窗口大小无法监听的问题.md">
+                        
+                        <span class="card-title">解决Iterm2使用expect脚本时窗口大小无法监听的问题.md</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <!-- <div class="summary block-with-text">
                         
-                            在开发接口时常需要对接口参数进行验证，本文将介绍Springboot如何优雅的验证接口参数。
+                            在用Profiles配置文件快速新建窗口并用expect脚本进行登陆时，窗口大小无法监听
                         
                     </div> -->
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-14
                             </span>
                         <span class="publish-author">
                             
@@ -853,8 +791,8 @@ Process finished with <span class="token builtin class-name">exit</span> code <s
                                     技术
                                 </a>
                             
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/Springboot/" class="post-category">
-                                    Springboot
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Mac/" class="post-category">
+                                    Mac
                                 </a>
                             
                             
@@ -864,16 +802,12 @@ Process finished with <span class="token builtin class-name">exit</span> code <s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
+                    <a href="/tags/Mac/">
+                        <span class="chip bg-color">Mac</span>
                     </a>
                     
-                    <a href="/tags/%E5%90%8E%E7%AB%AF/">
-                        <span class="chip bg-color">后端</span>
-                    </a>
-                    
-                    <a href="/tags/Springboot/">
-                        <span class="chip bg-color">Springboot</span>
+                    <a href="/tags/iterm2/">
+                        <span class="chip bg-color">iterm2</span>
                     </a>
                     
                 </div>
