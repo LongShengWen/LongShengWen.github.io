@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>解决redis报错Asynchronous AOF fsync</title>
+      <link href="/2023/03/17/redis/asynchronous-aof-fsync/"/>
+      <url>/2023/03/17/redis/asynchronous-aof-fsync/</url>
+      
+        <content type="html"><![CDATA[<p>Enable AOF可能导致整个Redis被Block住。<br>在生产环境的Redis中查到以下问题</p><pre class="line-numbers language-none"><code class="language-none">2608:M 02 Jan 10:14:16.241 * Background saving started by pid 203472608:M 02 Jan 10:14:52.084 * Asynchronous AOF fsync is taking too long (disk is busy?). Writing the AOF buffer without waiting for fsync to complete, this may slow down Redis.20347:C 02 Jan 10:14:56.049 * DB saved on disk20347:C 02 Jan 10:14:56.133 * RDB: 430 MB of memory used by copy-on-write2608:M 02 Jan 10:14:56.238 * Background saving terminated with success<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>Redis为求简单，采用了单请求处理线程结构。</p><p>打开AOF持久化功能后， Redis处理完每个事件后会调用write(2)将变化写入kernel的buffer，如果此时write(2)被阻塞，Redis就不能处理下一个事件。</p><p>Linux规定执行write(2)时，如果对同一个文件正在执行fdatasync(2)将kernel buffer写入物理磁盘，或者有system wide sync在执行，write(2)会被Block住，整个Redis被Block住。</p><p>如果系统IO繁忙，比如有别的应用在写盘，或者Redis自己在AOF rewrite或RDB snapshot(虽然此时写入的是另一个临时文件，虽然各自都在连续写，但两个文件间的切换使得磁盘磁头的寻道时间加长），就可能导致fdatasync(2)迟迟未能完成从而Block住write(2)，Block住整个Redis。</p><p>为了更清晰的看到fdatasync(2)的执行时长，可以使用”strace -p (pid of redis server) -T -e -f trace=fdatasync”，但会影响系统性能。</p><p>Redis提供了一个自救的方式，当发现文件有在执行fdatasync(2)时，就先不调用write(2)，只存在cache里，免得被Block。但如果已经超过两秒都还是这个样子，则会硬着头皮执行write(2)，即使redis会被Block住。</p><p>此时那句要命的log会打印：“Asynchronous AOF fsync is taking too long (disk is busy?). Writing the AOF buffer without waiting for fsync to complete, this may slow down Redis.”</p><p>之后用redis-cli INFO可以看到aof_delayed_fsync的值被加1。</p><p>因此，对于fsync设为everysec时丢失数据的可能性的最严谨说法是：如果有fdatasync在长时间的执行，此时redis意外关闭会造成文件里不多于两秒的数据丢失。</p><p>如果fdatasync运行正常，redis意外关闭没有影响，只有当操作系统crash时才会造成少于1秒的数据丢失。</p><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>最后发现，原来是AOF rewrite时一直埋头的调用write(2)，由系统自己去触发sync。在RedHat Enterprise 6里，默认配置vm.dirty_background_ratio=10，也就是占用了10%的可用内存才会开始后台flush，而我的服务器有8G内存。</p><p>很明显一次flush太多数据会造成阻塞，所以最后果断设置了sysctl vm.dirty_bytes=33554432(32M)，问题解决。</p><p>然后提了个issue，AOF rewrite时定时也执行一下fdatasync嘛， antirez回复新版中，AOF rewrite时32M就会重写主动调用fdatasync。</p><h3 id="查看一下系统内核参数"><a href="#查看一下系统内核参数" class="headerlink" title="查看一下系统内核参数"></a>查看一下系统内核参数</h3><pre class="line-numbers language-none"><code class="language-none">&gt;sysctl -a | grep dirty_background_ratiovm.dirty_background_ratio = 10&gt;sysctl -a | grep vm.dirty_bytesvm.dirty_bytes = 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="编辑-x2F-etc-x2F-sysctl-conf"><a href="#编辑-x2F-etc-x2F-sysctl-conf" class="headerlink" title="编辑/etc/sysctl.conf"></a>编辑/etc/sysctl.conf</h3><pre class="line-numbers language-none"><code class="language-none">&gt;vi /etc/sysctl.conf# 在最后面增加# 32Mvm.dirty_bytes=33554432<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><blockquote><p>保存后下次启动会生效，下面是立即生效的修改方法：</p></blockquote><h3 id="立即生效的修改方法"><a href="#立即生效的修改方法" class="headerlink" title="立即生效的修改方法"></a>立即生效的修改方法</h3><pre class="line-numbers language-none"><code class="language-none">&gt;sysctl vm.dirty_bytes=33554432&gt;sysctl -p<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h3 id="验证修改是否成功"><a href="#验证修改是否成功" class="headerlink" title="验证修改是否成功"></a>验证修改是否成功</h3><pre class="line-numbers language-none"><code class="language-none">&gt;sysctl -a | grep vm.dirty_bytesvm.dirty_bytes = 33554432<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h3 id="修改后redis下次RDB和AOF时的日志"><a href="#修改后redis下次RDB和AOF时的日志" class="headerlink" title="修改后redis下次RDB和AOF时的日志"></a>修改后redis下次RDB和AOF时的日志</h3><pre class="line-numbers language-none"><code class="language-none">2608:M 02 Jan 10:22:18.234 * Background saving started by pid 2320523205:C 02 Jan 10:22:52.188 * DB saved on disk23205:C 02 Jan 10:22:52.260 * RDB: 394 MB of memory used by copy-on-write2608:M 02 Jan 10:22:52.382 * Background saving terminated with success2608:M 02 Jan 10:23:53.059 * 10000 changes in 60 seconds. Saving...2608:M 02 Jan 10:23:53.202 * Background saving started by pid 23908<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>从redis的日志中发现已经没有了这句：Asynchronous AOF fsync is taking too long (disk is busy?). Writing the AOF buffer without waiting for fsync to complete, this may slow down Redis.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> Redis </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>hexo-theme-matery主题中文章不显示简介的方法</title>
       <link href="/2023/03/16/hexo/hexo-theme-matery-zhu-ti-zhong-wen-zhang-bu-xian-shi-jian-jie-de-fang-fa/"/>
       <url>/2023/03/16/hexo/hexo-theme-matery-zhu-ti-zhong-wen-zhang-bu-xian-shi-jian-jie-de-fang-fa/</url>
@@ -565,9 +592,9 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> 后端 </tag>
+            
+            <tag> Java </tag>
             
             <tag> Springboot </tag>
             

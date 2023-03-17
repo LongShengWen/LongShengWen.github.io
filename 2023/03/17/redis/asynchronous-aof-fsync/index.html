@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="hexo-theme-matery主题中文章不显示简介的方法, LSW">
+    <meta name="keywords" content="解决redis报错Asynchronous AOF fsync, LSW">
     <meta name="description" content="用于日常工作记录">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -27,7 +27,7 @@
 </script>
 
 
-    <title>hexo-theme-matery主题中文章不显示简介的方法 | 举头望明月</title>
+    <title>解决redis报错Asynchronous AOF fsync | 举头望明月</title>
     <link rel="icon" type="image/png" href="/medias/logo.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">hexo-theme-matery主题中文章不显示简介的方法</h1>
+                    <h1 class="description center-align post-title">解决redis报错Asynchronous AOF fsync</h1>
                 </div>
             </div>
         </div>
@@ -434,12 +434,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Hexo/">
-                                <span class="chip bg-color">Hexo</span>
-                            </a>
-                        
-                            <a href="/tags/matery/">
-                                <span class="chip bg-color">matery</span>
+                            <a href="/tags/Redis/">
+                                <span class="chip bg-color">Redis</span>
                             </a>
                         
                     </div>
@@ -454,8 +450,8 @@
                                 技术
                             </a>
                         
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/Hexo/" class="post-category">
-                                Hexo
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Redis/" class="post-category">
+                                Redis
                             </a>
                         
                     </div>
@@ -467,7 +463,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-03-16
+                    2023-03-17
                 </div>
                 
 
@@ -476,14 +472,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    458
+                    958
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    4 分
                 </div>
                 
 
@@ -506,56 +502,52 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>在用 hexo-theme-matery 做个人博客，文章信息有个字段可以添加文章简介，当不主动添加时系统会默认截取一段文字来充当简介。</p>
-<p>我不希望他自动帮我添加，原因有三：</p>
-<ul>
-<li>文章封面添加简介后页面显得很乱</li>
-<li>提炼简介也是一门技术</li>
-<li>我懒得添加</li>
-</ul>
+                <p>Enable AOF可能导致整个Redis被Block住。<br>在生产环境的Redis中查到以下问题</p>
+<pre class="line-numbers language-none"><code class="language-none">2608:M 02 Jan 10:14:16.241 * Background saving started by pid 20347
+2608:M 02 Jan 10:14:52.084 * Asynchronous AOF fsync is taking too long (disk is busy?). Writing the AOF buffer without waiting for fsync to complete, this may slow down Redis.
+20347:C 02 Jan 10:14:56.049 * DB saved on disk
+20347:C 02 Jan 10:14:56.133 * RDB: 430 MB of memory used by copy-on-write
+2608:M 02 Jan 10:14:56.238 * Background saving terminated with success
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>Redis为求简单，采用了单请求处理线程结构。</p>
+<p>打开AOF持久化功能后， Redis处理完每个事件后会调用write(2)将变化写入kernel的buffer，如果此时write(2)被阻塞，Redis就不能处理下一个事件。</p>
+<p>Linux规定执行write(2)时，如果对同一个文件正在执行fdatasync(2)将kernel buffer写入物理磁盘，或者有system wide sync在执行，write(2)会被Block住，整个Redis被Block住。</p>
+<p>如果系统IO繁忙，比如有别的应用在写盘，或者Redis自己在AOF rewrite或RDB snapshot(虽然此时写入的是另一个临时文件，虽然各自都在连续写，但两个文件间的切换使得磁盘磁头的寻道时间加长），就可能导致fdatasync(2)迟迟未能完成从而Block住write(2)，Block住整个Redis。</p>
+<p>为了更清晰的看到fdatasync(2)的执行时长，可以使用”strace -p (pid of redis server) -T -e -f trace=fdatasync”，但会影响系统性能。</p>
+<p>Redis提供了一个自救的方式，当发现文件有在执行fdatasync(2)时，就先不调用write(2)，只存在cache里，免得被Block。但如果已经超过两秒都还是这个样子，则会硬着头皮执行write(2)，即使redis会被Block住。</p>
+<p>此时那句要命的log会打印：“Asynchronous AOF fsync is taking too long (disk is busy?). Writing the AOF buffer without waiting for fsync to complete, this may slow down Redis.”</p>
+<p>之后用redis-cli INFO可以看到aof_delayed_fsync的值被加1。</p>
+<p>因此，对于fsync设为everysec时丢失数据的可能性的最严谨说法是：如果有fdatasync在长时间的执行，此时redis意外关闭会造成文件里不多于两秒的数据丢失。</p>
+<p>如果fdatasync运行正常，redis意外关闭没有影响，只有当操作系统crash时才会造成少于1秒的数据丢失。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>最后发现，原来是AOF rewrite时一直埋头的调用write(2)，由系统自己去触发sync。在RedHat Enterprise 6里，默认配置vm.dirty_background_ratio=10，也就是占用了10%的可用内存才会开始后台flush，而我的服务器有8G内存。</p>
+<p>很明显一次flush太多数据会造成阻塞，所以最后果断设置了sysctl vm.dirty_bytes=33554432(32M)，问题解决。</p>
+<p>然后提了个issue，AOF rewrite时定时也执行一下fdatasync嘛， antirez回复新版中，AOF rewrite时32M就会重写主动调用fdatasync。</p>
+<h3 id="查看一下系统内核参数"><a href="#查看一下系统内核参数" class="headerlink" title="查看一下系统内核参数"></a>查看一下系统内核参数</h3><pre class="line-numbers language-none"><code class="language-none">&gt;sysctl -a | grep dirty_background_ratio
+vm.dirty_background_ratio = 10
+
+&gt;sysctl -a | grep vm.dirty_bytes
+vm.dirty_bytes = 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="编辑-x2F-etc-x2F-sysctl-conf"><a href="#编辑-x2F-etc-x2F-sysctl-conf" class="headerlink" title="编辑/etc/sysctl.conf"></a>编辑/etc/sysctl.conf</h3><pre class="line-numbers language-none"><code class="language-none">&gt;vi /etc/sysctl.conf
+
+# 在最后面增加
+# 32M
+vm.dirty_bytes=33554432<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>保存后下次启动会生效，下面是立即生效的修改方法：</p>
 </blockquote>
-<h2 id="去掉首页文章简介"><a href="#去掉首页文章简介" class="headerlink" title="去掉首页文章简介"></a>去掉首页文章简介</h2><p>编辑文件 /hexo-theme-matery/layout/index.ejs</p>
-<p>查找 summary 关键字，大概在80行处，注释掉一下代码</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"summary block-with-text"</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>post<span class="token punctuation">.</span>summary <span class="token operator">&amp;&amp;</span> post<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> post<span class="token punctuation">.</span>summary <span class="token operator">%</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>post<span class="token punctuation">.</span>excerpt <span class="token operator">&amp;&amp;</span> post<span class="token punctuation">.</span>excerpt<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> <span class="token function">strip_html</span><span class="token punctuation">(</span>post<span class="token punctuation">.</span>excerpt<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>post<span class="token punctuation">.</span>content <span class="token operator">&amp;&amp;</span> post<span class="token punctuation">.</span>content<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> <span class="token function">strip_html</span><span class="token punctuation">(</span>post<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="立即生效的修改方法"><a href="#立即生效的修改方法" class="headerlink" title="立即生效的修改方法"></a>立即生效的修改方法</h3><pre class="line-numbers language-none"><code class="language-none">&gt;sysctl vm.dirty_bytes=33554432
+&gt;sysctl -p<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="验证修改是否成功"><a href="#验证修改是否成功" class="headerlink" title="验证修改是否成功"></a>验证修改是否成功</h3><pre class="line-numbers language-none"><code class="language-none">&gt;sysctl -a | grep vm.dirty_bytes
+vm.dirty_bytes = 33554432<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="修改后redis下次RDB和AOF时的日志"><a href="#修改后redis下次RDB和AOF时的日志" class="headerlink" title="修改后redis下次RDB和AOF时的日志"></a>修改后redis下次RDB和AOF时的日志</h3><pre class="line-numbers language-none"><code class="language-none">2608:M 02 Jan 10:22:18.234 * Background saving started by pid 23205
+23205:C 02 Jan 10:22:52.188 * DB saved on disk
+23205:C 02 Jan 10:22:52.260 * RDB: 394 MB of memory used by copy-on-write
+2608:M 02 Jan 10:22:52.382 * Background saving terminated with success
+2608:M 02 Jan 10:23:53.059 * 10000 changes in 60 seconds. Saving...
+2608:M 02 Jan 10:23:53.202 * Background saving started by pid 23908
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>从redis的日志中发现已经没有了这句：Asynchronous AOF fsync is taking too long (disk is busy?). Writing the AOF buffer without waiting for fsync to complete, this may slow down Redis.</p>
 
-<h2 id="去掉文章详情底部上一篇和下一篇文章的简介"><a href="#去掉文章详情底部上一篇和下一篇文章的简介" class="headerlink" title="去掉文章详情底部上一篇和下一篇文章的简介"></a>去掉文章详情底部上一篇和下一篇文章的简介</h2><p>编辑文件 /hexo-theme-matery/layout/_partial/prev-next.ejs</p>
-<p>查找 summary 关键字，找到以下代码，然后全部注释掉</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"summary block-with-text"</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>page<span class="token punctuation">.</span>prev<span class="token punctuation">.</span>summary <span class="token operator">&amp;&amp;</span> page<span class="token punctuation">.</span>prev<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> page<span class="token punctuation">.</span>prev<span class="token punctuation">.</span>summary <span class="token operator">%</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> <span class="token function">strip_html</span><span class="token punctuation">(</span>page<span class="token punctuation">.</span>prev<span class="token punctuation">.</span>excerpt<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="去掉标签和分类中文章的简介"><a href="#去掉标签和分类中文章的简介" class="headerlink" title="去掉标签和分类中文章的简介"></a>去掉标签和分类中文章的简介</h2><p>编辑文件 /hexo-theme-matery/layout/category.ejs</p>
-<p>查找 summary 关键字，大概在40行处，注释掉一下代码</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"summary block-with-text"</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>post<span class="token punctuation">.</span>summary <span class="token operator">&amp;&amp;</span> post<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> post<span class="token punctuation">.</span>summary <span class="token operator">%</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> <span class="token function">strip_html</span><span class="token punctuation">(</span>post<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="去掉归档中文章的简介"><a href="#去掉归档中文章的简介" class="headerlink" title="去掉归档中文章的简介"></a>去掉归档中文章的简介</h2><p>编辑文件 /hexo-theme-matery/layout/archive.ejs</p>
-<p>查找 summary 关键字，大概在82行处，注释掉一下代码</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"summary block-with-text"</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>post<span class="token punctuation">.</span>summary <span class="token operator">&amp;&amp;</span> post<span class="token punctuation">.</span>summary<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> post<span class="token punctuation">.</span>summary <span class="token operator">%</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-        <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">-</span> <span class="token function">strip_html</span><span class="token punctuation">(</span>post<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token operator">%</span><span class="token operator">&gt;</span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -581,7 +573,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://longshengwen.github.io/2023/03/16/hexo/hexo-theme-matery-zhu-ti-zhong-wen-zhang-bu-xian-shi-jian-jie-de-fang-fa/">https://longshengwen.github.io/2023/03/16/hexo/hexo-theme-matery-zhu-ti-zhong-wen-zhang-bu-xian-shi-jian-jie-de-fang-fa/</a>
+                    <a href="https://longshengwen.github.io/2023/03/17/redis/asynchronous-aof-fsync/">https://longshengwen.github.io/2023/03/17/redis/asynchronous-aof-fsync/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -619,12 +611,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Hexo/">
-                                    <span class="chip bg-color">Hexo</span>
-                                </a>
-                            
-                                <a href="/tags/matery/">
-                                    <span class="chip bg-color">matery</span>
+                                <a href="/tags/Redis/">
+                                    <span class="chip bg-color">Redis</span>
                                 </a>
                             
                         </div>
@@ -674,7 +662,7 @@
         repo: 'LongShengWen.github.io',
         owner: 'LongShengWen',
         admin: "LongShengWen",
-        id: '2023-03-16T10-10-35',
+        id: '2023-03-17T16-52-02',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -701,9 +689,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2023/03/17/redis/asynchronous-aof-fsync/">
                     <div class="card-image">
@@ -721,9 +710,9 @@
                         
                     </div> -->
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-17
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-17
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -740,6 +729,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -758,24 +748,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/03/14/ri-chang/jie-jue-iterm2-shi-yong-expect-jiao-ben-shi-chuang-kou-da-xiao-wu-fa-jian-ting-de-wen-ti/">
+                <a href="/2023/03/16/hexo/hexo-theme-matery-zhu-ti-zhong-wen-zhang-bu-xian-shi-jian-jie-de-fang-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="解决Iterm2使用expect脚本时窗口大小无法监听的问题.md">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="hexo-theme-matery主题中文章不显示简介的方法">
                         
-                        <span class="card-title">解决Iterm2使用expect脚本时窗口大小无法监听的问题.md</span>
+                        <span class="card-title">hexo-theme-matery主题中文章不显示简介的方法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <!-- <div class="summary block-with-text">
                         
-                            在用Profiles配置文件快速新建窗口并用expect脚本进行登陆时，窗口大小无法监听
+                            
                         
                     </div> -->
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-16
                             </span>
                         <span class="publish-author">
                             
@@ -785,8 +775,8 @@
                                     技术
                                 </a>
                             
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/Mac/" class="post-category">
-                                    Mac
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/Hexo/" class="post-category">
+                                    Hexo
                                 </a>
                             
                             
@@ -796,12 +786,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Mac/">
-                        <span class="chip bg-color">Mac</span>
+                    <a href="/tags/Hexo/">
+                        <span class="chip bg-color">Hexo</span>
                     </a>
                     
-                    <a href="/tags/iterm2/">
-                        <span class="chip bg-color">iterm2</span>
+                    <a href="/tags/matery/">
+                        <span class="chip bg-color">matery</span>
                     </a>
                     
                 </div>
